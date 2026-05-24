@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Utilities
+namespace Utilities.Pathfinding
 {
     public interface IAstarNode
     {
@@ -10,7 +10,7 @@ namespace Utilities
         int GCost { get; set; }
         int HCost { get; set; }
         int FCost { get => GCost + HCost; }
-        Vector3 WorldPos { get; }
+        Vector2 WorldPos { get; }
         List<IAstarNode> Neighbours { get; set; }
         IAstarNode ParentNode { get; set; }
     }

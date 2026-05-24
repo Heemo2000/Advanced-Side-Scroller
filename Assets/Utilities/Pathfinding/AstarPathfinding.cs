@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utilities
+namespace Utilities.Pathfinding
 {
     public class AstarPathfinding
     {
@@ -17,7 +17,7 @@ namespace Utilities
             graph.Initialize();
         }
 
-        public List<Vector3> FindPath(IAstarNode startNode, IAstarNode endNode)
+        public List<Vector2> FindPath(IAstarNode startNode, IAstarNode endNode)
         {
             if(startNode == null || endNode == null || !graph.Contains(startNode) || !graph.Contains(endNode) ||
                !startNode.IsWalkable || !endNode.IsWalkable)
@@ -110,9 +110,9 @@ namespace Utilities
             return result;
         }
     
-        private List<Vector3> RetracePath(IAstarNode startNode, IAstarNode endNode)
+        private List<Vector2> RetracePath(IAstarNode startNode, IAstarNode endNode)
         {
-            List<Vector3> result = new List<Vector3>();
+            List<Vector2> result = new List<Vector2>();
 
             result.Add(endNode.WorldPos);
 
@@ -139,25 +139,25 @@ namespace Utilities
             return this.heuristicFunc.Invoke(nodeA, nodeB);
         }
 
-        private List<Vector3> RemoveUnnecessaryNodes(List<Vector3> path)
+        private List<Vector2> RemoveUnnecessaryNodes(List<Vector2> path)
         {
             if(path.Count <= 2)
             {
                 return path;
             }
 
-            List<Vector3> result = new List<Vector3>();
+            List<Vector2> result = new List<Vector2>();
 
             result.Add(path[0]);
 
             for(int i = 1; i < path.Count - 1; i++)
             {
-                Vector3 previousNode = path[i-1];
-                Vector3 node = path[i];
-                Vector3 nextNode = path[i+1];
+                Vector2 previousNode = path[i-1];
+                Vector2 node = path[i];
+                Vector2 nextNode = path[i+1];
 
-                Vector3 direction1 = (node - previousNode).normalized;
-                Vector3 direction2 = (nextNode - node).normalized;
+                Vector2 direction1 = (node - previousNode).normalized;
+                Vector2 direction2 = (nextNode - node).normalized;
 
                 if(direction1 == direction2)
                 {

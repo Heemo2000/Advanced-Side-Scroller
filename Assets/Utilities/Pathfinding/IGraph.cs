@@ -1,5 +1,5 @@
 
-namespace Utilities
+namespace Utilities.Pathfinding
 {
     public interface IGraph
     {
