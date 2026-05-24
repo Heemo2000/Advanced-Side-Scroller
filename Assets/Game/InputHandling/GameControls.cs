@@ -227,7 +227,7 @@ namespace Game.InputHandling
                 {
                     ""name"": """",
                     ""id"": ""1e06b8fb-7887-46e1-a743-bd454ec413d5"",
-                    ""path"": ""<Joystick>/stick/left"",
+                    ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
