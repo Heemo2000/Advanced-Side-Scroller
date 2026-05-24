@@ -49,6 +49,7 @@ namespace Game.PlayerHandling
         {
             _playerRB.bodyType = RigidbodyType2D.Kinematic;
             _playerCollider.isTrigger = true;
+            _currentPosition = transform.position;
             SetupParameters();
         }
 
