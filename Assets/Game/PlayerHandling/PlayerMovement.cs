@@ -19,6 +19,8 @@ namespace Game.PlayerHandling
         [SerializeField] private float _normalSpeed = 2.0f;
         [Min(0.1f)]
         [SerializeField] private float _sprintSpeed = 10.0f;
+        [Min(0.01f)]
+        [SerializeField] private float _smoothingTime = 0.2f;
 
         [Header("Jump Settings:")]
         [Min(0.1f)]
@@ -41,7 +43,10 @@ namespace Game.PlayerHandling
         private Vector2 _currentPosition;
         private bool _isGrounded = false;
         private float _jumpBufferCounter = 0.0f;
-
+        private float _inputX = 0.0f;
+        private bool _sprintPressed = false;
+        private float _currentInputX = 0.0f;
+        private float _currentInputXRef = 0.0f;
         private void Awake()
         {
             _playerRB = GetComponent<Rigidbody2D>();
@@ -69,10 +74,10 @@ namespace Game.PlayerHandling
             {
                 _jumpBufferCounter -= Time.fixedDeltaTime;
             }
-
+            _jumpPressedThisFrame = false;
             _isGrounded = IsGrounded();
-            HandleGravity();
             HandleJump();
+            HandleGravity();
             HandleMovement();
         }
 
@@ -99,12 +104,12 @@ namespace Game.PlayerHandling
 
         public void HandleInputX(float inputX, bool sprintPressed)
         {
-            _currentPosition.x += inputX * Time.fixedDeltaTime * (sprintPressed ? _sprintSpeed : _normalSpeed);
+            _inputX = inputX;
+            _sprintPressed = sprintPressed;
         }
 
         public void Jump()
         {
-            _jumpPressedThisFrame = true;
             _jumpBufferCounter = _jumpBufferTime;
         }
 
@@ -117,12 +122,14 @@ namespace Game.PlayerHandling
         private void HandleMovement()
         {
             _currentPosition.y += _velocityY * Time.fixedDeltaTime;
+            _currentInputX = Mathf.SmoothDamp(_currentInputX, _inputX, ref _currentInputXRef, _smoothingTime);
+            _currentPosition.x += _currentInputX * Time.fixedDeltaTime * (_sprintPressed ? _sprintSpeed : _normalSpeed);
             _playerRB.MovePosition(_currentPosition);
         }
 
         private void HandleGravity()
         {
-            if(_isGrounded)
+            if (_isGrounded && !_jumpPressedThisFrame)
             {
                 _velocityY = 0.0f;
                 _currentJumpCount = 0;
@@ -147,19 +154,18 @@ namespace Game.PlayerHandling
                 return;
             }
 
-            if(_isGrounded || (_currentJumpCount >= 1 && _currentJumpCount < _maxJumps))
+            if(_isGrounded || (_currentJumpCount >= 0 && _currentJumpCount < _maxJumps))
             {
-                _velocityY += _initialJumpVelocity;
+                _velocityY = _initialJumpVelocity;
                 _currentJumpCount++;
-                _jumpPressedThisFrame = false;
+                _jumpPressedThisFrame = true;
                 _jumpBufferCounter = 0.0f;
             }
-            
         }
 
         private bool IsGrounded()
         {
-            float extraDetectedMovement = Mathf.Abs(_velocityY) * Time.fixedDeltaTime;
+            float extraDetectedMovement = Mathf.Max(-_velocityY, 0.0f) * Time.fixedDeltaTime + 0.05f;
             foreach(Transform groundCheck in _groundChecks)
             {
                 if(groundCheck == null)
@@ -168,8 +174,7 @@ namespace Game.PlayerHandling
                 }
 
                 Vector2 groundCheckPos = new Vector2(groundCheck.position.x, groundCheck.position.y);
-                if(Physics2D.OverlapCircle(groundCheckPos, _groundCheckRadius, _groundCheckLayerMask.value) != null ||
-                   Physics2D.CircleCast(groundCheckPos, _groundCheckRadius, -Vector2.up, extraDetectedMovement, _groundCheckLayerMask.value).collider != null)
+                if(Physics2D.CircleCast(groundCheckPos, _groundCheckRadius, -Vector2.up, extraDetectedMovement, _groundCheckLayerMask.value).collider != null)
                 {
                     return true;
                 }

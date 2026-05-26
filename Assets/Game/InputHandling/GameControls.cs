@@ -109,7 +109,7 @@ namespace Game.InputHandling
                     ""id"": ""2c7101c8-6b3b-4ea5-809e-b29d0e6b80cb"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=0.2,pressPoint=0.5)"",
                     ""initialStateCheck"": false
                 }
             ],
