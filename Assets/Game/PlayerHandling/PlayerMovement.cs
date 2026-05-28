@@ -26,6 +26,10 @@ namespace Game.PlayerHandling
         [Min(0.1f)]
         [SerializeField] private float _jumpHeight = 2.0f;
         [Min(0.1f)]
+        [SerializeField] private float _jumpHoldForce = 15.0f;
+        [Min(0.1f)]
+        [SerializeField] private float _jumpHoldDuration = 1.0f;
+        [Min(0.1f)]
         [SerializeField] private float _jumpTime = 0.5f;
         [Min(1.0f)]
         [SerializeField] private float _fallMultiplier = 2.0f;
@@ -35,18 +39,26 @@ namespace Game.PlayerHandling
         
         private Rigidbody2D _playerRB;
         private BoxCollider2D _playerCollider;
+        
         private float _initialJumpVelocity = 0.0f;
         private float _gravity = 0.0f;
         private float _velocityY = 0.0f;
+        
         private int _currentJumpCount = 0;
         private bool _jumpPressedThisFrame = false;
+        
         private Vector2 _currentPosition;
+        
         private bool _isGrounded = false;
         private float _jumpBufferCounter = 0.0f;
+        
         private float _inputX = 0.0f;
         private bool _sprintPressed = false;
         private float _currentInputX = 0.0f;
         private float _currentInputXRef = 0.0f;
+
+        private bool _jumpHeld = false;
+        private float _jumpHoldCounter = 0.0f;
         private void Awake()
         {
             _playerRB = GetComponent<Rigidbody2D>();
@@ -83,7 +95,7 @@ namespace Game.PlayerHandling
 
         private void OnDrawGizmosSelected()
         {
-            Vector2 extraDetectedMovement = Mathf.Abs(_velocityY) * Time.deltaTime * -Vector2.up;
+            Vector2 extraDetectedMovement = (Mathf.Max(-_velocityY, 0.0f) * Time.fixedDeltaTime + 0.05f) * -Vector2.up;
             foreach (Transform groundCheck in _groundChecks)
             {
                 if(groundCheck == null)
@@ -106,6 +118,11 @@ namespace Game.PlayerHandling
         {
             _inputX = inputX;
             _sprintPressed = sprintPressed;
+        }
+
+        public void SetJumpHeld(bool jumpHeld)
+        {
+            _jumpHeld = jumpHeld;
         }
 
         public void Jump()
@@ -139,6 +156,12 @@ namespace Game.PlayerHandling
                 bool isFalling = _velocityY < 0.0f;
                 float fallMultiplier = isFalling ? _fallMultiplier : 1.0f;
 
+                if(_jumpHeld && _velocityY > 0.0f && _jumpHoldCounter > 0.0f)
+                {
+                    _velocityY += _jumpHoldForce * Time.fixedDeltaTime;
+                    _jumpHoldCounter -= Time.fixedDeltaTime;
+                }
+
                 float oldVelocityY = _velocityY;
                 float nextVelocityY = _velocityY + _gravity * fallMultiplier * Time.fixedDeltaTime;
                 float newVelocityY = (oldVelocityY + nextVelocityY) / 2.0f;
@@ -160,6 +183,7 @@ namespace Game.PlayerHandling
                 _currentJumpCount++;
                 _jumpPressedThisFrame = true;
                 _jumpBufferCounter = 0.0f;
+                _jumpHoldCounter = _jumpHoldDuration;
             }
         }
 

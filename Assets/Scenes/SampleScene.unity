@@ -436,6 +436,8 @@ MonoBehaviour:
   _sprintSpeed: 10
   _smoothingTime: 0.2
   _jumpHeight: 2
+  _jumpHoldForce: 5
+  _jumpHoldDuration: 1
   _jumpTime: 0.5
   _fallMultiplier: 2
   _maxJumps: 3

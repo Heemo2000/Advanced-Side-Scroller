@@ -9,7 +9,7 @@ namespace Game.PlayerHandling
     {
         private GameControls _gameControls;
         private PlayerMovement _movement;
-
+        private bool _jumpLonger = false;
         private void Awake()
         {
             _movement = GetComponent<PlayerMovement>();
@@ -22,6 +22,9 @@ namespace Game.PlayerHandling
         {
             float moveInputX = _gameControls.GameActionMap.Movement.ReadValue<Vector2>().x;
             _movement.HandleInputX(moveInputX, false);
+
+            bool jumpHeld = _gameControls.GameActionMap.Jump.IsPressed();
+            _movement.SetJumpHeld(jumpHeld);
         }
 
         private void OnDestroy()

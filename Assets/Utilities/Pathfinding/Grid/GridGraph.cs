@@ -77,6 +77,22 @@ namespace Utilities.Pathfinding.Grid
             }
         }
 
+        public static Vector2Int GetXY(Vector2 origin, float cellSize, Vector2 worldPosition)
+        {
+            int x = Mathf.FloorToInt((worldPosition.x - origin.x)/cellSize);
+            int y = Mathf.FloorToInt((worldPosition.y - origin.y)/cellSize);
+
+            return new Vector2Int(x, y);
+        }
+
+        public Vector2Int GetXY(Vector2 worldPosition)
+        {
+            int x = Mathf.FloorToInt((worldPosition.x - _origin.x) / _cellSize);
+            int y = Mathf.FloorToInt((worldPosition.y - _origin.y) / _cellSize);
+
+            return new Vector2Int(x, y);
+        }
+
         public static Vector2 GetWorldPosition(Vector2 origin, float cellSize, Vector2Int inGridPosition)
         {
             return origin + new Vector2(inGridPosition.x, inGridPosition.y) * cellSize;
