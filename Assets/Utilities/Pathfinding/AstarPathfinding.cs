@@ -78,6 +78,62 @@ namespace Utilities.Pathfinding
             return null;
         }
 
+        public List<IAstarNode> FindPathNodes(IAstarNode startNode, IAstarNode endNode)
+        {
+            if (startNode == null || endNode == null || !graph.Contains(startNode) || !graph.Contains(endNode) ||
+               !startNode.IsWalkable || !endNode.IsWalkable)
+            {
+                return null;
+            }
+
+
+            this.graph.Reset();
+
+            List<IAstarNode> openList = new List<IAstarNode>();
+            List<IAstarNode> closeList = new List<IAstarNode>();
+
+            openList.Add(startNode);
+
+            while (openList.Count > 0)
+            {
+                IAstarNode currentNode = GetLeastNode(openList);
+                openList.Remove(currentNode);
+
+                if (currentNode == endNode)
+                {
+                    return RetracePathNodes(startNode, currentNode);
+                }
+
+                closeList.Add(currentNode);
+
+                List<IAstarNode> neigbours = GetNeighbours(currentNode);
+
+                foreach (IAstarNode node in neigbours)
+                {
+                    if (!node.IsWalkable || closeList.Contains(node))
+                    {
+                        continue;
+                    }
+
+                    int newCostToNeighbour = currentNode.GCost + GetHeuristicDistance(currentNode, node);
+
+                    if (newCostToNeighbour < node.GCost || !openList.Contains(node))
+                    {
+                        node.GCost = newCostToNeighbour;
+                        node.HCost = GetHeuristicDistance(node, endNode);
+                        node.ParentNode = currentNode;
+
+                        if (!openList.Contains(node))
+                        {
+                            openList.Add(node);
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
         private IAstarNode GetLeastNode(List<IAstarNode> openList)
         {
             if (openList.Count == 0)
@@ -124,6 +180,25 @@ namespace Utilities.Pathfinding
             }
 
             result.Add(currentNode.WorldPos);
+
+            result.Reverse();
+            return result;
+        }
+
+        private List<IAstarNode> RetracePathNodes(IAstarNode startNode, IAstarNode endNode)
+        {
+            List<IAstarNode> result = new List<IAstarNode>();
+
+            result.Add(endNode);
+
+            IAstarNode currentNode = endNode.ParentNode;
+            while (currentNode != startNode)
+            {
+                result.Add(currentNode);
+                currentNode = currentNode.ParentNode;
+            }
+
+            result.Add(currentNode);
 
             result.Reverse();
             return result;

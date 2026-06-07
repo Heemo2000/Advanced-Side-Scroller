@@ -73,6 +73,7 @@ namespace Utilities.Pathfinding.Grid
                 {
                     _grid[i, j].GCost = 0;
                     _grid[i, j].HCost = 0;
+                    _grid[i, j].ParentNode = null;
                 }
             }
         }
