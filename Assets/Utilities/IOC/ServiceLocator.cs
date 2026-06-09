@@ -72,6 +72,11 @@ namespace Utilities.IOC
             return _serviceManager.Remove(service);
         }
 
+        public bool IsServiceExists<T>(T service) where T : class
+        {
+            return _serviceManager.IsServiceExists<T>(service);
+        }
+
         public static ServiceLocator For(MonoBehaviour mb)
         {
             ServiceLocator sceneSL = ForSceneOf(mb);

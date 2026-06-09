@@ -79,6 +79,11 @@ namespace Utilities.IOC
             return true;
         }
 
+        public bool IsServiceExists<T>(T service) where T: class
+        {
+            return _services.ContainsKey(service.GetType());
+        }
+
         #endregion
     }
 }
