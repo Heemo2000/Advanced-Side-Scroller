@@ -18,7 +18,7 @@ namespace Utilities.Pathfinding.Platformer
         
         [Tooltip("Drag the references of PlatformerGraphAstarNode nodes here.")]
         [SerializeField] private List<InterfaceReference<IAstarNode>> _neighbours;
-
+        [SerializeField] private bool _isJumpable = false;
 
         private List<IAstarNode> _actualNeighbours;
         public bool IsWalkable { get => _isWalkable; set => _isWalkable = value; }
@@ -28,6 +28,7 @@ namespace Utilities.Pathfinding.Platformer
         public List<IAstarNode> Neighbours { get => _actualNeighbours; set => SetNeighboursValues(value); }
         public IAstarNode ParentNode { get; set; }
         public PlatformerGraph Graph { get; set; }
+        public bool IsJumpable { get => _isJumpable;}
 
         private List<IAstarNode> GetNeighbours(List<InterfaceReference<IAstarNode>> neighbours)
         {
@@ -63,16 +64,26 @@ namespace Utilities.Pathfinding.Platformer
 
         private void OnDrawGizmosSelected()
         {
+            if(_neighbours.Count == 0)
+            {
+                return;
+            }
             #if UNITY_EDITOR
 
             Handles.color = Color.green;
-            Handles.DrawWireDisc(transform.position, Vector3.forward, ShowRadius);
-
             foreach(var nodes in _neighbours)
             {
                 Handles.DrawLine(transform.position, nodes.Value.WorldPos);
             }
             
+            #endif
+        }
+
+        private void OnDrawGizmos()
+        {
+            #if UNITY_EDITOR
+            Handles.color = Color.turquoise;
+            Handles.DrawWireDisc(transform.position, Vector3.forward, ShowRadius);
             #endif
         }
     }
