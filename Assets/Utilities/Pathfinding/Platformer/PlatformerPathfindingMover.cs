@@ -184,9 +184,18 @@ namespace Utilities.Pathfinding.Platformer
                     
                     if(currentNode.IsJumpable && _currentWaypointIndex + 1 < _currentPath.Count)
                     {
-                        shouldJump = true;
-                        _startJumpPosition = _currentPath[_currentWaypointIndex].WorldPos;
-                        _endJumpPosition = _currentPath[_currentWaypointIndex + 1].WorldPos;
+                        float horizontalDist = Mathf.Abs(difference.x);
+                        if (horizontalDist <= _waypointCheckDistance)
+                        {
+                            shouldJump = true;
+                            _startJumpPosition = _currentPath[_currentWaypointIndex].WorldPos;
+                            _endJumpPosition = _currentPath[_currentWaypointIndex + 1].WorldPos;
+                        }
+                        else
+                        {
+                            // Not close enough horizontally yet — keep walking, don't increment
+                            return; // skip index increment this frame
+                        }
                     }
                     _currentWaypointIndex++;
                 }
@@ -214,7 +223,7 @@ namespace Utilities.Pathfinding.Platformer
                 _isGrounded = false;
                 _inputX = 0.0f;
                 _currentInputX = 0.0f;
-                
+                _currentJumpPosition = _startJumpPosition;
                 _jumpDelta = 0.0f;
                 _currentState = PlatformerPathfindingMoverState.Jumping;
             }
@@ -233,7 +242,7 @@ namespace Utilities.Pathfinding.Platformer
             }
             else
             {
-                _currentMovement = _currentJumpPosition;
+                _currentMovement = _endJumpPosition;
                 _currentState = PlatformerPathfindingMoverState.Normal;
                 _jumpDelta = 0.0f;
                 OnJumpingComplete?.Invoke();
