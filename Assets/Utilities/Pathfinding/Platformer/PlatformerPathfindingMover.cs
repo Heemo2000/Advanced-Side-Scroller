@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using Utilities.IOC;
 
 namespace Utilities.Pathfinding.Platformer
@@ -33,7 +36,7 @@ namespace Utilities.Pathfinding.Platformer
         [SerializeField] private float _smoothingTime = 0.2f;
         [Min(0.1f)]
         [SerializeField] private float _normalGravity = 5.0f;
-        [SerializeField] private bool _shouldStop = false;
+        
 
         [Header("Jumping Movement Settings:")]
         [Min(0.1f)]
@@ -46,6 +49,7 @@ namespace Utilities.Pathfinding.Platformer
         private BoxCollider _boxCollider;
         private Rigidbody _rigidbody;
 
+        private bool _shouldStop = false;
         private PlatformerPathfindingMoverState _currentState = PlatformerPathfindingMoverState.None;
         private Vector2 _currentMovement = Vector2.zero;
         private bool _isGrounded = false;
@@ -91,6 +95,7 @@ namespace Utilities.Pathfinding.Platformer
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            _currentMovement = transform.position;
             _rigidbody.isKinematic = true;
             _boxCollider.isTrigger = true;
             _currentState = PlatformerPathfindingMoverState.Normal;
@@ -101,6 +106,27 @@ namespace Utilities.Pathfinding.Platformer
         private void FixedUpdate()
         {
             HandleOverallMovement();
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Vector2 extraDetectedMovement = (Mathf.Max(-_velocityY, 0.0f) * Time.fixedDeltaTime + 0.05f) * -Vector2.up;
+            foreach (Transform groundCheck in _groundChecks)
+            {
+                if (groundCheck == null)
+                {
+                    continue;
+                }
+
+                #if UNITY_EDITOR
+
+                Vector2 groundCheckPos = new Vector2(groundCheck.position.x, groundCheck.position.y);
+
+                Handles.color = Color.red;
+                Handles.DrawWireDisc(groundCheck.position, Vector3.forward, _groundCheckRadius * 2.0f);
+                Handles.DrawLine(groundCheckPos, groundCheckPos + extraDetectedMovement);
+                #endif
+            }
         }
         #endregion
 
@@ -138,6 +164,7 @@ namespace Utilities.Pathfinding.Platformer
 
         private void HandleNormalMovement()
         {
+            _isGrounded = IsGrounded();
             HandleGravity();
             bool shouldJump = false;
             if(_currentPath == null || _currentWaypointIndex >= _currentPath.Count || _shouldStop)
@@ -151,13 +178,15 @@ namespace Utilities.Pathfinding.Platformer
                 Vector2 difference = currentWaypoint - _rigidbody.position;
                 _inputX = Mathf.Sign(difference.x);
 
-                if(Vector2.SqrMagnitude(difference) <= _waypointCheckDistance)
+                if(Vector2.SqrMagnitude(difference) <= _waypointCheckDistance * _waypointCheckDistance)
                 {
                     PlatformerGraphAstarNode currentNode = _currentPath[_currentWaypointIndex] as PlatformerGraphAstarNode;
                     
-                    if(currentNode.IsJumpable)
+                    if(currentNode.IsJumpable && _currentWaypointIndex + 1 < _currentPath.Count)
                     {
                         shouldJump = true;
+                        _startJumpPosition = _currentPath[_currentWaypointIndex].WorldPos;
+                        _endJumpPosition = _currentPath[_currentWaypointIndex + 1].WorldPos;
                     }
                     _currentWaypointIndex++;
                 }
@@ -182,10 +211,10 @@ namespace Utilities.Pathfinding.Platformer
             }
             else
             {
+                _isGrounded = false;
                 _inputX = 0.0f;
                 _currentInputX = 0.0f;
-                _startJumpPosition = _currentPath[_currentWaypointIndex - 1].WorldPos;
-                _endJumpPosition = _currentPath[_currentWaypointIndex].WorldPos;
+                
                 _jumpDelta = 0.0f;
                 _currentState = PlatformerPathfindingMoverState.Jumping;
             }
@@ -199,6 +228,7 @@ namespace Utilities.Pathfinding.Platformer
                 _currentJumpPosition = Vector2.Lerp(_startJumpPosition, _endJumpPosition, _jumpDelta) + 
                                    Vector2.up * _jumpHeight * _jumpCurve.Evaluate(_jumpDelta);
                 _jumpDelta += _jumpSpeed * Time.fixedDeltaTime;
+                _rigidbody.MovePosition(_currentJumpPosition);
                 OnJumping?.Invoke();
             }
             else
@@ -223,6 +253,26 @@ namespace Utilities.Pathfinding.Platformer
                 float newVelocityY = (oldVelocityY + nextVelocityY) / 2.0f;
                 _velocityY = newVelocityY;
             }
+        }
+
+        private bool IsGrounded()
+        {
+            float extraDetectedMovement = Mathf.Max(-_velocityY, 0.0f) * Time.fixedDeltaTime + 0.05f;
+            foreach (Transform groundCheck in _groundChecks)
+            {
+                if (groundCheck == null)
+                {
+                    continue;
+                }
+
+                Vector2 groundCheckPos = new Vector2(groundCheck.position.x, groundCheck.position.y);
+                if (Physics2D.CircleCast(groundCheckPos, _groundCheckRadius, -Vector2.up, extraDetectedMovement, _groundCheckLayerMask.value).collider != null)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
         #endregion
     }

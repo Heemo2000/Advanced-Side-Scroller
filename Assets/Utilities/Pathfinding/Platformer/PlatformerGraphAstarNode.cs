@@ -34,9 +34,9 @@ namespace Utilities.Pathfinding.Platformer
         {
             List<IAstarNode> neighboursList = new List<IAstarNode>();
 
-            foreach(IAstarNode node in neighbours)
+            foreach(var node in neighbours)
             {
-                neighboursList.Add(node);
+                neighboursList.Add(node.Value);
             }
 
             return neighboursList;
