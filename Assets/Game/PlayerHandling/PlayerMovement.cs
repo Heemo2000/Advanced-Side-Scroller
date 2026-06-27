@@ -13,12 +13,19 @@ namespace Game.PlayerHandling
     public class PlayerMovement : MonoBehaviour
     {
         private const float GroundNormalAngleDelta = 0.5f;
+        private const float CeilingCheckAngle = 90.0f;
 
         [Header("Ground Check Settings:")]
         [SerializeField] private Transform[] _groundChecks;
         [Min(0.01f)]
         [SerializeField] private float _groundCheckRadius = 0.2f;
         [SerializeField] private LayerMask _groundCheckLayerMask;
+
+
+        [Header("Ceiling Settings:")]
+        [Min(0.1f)]
+        [SerializeField] private float _ceilingCheckRadius = 1.0f;
+
 
         [Header("Movement Settings:")]
         [Min(0.1f)]
@@ -30,6 +37,7 @@ namespace Game.PlayerHandling
         [Range(45.0f, 90.0f)]
         [SerializeField] private float _maxSteepAngle = 45.0f;
         [SerializeField] private float _fallingThroughSteepSpeed = 10.0f;
+        
         [Header("Jump Settings:")]
         [Min(0.1f)]
         [SerializeField] private float _jumpHeight = 2.0f;
@@ -51,6 +59,7 @@ namespace Game.PlayerHandling
         private float _initialJumpVelocity = 0.0f;
         private float _gravity = 0.0f;
         private float _velocityY = 0.0f;
+        private RaycastHit2D _ceilingHit;
 
         private int _currentJumpCount = 0;
         private bool _jumpPressedThisFrame = false;
@@ -127,15 +136,32 @@ namespace Game.PlayerHandling
                     continue;
                 }
 
-#if UNITY_EDITOR
+            #if UNITY_EDITOR
 
                 Vector2 groundCheckPos = new Vector2(groundCheck.position.x, groundCheck.position.y);
 
                 Handles.color = Color.red;
                 Handles.DrawWireDisc(groundCheck.position, Vector3.forward, _groundCheckRadius * 2.0f);
                 Handles.DrawLine(groundCheckPos, groundCheckPos + extraDetectedMovement);
-#endif
+
+
+            #endif
             }
+
+            #if UNITY_EDITOR
+
+            Handles.color = Color.green;
+            if (Application.isPlaying)
+            {
+                Handles.DrawWireDisc(_currentPosition, Vector3.forward, _ceilingCheckRadius * 2.0f);
+            }
+            else
+            {
+                Handles.DrawWireDisc(transform.position, Vector3.forward, _ceilingCheckRadius * 2.0f);
+            }
+                
+
+            #endif
         }
 
         public void HandleInputX(float inputX, bool sprintPressed)
@@ -210,6 +236,12 @@ namespace Game.PlayerHandling
 
         private void HandleGravity()
         {
+            if(_velocityY > 0.0f && CheckCeiling(_currentPosition, _ceilingCheckRadius, _velocityY * Time.fixedDeltaTime, _groundCheckLayerMask.value, out _ceilingHit))
+            {
+                float allowedDistance = _ceilingHit.distance;
+                _currentPosition += Vector2.up * allowedDistance;
+                _velocityY = 0.0f;
+            }
             if (_isGrounded && !_jumpPressedThisFrame)
             {
                 _velocityY = 0.0f;
@@ -232,6 +264,24 @@ namespace Game.PlayerHandling
                 float newVelocityY = (oldVelocityY + nextVelocityY) / 2.0f;
                 _velocityY = newVelocityY;
             }
+        }
+
+        private bool CheckCeiling(Vector2 position, float radius, float castDistance, LayerMask groundMask, out RaycastHit2D ceilingHit)
+        {
+            ceilingHit = Physics2D.CircleCast(
+                                   position,
+                                   radius,
+                                   Vector2.up,
+                                   castDistance,
+                                   groundMask.value
+                );
+
+            if(ceilingHit.collider != null)
+            {
+                return Vector2.Angle(Vector2.up, ceilingHit.normal) > CeilingCheckAngle;
+            }
+
+            return false;
         }
 
         private void HandleJump()
