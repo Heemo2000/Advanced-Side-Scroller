@@ -111,6 +111,15 @@ namespace Game.InputHandling
                     ""processors"": """",
                     ""interactions"": ""Hold(duration=0.2,pressPoint=0.5)"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TogglePause"",
+                    ""type"": ""Button"",
+                    ""id"": ""f924b96e-2ac5-4a71-8dfe-1f613b055423"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -256,6 +265,28 @@ namespace Game.InputHandling
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b72b3ad5-706a-488e-8f68-9e9527ab0eb4"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TogglePause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c318a67-5e70-427c-a892-176b931f8ec0"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TogglePause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -266,6 +297,7 @@ namespace Game.InputHandling
             m_GameActionMap = asset.FindActionMap("GameActionMap", throwIfNotFound: true);
             m_GameActionMap_Movement = m_GameActionMap.FindAction("Movement", throwIfNotFound: true);
             m_GameActionMap_Jump = m_GameActionMap.FindAction("Jump", throwIfNotFound: true);
+            m_GameActionMap_TogglePause = m_GameActionMap.FindAction("TogglePause", throwIfNotFound: true);
         }
 
         ~@GameControls()
@@ -348,6 +380,7 @@ namespace Game.InputHandling
         private List<IGameActionMapActions> m_GameActionMapActionsCallbackInterfaces = new List<IGameActionMapActions>();
         private readonly InputAction m_GameActionMap_Movement;
         private readonly InputAction m_GameActionMap_Jump;
+        private readonly InputAction m_GameActionMap_TogglePause;
         /// <summary>
         /// Provides access to input actions defined in input action map "GameActionMap".
         /// </summary>
@@ -367,6 +400,10 @@ namespace Game.InputHandling
             /// Provides access to the underlying input action "GameActionMap/Jump".
             /// </summary>
             public InputAction @Jump => m_Wrapper.m_GameActionMap_Jump;
+            /// <summary>
+            /// Provides access to the underlying input action "GameActionMap/TogglePause".
+            /// </summary>
+            public InputAction @TogglePause => m_Wrapper.m_GameActionMap_TogglePause;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -399,6 +436,9 @@ namespace Game.InputHandling
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @TogglePause.started += instance.OnTogglePause;
+                @TogglePause.performed += instance.OnTogglePause;
+                @TogglePause.canceled += instance.OnTogglePause;
             }
 
             /// <summary>
@@ -416,6 +456,9 @@ namespace Game.InputHandling
                 @Jump.started -= instance.OnJump;
                 @Jump.performed -= instance.OnJump;
                 @Jump.canceled -= instance.OnJump;
+                @TogglePause.started -= instance.OnTogglePause;
+                @TogglePause.performed -= instance.OnTogglePause;
+                @TogglePause.canceled -= instance.OnTogglePause;
             }
 
             /// <summary>
@@ -470,6 +513,13 @@ namespace Game.InputHandling
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnJump(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "TogglePause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnTogglePause(InputAction.CallbackContext context);
         }
     }
 }

@@ -37,7 +37,8 @@ namespace Utilities.IOC
                 return obj as T;
             }
 
-            throw new ArgumentException($"ServiceManager.Get: Service of type {type.FullName} not registered");
+            Debug.LogError($"ServiceManager.Get: Service of type {type.FullName} not registered");
+            return null;
         }
 
         public ServiceManager Register<T>(T service)

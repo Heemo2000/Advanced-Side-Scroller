@@ -1,42 +1,90 @@
-using UnityEngine;
 using Game.InputHandling;
+using UnityEngine;
 using UnityEngine.InputSystem;
-using System;
+using Utilities.IOC;
+using Utilities.PauseHandling;
 
 namespace Game.PlayerHandling
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IPausable
     {
-        private GameControls _gameControls;
+        [SerializeField] private GameInput _gameInput;
         private PlayerMovement _movement;
         private bool _jumpLonger = false;
+
+        private bool _isPaused = false;
         private void Awake()
         {
             _movement = GetComponent<PlayerMovement>();
-            _gameControls = new GameControls();
-            _gameControls.Enable();
-            _gameControls.GameActionMap.Jump.started += OnJump;
+        }
+
+        private void Start()
+        {
+            if(_gameInput == null)
+            {
+                _gameInput = FindFirstObjectByType<GameInput>();
+            }
+
+            _gameInput.OnJump += OnJump;
+
+            ServiceLocator sceneServiceLocator = ServiceLocator.ForSceneOf(this);
+            if (sceneServiceLocator != null)
+            {
+                GamePauseManager gamePauseManager = sceneServiceLocator.Get<GamePauseManager>();
+                if (gamePauseManager != null)
+                {
+                    gamePauseManager.Register(this);
+                }
+                else
+                {
+                    GamePauseManager.RegisterStatically(this);
+                }
+            }
+            else
+            {
+                GamePauseManager.RegisterStatically(this);
+            }
         }
 
         private void Update()
         {
-            float moveInputX = _gameControls.GameActionMap.Movement.ReadValue<Vector2>().x;
+            if(_isPaused)
+            {
+                return;
+            }
+
+            float moveInputX = _gameInput.GetMoveInput();
             _movement.HandleInputX(moveInputX, false);
 
-            bool jumpHeld = _gameControls.GameActionMap.Jump.IsPressed();
+            bool jumpHeld = _gameInput.GetJumpHeldInput();
             _movement.SetJumpHeld(jumpHeld);
         }
 
         private void OnDestroy()
         {
-            _gameControls.Disable();
-            _gameControls.GameActionMap.Jump.started -= OnJump;
+            if (_gameInput != null)
+            {
+                _gameInput.OnJump -= OnJump;
+            }
         }
 
-        private void OnJump(InputAction.CallbackContext context)
+        public void OnPause()
+        {
+            _isPaused = true;
+        }
+
+        public void OnResume()
+        {
+            _isPaused = false;
+            
+        }
+
+
+        private void OnJump()
         {
             Debug.Log("Jump pressed");
             _movement.Jump();
         }
+
     }
 }

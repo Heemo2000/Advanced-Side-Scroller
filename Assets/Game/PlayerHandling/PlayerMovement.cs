@@ -2,15 +2,20 @@ using System;
 using System.Collections.Generic;
 
 using UnityEngine;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+
+using Utilities.PauseHandling;
+
+using Utilities.IOC;
 
 namespace Game.PlayerHandling
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(BoxCollider2D))]
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour, IPausable
     {
         private const float GroundNormalAngleDelta = 0.5f;
         private const float CeilingCheckAngle = 90.0f;
@@ -81,10 +86,13 @@ namespace Game.PlayerHandling
         private bool _jumpHeld = false;
         private float _jumpHoldCounter = 0.0f;
 
+        private bool _isPaused = false;
+
         public event Action OnJump;
         public event Action OnExtraLongerJump;
         public event Action<Vector2> OnGround;
         public event Action<float> OnMovement;
+
 
         private void Awake()
         {
@@ -100,6 +108,24 @@ namespace Game.PlayerHandling
             _playerCollider.isTrigger = true;
             _currentPosition = transform.position;
             SetupParameters();
+
+            ServiceLocator sceneServiceLocator = ServiceLocator.ForSceneOf(this);
+            if(sceneServiceLocator != null)
+            {
+                GamePauseManager gamePauseManager = sceneServiceLocator.Get<GamePauseManager>();
+                if (gamePauseManager != null)
+                {
+                    gamePauseManager.Register(this);
+                }
+                else
+                {
+                    GamePauseManager.RegisterStatically(this);
+                }
+            }
+            else
+            {
+                GamePauseManager.RegisterStatically(this);
+            }
         }
 
         private void OnValidate()
@@ -110,6 +136,11 @@ namespace Game.PlayerHandling
 
         private void FixedUpdate()
         {
+            if(_isPaused)
+            {
+                return;
+            }
+
             if (_jumpBufferCounter > 0.0f)
             {
                 _jumpBufferCounter -= Time.fixedDeltaTime;
@@ -163,6 +194,17 @@ namespace Game.PlayerHandling
 
             #endif
         }
+
+        public void OnPause()
+        {
+            _isPaused = true;
+        }
+
+        public void OnResume()
+        {
+            _isPaused = false;
+        }
+
 
         public void HandleInputX(float inputX, bool sprintPressed)
         {
