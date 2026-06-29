@@ -283,6 +283,7 @@ namespace Utilities.Pathfinding.Platformer
 
             return false;
         }
+        
         #endregion
     }
 }

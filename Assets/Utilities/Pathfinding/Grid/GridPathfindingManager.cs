@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utilities.Pathfinding.Grid
+namespace Utilities.Pathfinding.GridHandling
 {
     public class GridPathfindingManager : MonoBehaviour
     {

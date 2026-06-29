@@ -28,7 +28,7 @@ namespace Utilities.Pathfinding.Platformer
         public List<IAstarNode> Neighbours { get => _actualNeighbours; set => SetNeighboursValues(value); }
         public IAstarNode ParentNode { get; set; }
         public PlatformerGraph Graph { get; set; }
-        public bool IsJumpable { get => _isJumpable;}
+        public bool IsJumpable { get => _isJumpable; set => _isJumpable = value; }
 
         private List<IAstarNode> GetNeighbours(List<InterfaceReference<IAstarNode>> neighbours)
         {
@@ -44,6 +44,11 @@ namespace Utilities.Pathfinding.Platformer
 
         private void SetNeighboursValues(List<IAstarNode> neighbours)
         {
+            if(_neighbours == null)
+            {
+                _neighbours = new List<InterfaceReference<IAstarNode>>();
+            }
+
             _neighbours.Clear();
 
             foreach(IAstarNode node in neighbours)
@@ -71,9 +76,13 @@ namespace Utilities.Pathfinding.Platformer
             #if UNITY_EDITOR
 
             Handles.color = Color.green;
-            foreach(var nodes in _neighbours)
+            foreach(var node in _neighbours)
             {
-                Handles.DrawLine(transform.position, nodes.Value.WorldPos);
+                if(node.Value == null)
+                {
+                    continue;
+                }
+                Handles.DrawLine(transform.position, node.Value.WorldPos);
             }
             
             #endif
