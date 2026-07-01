@@ -14,13 +14,14 @@ namespace Utilities.Pathfinding.Platformer
 
         private PlatformerGraph _graph;
         private AstarPathfinding _pathfinding;
-        
+
+        public List<PlatformerGraphAstarNode> NodesList { get => _nodesList; set => _nodesList = value; }
 
         private void Start()
         {
             if (_nodesList == null || _nodesList.Count == 0)
             {
-                _nodesList = GenerateNodesList();
+                _nodesList = GenerateNodesAndPartiallyCreateConnections();
             }
             
             _graph = new PlatformerGraph(_nodesList);
@@ -29,7 +30,13 @@ namespace Utilities.Pathfinding.Platformer
             sceneServiceLocator.Register(this);
         }
 
-        public List<PlatformerGraphAstarNode> GenerateNodesList()
+
+        /// <summary>
+        /// Generates just left and right for a particular node, doesn't work for nodes higher or lower.
+        /// That is designer's headache.
+        /// </summary>
+        /// <returns>List of nodes with partial connections.</returns>
+        public List<PlatformerGraphAstarNode> GenerateNodesAndPartiallyCreateConnections()
         {
             if(_tilemap == null)
             {
@@ -94,69 +101,81 @@ namespace Utilities.Pathfinding.Platformer
                 }
             }
 
-            //This list is responsible for storing all the founded neighbours of the
-            //particular node. At each iteration before checking, we cleared this list out.
-            List<PlatformerGraphAstarNode> tempNeighbours = new List<PlatformerGraphAstarNode>();
-            
+            //Now, find and connect neighbours.
             foreach(PlatformerGraphAstarNode node in nodesList)
             {
-                tempNeighbours.Clear();
-                Vector3Int nodePosition = positionsDict[node.GetInstanceID()];
+                Vector3Int position = positionsDict[node.GetInstanceID()];
 
-                //First, add all the left neighbours to the temp neighbours list
-                //if they exist for this position-X.
-                if(nodesInXAxisDict.ContainsKey(nodePosition.x - 1))
-                {
-                    tempNeighbours.AddRange(nodesInXAxisDict[nodePosition.x - 1]);
-                }
-
-                //Second, add all the right neighbours to the temp neighbours list
-                //if they exist for this position-X.
-                if (nodesInXAxisDict.ContainsKey(nodePosition.x + 1))
-                {
-                    tempNeighbours.AddRange(nodesInXAxisDict[nodePosition.x + 1]);
-                }
-
-                //First, add all the down neighbours to the temp neighbours list
-                //if they exist for this position-Y.
-                if (nodesInYAxisDict.ContainsKey(nodePosition.y - 1))
-                {
-                    tempNeighbours.AddRange(nodesInYAxisDict[nodePosition.y - 1]);
-                }
-
-                //Second, add all the up neighbours to the temp neighbours list
-                //if they exist for this position-Y.
-                if (nodesInYAxisDict.ContainsKey(nodePosition.y + 1))
-                {
-                    tempNeighbours.AddRange(nodesInYAxisDict[nodePosition.y + 1]);
-                }
-
-                bool isJumpable = false;
-
-                foreach(PlatformerGraphAstarNode neighbour in tempNeighbours)
-                {
-                    Vector3Int neighbourPosition = positionsDict[neighbour.GetInstanceID()];
-                    Vector3Int difference = neighbourPosition - nodePosition;
-
-                    if(Mathf.Abs(difference.y) > 0 || (difference.y == 0 && Mathf.Abs(difference.x) > 1))
-                    {
-                        isJumpable = true;
-                        break;
-                    }
-                }
-
-                node.IsJumpable = isJumpable;
-
+                //First, connect nodes which are just left or right of each other.
+                Vector3Int justLeftPosition = new Vector3Int(position.x - 1, position.y, position.z);
+                Vector3Int justRightPosition = new Vector3Int(position.x + 1, position.y, position.z);
                 
                 List<IAstarNode> iNeighbours = new List<IAstarNode>();
 
-                foreach(PlatformerGraphAstarNode neighbour in tempNeighbours)
+                //If the particular position exists in both x-axis nodes dictionary and y-axis nodes dictionary, then add that node.
+                //First for the left.
+                if (nodesInXAxisDict.ContainsKey(justLeftPosition.x) && nodesInYAxisDict.ContainsKey(justLeftPosition.y))
                 {
-                    iNeighbours.Add(neighbour);
+                    var justLeftNodesX = nodesInXAxisDict[justLeftPosition.x];
+                    var justLeftNodesY = nodesInYAxisDict[justLeftPosition.y];
+
+                    PlatformerGraphAstarNode justLeftNode = null;
+                    foreach(var a in justLeftNodesX)
+                    {
+                        if(justLeftNode != null)
+                        {
+                            break;
+                        }
+                        foreach(var b in justLeftNodesY)
+                        {
+                            if(a.GetInstanceID() == b.GetInstanceID())
+                            {
+                                justLeftNode = a;
+                                break;
+                            }
+                        }
+                    }
+
+                    if(justLeftNode != null)
+                    {
+                        iNeighbours.Add(justLeftNode);
+                    }
                 }
+
+                //Then, for the right
+                if (nodesInXAxisDict.ContainsKey(justRightPosition.x) && nodesInYAxisDict.ContainsKey(justRightPosition.y))
+                {
+                    var justRightNodesX = nodesInXAxisDict[justRightPosition.x];
+                    var justRightNodesY = nodesInYAxisDict[justRightPosition.y];
+
+                    PlatformerGraphAstarNode justLeftNode = null;
+                    foreach (var a in justRightNodesX)
+                    {
+                        if (justLeftNode != null)
+                        {
+                            break;
+                        }
+                        foreach (var b in justRightNodesY)
+                        {
+                            if (a.GetInstanceID() == b.GetInstanceID())
+                            {
+                                justLeftNode = a;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (justLeftNode != null)
+                    {
+                        iNeighbours.Add(justLeftNode);
+                    }
+                }
+
                 node.Neighbours = iNeighbours;
             }
 
+
+            
             return nodesList;
         }
 
