@@ -62,6 +62,7 @@ namespace Utilities.Pathfinding.Platformer
         private float _currentInputVelocity = 0.0f;
         private int _currentWaypointIndex;
         private List<IAstarNode> _currentPath = null;
+        private int _currentPathCount = 0;
         private PlatformerPathfindingManager _platformPathfindingManager = null;
 
         private Vector2 _startJumpPosition = Vector2.zero;
@@ -137,6 +138,7 @@ namespace Utilities.Pathfinding.Platformer
 
             _destination = destination;
             _currentPath = _platformPathfindingManager.FindPathNodes(transform.position, destination);
+            _currentPathCount = _currentPath.Count;
             _currentWaypointIndex = 0;
             _isAlreadyReachedDestination = false;
             _shouldStop = false;
@@ -184,18 +186,21 @@ namespace Utilities.Pathfinding.Platformer
                     
                     if(currentNode.IsJumpable && _currentWaypointIndex + 1 < _currentPath.Count)
                     {
+                        PlatformerGraphAstarNode nextNode = _currentPath[_currentWaypointIndex + 1] as PlatformerGraphAstarNode;
                         float horizontalDist = Mathf.Abs(difference.x);
-                        if (horizontalDist <= _waypointCheckDistance)
+                        if (horizontalDist <= _waypointCheckDistance && nextNode.IsJumpable)
                         {
                             shouldJump = true;
                             _startJumpPosition = _currentPath[_currentWaypointIndex].WorldPos;
                             _endJumpPosition = _currentPath[_currentWaypointIndex + 1].WorldPos;
                         }
-                        else
+                        /*else
                         {
+                            Debug.Log("Not close enough horizontally yet — keep walking, don't increment");
                             // Not close enough horizontally yet — keep walking, don't increment
                             return; // skip index increment this frame
-                        }
+                        }*/
+                        
                     }
                     _currentWaypointIndex++;
                 }
