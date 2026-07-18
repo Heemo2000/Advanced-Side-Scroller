@@ -45,6 +45,13 @@ namespace Utilities.ObjectPoolHandling
             return obj;
         }
 
+
+        public bool IsSpaceThereInPool()
+        {
+            return _poolQueue.Count > 0;
+        }
+
+
         public void ReturnToPool(T obj)
         {
             _onObjReturnToPool?.Invoke(obj);
