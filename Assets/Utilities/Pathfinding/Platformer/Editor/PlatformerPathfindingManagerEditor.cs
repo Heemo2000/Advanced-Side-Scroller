@@ -32,15 +32,35 @@ namespace Utilities.Pathfinding.Platformer
 
             Button createNodesAndPartiallyCreateConnections = new Button(()=>
             {
+                
                 PlatformerPathfindingManager pathfindingManager = (PlatformerPathfindingManager)target;
+
+                Undo.RecordObject(pathfindingManager, "Generate Nodes");
+
+                var previousNodes = FindObjectsByType<PlatformerGraphAstarNode>(FindObjectsSortMode.InstanceID);
+
+                for (int i = 0; i < previousNodes.Length; i++)
+                {
+                    var node = previousNodes[i];
+                    DestroyImmediate(node.gameObject);
+                }
+
                 List<PlatformerGraphAstarNode> requiredNodes = pathfindingManager.GenerateNodesAndPartiallyCreateConnections();
 
+                
+
+                
+
                 pathfindingManager.NodesList = requiredNodes;
+
+                EditorUtility.SetDirty(pathfindingManager);
+                serializedObject.Update();
             });
 
             createNodesAndPartiallyCreateConnections.text = "Create Nodes and partially create connections";
             root.Add(createNodesAndPartiallyCreateConnections);
-
+            
+            root.Bind(serializedObject);
             return root;
         }
 

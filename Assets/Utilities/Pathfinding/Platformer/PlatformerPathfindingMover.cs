@@ -21,6 +21,7 @@ namespace Utilities.Pathfinding.Platformer
         #region Constants
         private const float DifferenceEpsilon = 0.1f;
         #endregion
+        
         #region Serialized Fields
         [Header("Waypoint Settings:")]
         [Min(0.01f)]
@@ -36,14 +37,19 @@ namespace Utilities.Pathfinding.Platformer
         [SerializeField] private float _smoothingTime = 0.2f;
         [Min(0.1f)]
         [SerializeField] private float _normalGravity = 5.0f;
-        
+
 
         [Header("Jumping Movement Settings:")]
+        [SerializeField] private bool _allowJumping = true;
         [Min(0.1f)]
         [SerializeField] private float _jumpHeight = 2.0f;
         [Min(0.1f)]
         [SerializeField] private float _jumpSpeed = 0.5f;
         [SerializeField] private AnimationCurve _jumpCurve;
+
+        [Header("Pathfinding Check Settings:")]
+        [Min(0.1f)]
+        [SerializeField] private float _minPathfindingSearchDistance = 3.0f;
         #endregion
         #region Private Fields
         private BoxCollider _boxCollider;
@@ -83,6 +89,7 @@ namespace Utilities.Pathfinding.Platformer
 
         public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
         public Vector2 Destination { get => _destination; }
+        public bool AllowJumping { get => _allowJumping; set => _allowJumping = value; }
 
         #endregion
 
@@ -135,6 +142,15 @@ namespace Utilities.Pathfinding.Platformer
 
         public void SetDestination(Vector2 destination)
         {
+            //If the path is already calculated for the destination closer
+            //than the previous destination, then no need to calculated again the path.
+            if(_shouldStop == false && _currentPath != null && 
+               Vector3.SqrMagnitude(destination - _destination) <= 
+               _minPathfindingSearchDistance * _minPathfindingSearchDistance)
+            {
+                return;
+            }
+
 
             _destination = destination;
             _currentPath = _platformPathfindingManager.FindPathNodes(transform.position, destination);
@@ -180,11 +196,16 @@ namespace Utilities.Pathfinding.Platformer
                 Vector2 difference = currentWaypoint - _rigidbody.position;
                 _inputX = Mathf.Sign(difference.x);
 
+                if(!_allowJumping)
+                {
+                    difference.y = 0.0f;
+                }
+
                 if(Vector2.SqrMagnitude(difference) <= _waypointCheckDistance * _waypointCheckDistance)
                 {
                     PlatformerGraphAstarNode currentNode = _currentPath[_currentWaypointIndex] as PlatformerGraphAstarNode;
                     
-                    if(currentNode.IsJumpable && _currentWaypointIndex + 1 < _currentPath.Count)
+                    if(_allowJumping && currentNode.IsJumpable && _currentWaypointIndex + 1 < _currentPath.Count)
                     {
                         PlatformerGraphAstarNode nextNode = _currentPath[_currentWaypointIndex + 1] as PlatformerGraphAstarNode;
                         float horizontalDist = Mathf.Abs(difference.x);
@@ -194,13 +215,6 @@ namespace Utilities.Pathfinding.Platformer
                             _startJumpPosition = _currentPath[_currentWaypointIndex].WorldPos;
                             _endJumpPosition = _currentPath[_currentWaypointIndex + 1].WorldPos;
                         }
-                        /*else
-                        {
-                            Debug.Log("Not close enough horizontally yet — keep walking, don't increment");
-                            // Not close enough horizontally yet — keep walking, don't increment
-                            return; // skip index increment this frame
-                        }*/
-                        
                     }
                     _currentWaypointIndex++;
                 }
@@ -223,7 +237,7 @@ namespace Utilities.Pathfinding.Platformer
                     }
                 }
             }
-            else
+            else if(shouldJump == true && _allowJumping == true)
             {
                 _isGrounded = false;
                 _inputX = 0.0f;
