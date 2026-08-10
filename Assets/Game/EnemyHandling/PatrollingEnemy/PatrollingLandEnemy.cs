@@ -39,11 +39,13 @@ namespace Game.EnemyHandling
         private PatrollingLandEnemyChaseState _chaseState;
         private PatrollingLandEnemyAttackState _attackState;
 
-        public Transform[] PatrolPoints { get => _patrolPoints; }
         #endregion
 
         #region Properties
-
+        public Transform[] PatrolPoints { get => _patrolPoints; }
+        public float PatrolSpeed { get => _patrolSpeed; }
+        public float ChaseSpeed { get => _chaseSpeed; }
+        public Transform Target { get => _target; }
 
 
         #endregion
