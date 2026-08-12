@@ -1,12 +1,16 @@
 #region Headers
-using Game.SoundHandling;
+
 using UnityEngine;
+
+using Game.SoundHandling;
+using Game.SoundHandling.GenericSoundManagement;
+
 using Utilities.IOC;
 #endregion
 
 namespace Game.WeaponHandling
 {
-    public class Pistol : MonoBehaviour, IWeapon
+    public class Pistol :  Weapon
     {
         #region Serialized Fields
         [Header("Reload Settings:")]
@@ -18,10 +22,10 @@ namespace Game.WeaponHandling
         [SerializeField] private Transform _firePoint;
         [Min(5)]
         [SerializeField] private int _ammoCount = 10;
+        [SerializeField] private SoundData _emptyAmmoSound;
         
         #endregion
         #region Properties
-        public GameObject WeaponGameObject { get => gameObject; }
 
         #endregion
 
@@ -38,14 +42,10 @@ namespace Game.WeaponHandling
             _gunReloadingSoundPlayer.OnBeforeAnyAudioPlayed += SetIsReloadingFlagToTrue;
             _gunReloadingSoundPlayer.OnAfterAllAudiosPlayed += SetIsReloadingFlagToFalse;
             _gunReloadingSoundPlayer.OnAfterAllAudiosPlayed += RefillMagazine;
+            _gunReloadingSoundPlayer.OnAfterAllAudiosPlayed += InvokeReloadEvent;
             _currentAmmoCount = _ammoCount;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
 
         private void OnDestroy()
         {
@@ -54,16 +54,19 @@ namespace Game.WeaponHandling
                 _gunReloadingSoundPlayer.OnBeforeAnyAudioPlayed -= SetIsReloadingFlagToTrue;
                 _gunReloadingSoundPlayer.OnAfterAllAudiosPlayed -= SetIsReloadingFlagToFalse;
                 _gunReloadingSoundPlayer.OnAfterAllAudiosPlayed -= RefillMagazine;
+                _gunReloadingSoundPlayer.OnAfterAllAudiosPlayed -= InvokeReloadEvent;
             }
         }
         #endregion
 
         #region Class Functionality
 
-        public void Use()
+        public override void Use()
         {
             if (_isReloading)
             {
+                SoundManager soundManager = ServiceLocator.ForSceneOf(this).Get<SoundManager>();
+                soundManager.CreateSoundBuilder().Play(_emptyAmmoSound);
                 return;
             }
 
@@ -82,6 +85,7 @@ namespace Game.WeaponHandling
                 Bullet bullet = _bulletPoolManager.SpawnBullet(_bulletPrefab.GetInstanceID(), _firePoint.position);
                 bullet.transform.right = _firePoint.right;
                 _currentAmmoCount--;
+                OnUse?.Invoke();
             }
             else
             {
@@ -89,9 +93,14 @@ namespace Game.WeaponHandling
             }
         }
 
-        public void Reload()
+        public override void Reload()
         {
             _gunReloadingSoundPlayer.Play();
+        }
+
+        private void InvokeReloadEvent()
+        {
+            OnReload?.Invoke();
         }
 
         private void SetIsReloadingFlagToFalse()

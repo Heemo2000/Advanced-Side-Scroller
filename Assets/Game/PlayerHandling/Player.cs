@@ -1,6 +1,9 @@
-using Game.InputHandling;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+using Game.InputHandling;
+using Game.WeaponHandling;
+
 using Utilities.IOC;
 using Utilities.PauseHandling;
 
