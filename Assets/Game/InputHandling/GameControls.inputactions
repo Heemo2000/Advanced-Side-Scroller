@@ -3,7 +3,7 @@
     "name": "GameControls",
     "maps": [
         {
-            "name": "GameActionMap",
+            "name": "PC",
             "id": "f26c7656-6d9e-4f47-99b8-77c22aac0ef9",
             "actions": [
                 {
@@ -28,6 +28,24 @@
                     "name": "TogglePause",
                     "type": "Button",
                     "id": "f924b96e-2ac5-4a71-8dfe-1f613b055423",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AimPosition",
+                    "type": "Value",
+                    "id": "9e2f3808-8e3d-40c2-ab1d-2c3c706ae16f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "03547f7b-270b-437d-b44b-8571363ed014",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -147,30 +165,8 @@
                 },
                 {
                     "name": "",
-                    "id": "1e06b8fb-7887-46e1-a743-bd454ec413d5",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8d7bc0ec-d011-4d79-bb9a-babf2e03318e",
                     "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "95cbdf99-0279-4124-952d-8d78fce55864",
-                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -191,12 +187,131 @@
                 },
                 {
                     "name": "",
-                    "id": "2c318a67-5e70-427c-a892-176b931f8ec0",
+                    "id": "0e7285d3-773d-4456-a3b8-789f608f938a",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AimPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "408ffb48-c9ee-4a50-8475-445b88342e99",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Mobile",
+            "id": "c1634879-54ac-4f7c-8e30-4585addd6369",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "Value",
+                    "id": "2e4bd6f9-12a0-493a-aae1-8b454c18cbfd",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "d4c6ff3f-8314-4d00-92d6-17622aa931d7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.2,pressPoint=0.5)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TogglePause",
+                    "type": "Button",
+                    "id": "41f81958-15dd-4d36-acb6-775d030fe2e2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AimInput",
+                    "type": "Value",
+                    "id": "b58ce7d8-5a74-4e9a-9515-45fb8366938e",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "679d0cb4-2e9c-485d-a76b-d48d115760ec",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "78e15abc-52f5-4593-a6fb-adb8ccd9313b",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "478f3692-b56d-4d53-aa91-6863890b6dd9",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5df20ef2-e0cf-417e-8c3a-6e7a6e71e67c",
                     "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "TogglePause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df8b0379-0b0a-4288-8857-8fff9bbc7525",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AimInput",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bf12b0a9-9645-4482-9d2f-e68a67f625f6",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

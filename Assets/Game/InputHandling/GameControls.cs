@@ -91,7 +91,7 @@ namespace Game.InputHandling
     ""name"": ""GameControls"",
     ""maps"": [
         {
-            ""name"": ""GameActionMap"",
+            ""name"": ""PC"",
             ""id"": ""f26c7656-6d9e-4f47-99b8-77c22aac0ef9"",
             ""actions"": [
                 {
@@ -116,6 +116,24 @@ namespace Game.InputHandling
                     ""name"": ""TogglePause"",
                     ""type"": ""Button"",
                     ""id"": ""f924b96e-2ac5-4a71-8dfe-1f613b055423"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AimPosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""9e2f3808-8e3d-40c2-ab1d-2c3c706ae16f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""03547f7b-270b-437d-b44b-8571363ed014"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -235,30 +253,8 @@ namespace Game.InputHandling
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1e06b8fb-7887-46e1-a743-bd454ec413d5"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""8d7bc0ec-d011-4d79-bb9a-babf2e03318e"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""95cbdf99-0279-4124-952d-8d78fce55864"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -279,12 +275,131 @@ namespace Game.InputHandling
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2c318a67-5e70-427c-a892-176b931f8ec0"",
+                    ""id"": ""0e7285d3-773d-4456-a3b8-789f608f938a"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AimPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""408ffb48-c9ee-4a50-8475-445b88342e99"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Mobile"",
+            ""id"": ""c1634879-54ac-4f7c-8e30-4585addd6369"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""2e4bd6f9-12a0-493a-aae1-8b454c18cbfd"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""d4c6ff3f-8314-4d00-92d6-17622aa931d7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.2,pressPoint=0.5)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TogglePause"",
+                    ""type"": ""Button"",
+                    ""id"": ""41f81958-15dd-4d36-acb6-775d030fe2e2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AimInput"",
+                    ""type"": ""Value"",
+                    ""id"": ""b58ce7d8-5a74-4e9a-9515-45fb8366938e"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""679d0cb4-2e9c-485d-a76b-d48d115760ec"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""78e15abc-52f5-4593-a6fb-adb8ccd9313b"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""478f3692-b56d-4d53-aa91-6863890b6dd9"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5df20ef2-e0cf-417e-8c3a-6e7a6e71e67c"",
                     ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""TogglePause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df8b0379-0b0a-4288-8857-8fff9bbc7525"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AimInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bf12b0a9-9645-4482-9d2f-e68a67f625f6"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -293,16 +408,26 @@ namespace Game.InputHandling
     ],
     ""controlSchemes"": []
 }");
-            // GameActionMap
-            m_GameActionMap = asset.FindActionMap("GameActionMap", throwIfNotFound: true);
-            m_GameActionMap_Movement = m_GameActionMap.FindAction("Movement", throwIfNotFound: true);
-            m_GameActionMap_Jump = m_GameActionMap.FindAction("Jump", throwIfNotFound: true);
-            m_GameActionMap_TogglePause = m_GameActionMap.FindAction("TogglePause", throwIfNotFound: true);
+            // PC
+            m_PC = asset.FindActionMap("PC", throwIfNotFound: true);
+            m_PC_Movement = m_PC.FindAction("Movement", throwIfNotFound: true);
+            m_PC_Jump = m_PC.FindAction("Jump", throwIfNotFound: true);
+            m_PC_TogglePause = m_PC.FindAction("TogglePause", throwIfNotFound: true);
+            m_PC_AimPosition = m_PC.FindAction("AimPosition", throwIfNotFound: true);
+            m_PC_Shoot = m_PC.FindAction("Shoot", throwIfNotFound: true);
+            // Mobile
+            m_Mobile = asset.FindActionMap("Mobile", throwIfNotFound: true);
+            m_Mobile_Movement = m_Mobile.FindAction("Movement", throwIfNotFound: true);
+            m_Mobile_Jump = m_Mobile.FindAction("Jump", throwIfNotFound: true);
+            m_Mobile_TogglePause = m_Mobile.FindAction("TogglePause", throwIfNotFound: true);
+            m_Mobile_AimInput = m_Mobile.FindAction("AimInput", throwIfNotFound: true);
+            m_Mobile_Shoot = m_Mobile.FindAction("Shoot", throwIfNotFound: true);
         }
 
         ~@GameControls()
         {
-            UnityEngine.Debug.Assert(!m_GameActionMap.enabled, "This will cause a leak and performance issues, GameControls.GameActionMap.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_PC.enabled, "This will cause a leak and performance issues, GameControls.PC.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_Mobile.enabled, "This will cause a leak and performance issues, GameControls.Mobile.Disable() has not been called.");
         }
 
         /// <summary>
@@ -375,39 +500,49 @@ namespace Game.InputHandling
             return asset.FindBinding(bindingMask, out action);
         }
 
-        // GameActionMap
-        private readonly InputActionMap m_GameActionMap;
-        private List<IGameActionMapActions> m_GameActionMapActionsCallbackInterfaces = new List<IGameActionMapActions>();
-        private readonly InputAction m_GameActionMap_Movement;
-        private readonly InputAction m_GameActionMap_Jump;
-        private readonly InputAction m_GameActionMap_TogglePause;
+        // PC
+        private readonly InputActionMap m_PC;
+        private List<IPCActions> m_PCActionsCallbackInterfaces = new List<IPCActions>();
+        private readonly InputAction m_PC_Movement;
+        private readonly InputAction m_PC_Jump;
+        private readonly InputAction m_PC_TogglePause;
+        private readonly InputAction m_PC_AimPosition;
+        private readonly InputAction m_PC_Shoot;
         /// <summary>
-        /// Provides access to input actions defined in input action map "GameActionMap".
+        /// Provides access to input actions defined in input action map "PC".
         /// </summary>
-        public struct GameActionMapActions
+        public struct PCActions
         {
             private @GameControls m_Wrapper;
 
             /// <summary>
             /// Construct a new instance of the input action map wrapper class.
             /// </summary>
-            public GameActionMapActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public PCActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             /// <summary>
-            /// Provides access to the underlying input action "GameActionMap/Movement".
+            /// Provides access to the underlying input action "PC/Movement".
             /// </summary>
-            public InputAction @Movement => m_Wrapper.m_GameActionMap_Movement;
+            public InputAction @Movement => m_Wrapper.m_PC_Movement;
             /// <summary>
-            /// Provides access to the underlying input action "GameActionMap/Jump".
+            /// Provides access to the underlying input action "PC/Jump".
             /// </summary>
-            public InputAction @Jump => m_Wrapper.m_GameActionMap_Jump;
+            public InputAction @Jump => m_Wrapper.m_PC_Jump;
             /// <summary>
-            /// Provides access to the underlying input action "GameActionMap/TogglePause".
+            /// Provides access to the underlying input action "PC/TogglePause".
             /// </summary>
-            public InputAction @TogglePause => m_Wrapper.m_GameActionMap_TogglePause;
+            public InputAction @TogglePause => m_Wrapper.m_PC_TogglePause;
+            /// <summary>
+            /// Provides access to the underlying input action "PC/AimPosition".
+            /// </summary>
+            public InputAction @AimPosition => m_Wrapper.m_PC_AimPosition;
+            /// <summary>
+            /// Provides access to the underlying input action "PC/Shoot".
+            /// </summary>
+            public InputAction @Shoot => m_Wrapper.m_PC_Shoot;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
-            public InputActionMap Get() { return m_Wrapper.m_GameActionMap; }
+            public InputActionMap Get() { return m_Wrapper.m_PC; }
             /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
             public void Enable() { Get().Enable(); }
             /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -415,9 +550,9 @@ namespace Game.InputHandling
             /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
             public bool enabled => Get().enabled;
             /// <summary>
-            /// Implicitly converts an <see ref="GameActionMapActions" /> to an <see ref="InputActionMap" /> instance.
+            /// Implicitly converts an <see ref="PCActions" /> to an <see ref="InputActionMap" /> instance.
             /// </summary>
-            public static implicit operator InputActionMap(GameActionMapActions set) { return set.Get(); }
+            public static implicit operator InputActionMap(PCActions set) { return set.Get(); }
             /// <summary>
             /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
             /// </summary>
@@ -425,11 +560,11 @@ namespace Game.InputHandling
             /// <remarks>
             /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
             /// </remarks>
-            /// <seealso cref="GameActionMapActions" />
-            public void AddCallbacks(IGameActionMapActions instance)
+            /// <seealso cref="PCActions" />
+            public void AddCallbacks(IPCActions instance)
             {
-                if (instance == null || m_Wrapper.m_GameActionMapActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_GameActionMapActionsCallbackInterfaces.Add(instance);
+                if (instance == null || m_Wrapper.m_PCActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_PCActionsCallbackInterfaces.Add(instance);
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
@@ -439,6 +574,12 @@ namespace Game.InputHandling
                 @TogglePause.started += instance.OnTogglePause;
                 @TogglePause.performed += instance.OnTogglePause;
                 @TogglePause.canceled += instance.OnTogglePause;
+                @AimPosition.started += instance.OnAimPosition;
+                @AimPosition.performed += instance.OnAimPosition;
+                @AimPosition.canceled += instance.OnAimPosition;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
             }
 
             /// <summary>
@@ -447,8 +588,8 @@ namespace Game.InputHandling
             /// <remarks>
             /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
             /// </remarks>
-            /// <seealso cref="GameActionMapActions" />
-            private void UnregisterCallbacks(IGameActionMapActions instance)
+            /// <seealso cref="PCActions" />
+            private void UnregisterCallbacks(IPCActions instance)
             {
                 @Movement.started -= instance.OnMovement;
                 @Movement.performed -= instance.OnMovement;
@@ -459,15 +600,21 @@ namespace Game.InputHandling
                 @TogglePause.started -= instance.OnTogglePause;
                 @TogglePause.performed -= instance.OnTogglePause;
                 @TogglePause.canceled -= instance.OnTogglePause;
+                @AimPosition.started -= instance.OnAimPosition;
+                @AimPosition.performed -= instance.OnAimPosition;
+                @AimPosition.canceled -= instance.OnAimPosition;
+                @Shoot.started -= instance.OnShoot;
+                @Shoot.performed -= instance.OnShoot;
+                @Shoot.canceled -= instance.OnShoot;
             }
 
             /// <summary>
-            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="GameActionMapActions.UnregisterCallbacks(IGameActionMapActions)" />.
+            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="PCActions.UnregisterCallbacks(IPCActions)" />.
             /// </summary>
-            /// <seealso cref="GameActionMapActions.UnregisterCallbacks(IGameActionMapActions)" />
-            public void RemoveCallbacks(IGameActionMapActions instance)
+            /// <seealso cref="PCActions.UnregisterCallbacks(IPCActions)" />
+            public void RemoveCallbacks(IPCActions instance)
             {
-                if (m_Wrapper.m_GameActionMapActionsCallbackInterfaces.Remove(instance))
+                if (m_Wrapper.m_PCActionsCallbackInterfaces.Remove(instance))
                     UnregisterCallbacks(instance);
             }
 
@@ -477,27 +624,167 @@ namespace Game.InputHandling
             /// <remarks>
             /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
             /// </remarks>
-            /// <seealso cref="GameActionMapActions.AddCallbacks(IGameActionMapActions)" />
-            /// <seealso cref="GameActionMapActions.RemoveCallbacks(IGameActionMapActions)" />
-            /// <seealso cref="GameActionMapActions.UnregisterCallbacks(IGameActionMapActions)" />
-            public void SetCallbacks(IGameActionMapActions instance)
+            /// <seealso cref="PCActions.AddCallbacks(IPCActions)" />
+            /// <seealso cref="PCActions.RemoveCallbacks(IPCActions)" />
+            /// <seealso cref="PCActions.UnregisterCallbacks(IPCActions)" />
+            public void SetCallbacks(IPCActions instance)
             {
-                foreach (var item in m_Wrapper.m_GameActionMapActionsCallbackInterfaces)
+                foreach (var item in m_Wrapper.m_PCActionsCallbackInterfaces)
                     UnregisterCallbacks(item);
-                m_Wrapper.m_GameActionMapActionsCallbackInterfaces.Clear();
+                m_Wrapper.m_PCActionsCallbackInterfaces.Clear();
                 AddCallbacks(instance);
             }
         }
         /// <summary>
-        /// Provides a new <see cref="GameActionMapActions" /> instance referencing this action map.
+        /// Provides a new <see cref="PCActions" /> instance referencing this action map.
         /// </summary>
-        public GameActionMapActions @GameActionMap => new GameActionMapActions(this);
+        public PCActions @PC => new PCActions(this);
+
+        // Mobile
+        private readonly InputActionMap m_Mobile;
+        private List<IMobileActions> m_MobileActionsCallbackInterfaces = new List<IMobileActions>();
+        private readonly InputAction m_Mobile_Movement;
+        private readonly InputAction m_Mobile_Jump;
+        private readonly InputAction m_Mobile_TogglePause;
+        private readonly InputAction m_Mobile_AimInput;
+        private readonly InputAction m_Mobile_Shoot;
         /// <summary>
-        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "GameActionMap" which allows adding and removing callbacks.
+        /// Provides access to input actions defined in input action map "Mobile".
         /// </summary>
-        /// <seealso cref="GameActionMapActions.AddCallbacks(IGameActionMapActions)" />
-        /// <seealso cref="GameActionMapActions.RemoveCallbacks(IGameActionMapActions)" />
-        public interface IGameActionMapActions
+        public struct MobileActions
+        {
+            private @GameControls m_Wrapper;
+
+            /// <summary>
+            /// Construct a new instance of the input action map wrapper class.
+            /// </summary>
+            public MobileActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            /// <summary>
+            /// Provides access to the underlying input action "Mobile/Movement".
+            /// </summary>
+            public InputAction @Movement => m_Wrapper.m_Mobile_Movement;
+            /// <summary>
+            /// Provides access to the underlying input action "Mobile/Jump".
+            /// </summary>
+            public InputAction @Jump => m_Wrapper.m_Mobile_Jump;
+            /// <summary>
+            /// Provides access to the underlying input action "Mobile/TogglePause".
+            /// </summary>
+            public InputAction @TogglePause => m_Wrapper.m_Mobile_TogglePause;
+            /// <summary>
+            /// Provides access to the underlying input action "Mobile/AimInput".
+            /// </summary>
+            public InputAction @AimInput => m_Wrapper.m_Mobile_AimInput;
+            /// <summary>
+            /// Provides access to the underlying input action "Mobile/Shoot".
+            /// </summary>
+            public InputAction @Shoot => m_Wrapper.m_Mobile_Shoot;
+            /// <summary>
+            /// Provides access to the underlying input action map instance.
+            /// </summary>
+            public InputActionMap Get() { return m_Wrapper.m_Mobile; }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+            public void Enable() { Get().Enable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+            public void Disable() { Get().Disable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+            public bool enabled => Get().enabled;
+            /// <summary>
+            /// Implicitly converts an <see ref="MobileActions" /> to an <see ref="InputActionMap" /> instance.
+            /// </summary>
+            public static implicit operator InputActionMap(MobileActions set) { return set.Get(); }
+            /// <summary>
+            /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <param name="instance">Callback instance.</param>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+            /// </remarks>
+            /// <seealso cref="MobileActions" />
+            public void AddCallbacks(IMobileActions instance)
+            {
+                if (instance == null || m_Wrapper.m_MobileActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_MobileActionsCallbackInterfaces.Add(instance);
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
+                @TogglePause.started += instance.OnTogglePause;
+                @TogglePause.performed += instance.OnTogglePause;
+                @TogglePause.canceled += instance.OnTogglePause;
+                @AimInput.started += instance.OnAimInput;
+                @AimInput.performed += instance.OnAimInput;
+                @AimInput.canceled += instance.OnAimInput;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
+            }
+
+            /// <summary>
+            /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <remarks>
+            /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+            /// </remarks>
+            /// <seealso cref="MobileActions" />
+            private void UnregisterCallbacks(IMobileActions instance)
+            {
+                @Movement.started -= instance.OnMovement;
+                @Movement.performed -= instance.OnMovement;
+                @Movement.canceled -= instance.OnMovement;
+                @Jump.started -= instance.OnJump;
+                @Jump.performed -= instance.OnJump;
+                @Jump.canceled -= instance.OnJump;
+                @TogglePause.started -= instance.OnTogglePause;
+                @TogglePause.performed -= instance.OnTogglePause;
+                @TogglePause.canceled -= instance.OnTogglePause;
+                @AimInput.started -= instance.OnAimInput;
+                @AimInput.performed -= instance.OnAimInput;
+                @AimInput.canceled -= instance.OnAimInput;
+                @Shoot.started -= instance.OnShoot;
+                @Shoot.performed -= instance.OnShoot;
+                @Shoot.canceled -= instance.OnShoot;
+            }
+
+            /// <summary>
+            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="MobileActions.UnregisterCallbacks(IMobileActions)" />.
+            /// </summary>
+            /// <seealso cref="MobileActions.UnregisterCallbacks(IMobileActions)" />
+            public void RemoveCallbacks(IMobileActions instance)
+            {
+                if (m_Wrapper.m_MobileActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            /// <summary>
+            /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+            /// </summary>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+            /// </remarks>
+            /// <seealso cref="MobileActions.AddCallbacks(IMobileActions)" />
+            /// <seealso cref="MobileActions.RemoveCallbacks(IMobileActions)" />
+            /// <seealso cref="MobileActions.UnregisterCallbacks(IMobileActions)" />
+            public void SetCallbacks(IMobileActions instance)
+            {
+                foreach (var item in m_Wrapper.m_MobileActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_MobileActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        /// <summary>
+        /// Provides a new <see cref="MobileActions" /> instance referencing this action map.
+        /// </summary>
+        public MobileActions @Mobile => new MobileActions(this);
+        /// <summary>
+        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "PC" which allows adding and removing callbacks.
+        /// </summary>
+        /// <seealso cref="PCActions.AddCallbacks(IPCActions)" />
+        /// <seealso cref="PCActions.RemoveCallbacks(IPCActions)" />
+        public interface IPCActions
         {
             /// <summary>
             /// Method invoked when associated input action "Movement" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
@@ -520,6 +807,63 @@ namespace Game.InputHandling
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnTogglePause(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "AimPosition" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnAimPosition(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Shoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnShoot(InputAction.CallbackContext context);
+        }
+        /// <summary>
+        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Mobile" which allows adding and removing callbacks.
+        /// </summary>
+        /// <seealso cref="MobileActions.AddCallbacks(IMobileActions)" />
+        /// <seealso cref="MobileActions.RemoveCallbacks(IMobileActions)" />
+        public interface IMobileActions
+        {
+            /// <summary>
+            /// Method invoked when associated input action "Movement" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnMovement(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Jump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnJump(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "TogglePause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnTogglePause(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "AimInput" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnAimInput(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Shoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnShoot(InputAction.CallbackContext context);
         }
     }
 }

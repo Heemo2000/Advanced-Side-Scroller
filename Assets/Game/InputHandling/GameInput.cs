@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.OnScreen;
 using Utilities.IOC;
 using Utilities.PauseHandling;
 
@@ -8,20 +9,25 @@ namespace Game.InputHandling
 {
     public class GameInput : MonoBehaviour, IPausable
     {
+        [SerializeField] private OnScreenStick _aimJoystick;
         private GameControls _gameControls;
         private bool _isPaused = false;
         private GamePauseManager _gamePauseManager;
 
         public event Action OnJump;
-        
+        public event Action OnShoot;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             _gameControls = new GameControls();
             _gameControls.Enable();
-            _gameControls.GameActionMap.Jump.started += OnJumpPressed;
-            _gameControls.GameActionMap.TogglePause.started += OnTogglePausePressed;
+            
+            _gameControls.PC.Jump.started += OnJumpPressed;
+            _gameControls.PC.TogglePause.started += OnTogglePausePressed;
+
+            _gameControls.Mobile.Jump.started += OnJumpPressed;
+            _gameControls.Mobile.TogglePause.started += OnTogglePausePressed;
         }
 
         
@@ -29,22 +35,41 @@ namespace Game.InputHandling
         private void OnDestroy()
         {
             _gameControls.Disable();
-            _gameControls.GameActionMap.Jump.started -= OnJumpPressed;
-            _gameControls.GameActionMap.TogglePause.started -= OnTogglePausePressed;
+            _gameControls.PC.Jump.started -= OnJumpPressed;
+            _gameControls.PC.TogglePause.started -= OnTogglePausePressed;
+
+            _gameControls.Mobile.Jump.started -= OnJumpPressed;
+            _gameControls.Mobile.TogglePause.started -= OnTogglePausePressed;
         }
 
         public void OnPause()
         {
             _isPaused = true;
-            _gameControls.GameActionMap.Movement.Disable();
-            _gameControls.GameActionMap.Jump.Disable();
+            _gameControls.PC.Movement.Disable();
+            _gameControls.PC.Jump.Disable();
+
+            _gameControls.Mobile.Movement.Disable();
+            _gameControls.Mobile.Jump.Disable();
         }
 
         public void OnResume()
         {
             _isPaused = false;
-            _gameControls.GameActionMap.Movement.Enable();
-            _gameControls.GameActionMap.Jump.Enable();
+            _gameControls.PC.Movement.Enable();
+            _gameControls.PC.Jump.Enable();
+
+            _gameControls.Mobile.Movement.Enable();
+            _gameControls.Mobile.Jump.Enable();
+        }
+
+        public Vector2 GetAimDirection()
+        {
+            if(!PlatformDetector.IsMobile())
+            {
+                return (_gameControls.PC.AimPosition.ReadValue<Vector2>() - new Vector2(Screen.width/2.0f, Screen.height/2.0f)).normalized;
+            }
+
+            return _gameControls.Mobile.AimInput.ReadValue<Vector2>().normalized;
         }
 
         public float GetMoveInput()
@@ -53,7 +78,9 @@ namespace Game.InputHandling
             {
                 return 0.0f;
             }
-            float moveInputX = _gameControls.GameActionMap.Movement.ReadValue<Vector2>().x;
+            float moveInputX = !PlatformDetector.IsMobile() ? 
+                                _gameControls.PC.Movement.ReadValue<Vector2>().x :
+                                _gameControls.Mobile.Movement.ReadValue<Vector2>().x;
             return moveInputX;
         }
 
@@ -64,7 +91,9 @@ namespace Game.InputHandling
                 return false;
             }
 
-            bool jumpHeld = _gameControls.GameActionMap.Jump.IsPressed();
+            bool jumpHeld = !PlatformDetector.IsMobile() ? 
+                             _gameControls.PC.Jump.IsPressed() :
+                             _gameControls.Mobile.Jump.IsPressed();
             return jumpHeld;
         }
 
