@@ -6,11 +6,13 @@ using Game.SoundHandling;
 using Game.SoundHandling.GenericSoundManagement;
 
 using Utilities.IOC;
+using Utilities.PauseHandling;
+
 #endregion
 
 namespace Game.WeaponHandling
 {
-    public class Pistol :  Weapon
+    public class Pistol :  Weapon, IPausable
     {
         #region Serialized Fields
         [Header("Reload Settings:")]
@@ -33,6 +35,7 @@ namespace Game.WeaponHandling
         private bool _isReloading = false;
         private int _currentAmmoCount = 0;
         private BulletPoolManager _bulletPoolManager = null;
+        private bool _isPaused = false;
         #endregion
 
         #region Unity Methods
@@ -44,6 +47,24 @@ namespace Game.WeaponHandling
             _gunReloadingSoundPlayer.OnAfterAllAudiosPlayed += RefillMagazine;
             _gunReloadingSoundPlayer.OnAfterAllAudiosPlayed += InvokeReloadEvent;
             _currentAmmoCount = _ammoCount;
+
+            ServiceLocator sceneServiceLocator = ServiceLocator.ForSceneOf(this);
+            if (sceneServiceLocator != null)
+            {
+                GamePauseManager gamePauseManager = sceneServiceLocator.Get<GamePauseManager>();
+                if (gamePauseManager != null)
+                {
+                    gamePauseManager.Register(this);
+                }
+                else
+                {
+                    GamePauseManager.RegisterStatically(this);
+                }
+            }
+            else
+            {
+                GamePauseManager.RegisterStatically(this);
+            }
         }
 
 
@@ -61,11 +82,26 @@ namespace Game.WeaponHandling
 
         #region Class Functionality
 
+        public void OnPause()
+        {
+            _isPaused = true;
+        }
+
+        public void OnResume()
+        {
+            _isPaused = false;
+        }
+
         public override void Use()
         {
+            if(_isPaused)
+            {
+                return;
+            }
+
             if (_isReloading)
             {
-                SoundManager soundManager = ServiceLocator.ForSceneOf(this).Get<SoundManager>();
+                SoundManager soundManager = ServiceLocator.Global.Get<SoundManager>();
                 soundManager.CreateSoundBuilder().Play(_emptyAmmoSound);
                 return;
             }

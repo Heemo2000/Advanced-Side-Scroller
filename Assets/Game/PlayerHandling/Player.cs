@@ -12,6 +12,8 @@ namespace Game.PlayerHandling
     public class Player : MonoBehaviour, IPausable
     {
         [SerializeField] private GameInput _gameInput;
+        
+        private WeaponManager _weaponManager;
         private PlayerMovement _movement;
         private bool _jumpLonger = false;
 
@@ -19,6 +21,7 @@ namespace Game.PlayerHandling
         private void Awake()
         {
             _movement = GetComponent<PlayerMovement>();
+            _weaponManager = GetComponent<WeaponManager>();
         }
 
         private void Start()
@@ -61,6 +64,8 @@ namespace Game.PlayerHandling
 
             bool jumpHeld = _gameInput.GetJumpHeldInput();
             _movement.SetJumpHeld(jumpHeld);
+
+            _weaponManager.AimDirection = _gameInput.GetAimDirection();
         }
 
         private void OnDestroy()
@@ -81,7 +86,6 @@ namespace Game.PlayerHandling
             _isPaused = false;
             
         }
-
 
         private void OnJump()
         {

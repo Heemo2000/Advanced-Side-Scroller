@@ -72,7 +72,7 @@ namespace Utilities.IOC
         {
             if(!_services.ContainsKey(service.GetType()))
             {
-                Debug.LogError("Service to remove does not exists in the first place");
+                Debug.LogError($"Service to remove {service.GetType().FullName} does not exists in the first place");
                 return false;
             }
 

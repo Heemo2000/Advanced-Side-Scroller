@@ -11,12 +11,12 @@ namespace Game.WeaponHandling
         #region Private Fields
         private int _currentWeaponIndex = -1;
 
-        private Vector2 _aimPosition = Vector2.zero;
+        private Vector2 _aimDirection = Vector2.zero;
         #endregion
 
         #region Properties
         
-        public Vector2 AimPosition { get { return _aimPosition; } }
+        public Vector2 AimDirection { get { return _aimDirection; } set => _aimDirection = value; }
         #endregion
 
         #region Unity Methods
@@ -54,10 +54,7 @@ namespace Game.WeaponHandling
             }
 
             Weapon currentWeapon = _weapons[_currentWeaponIndex];
-            Vector2 currentWeaponPosition = new Vector2(currentWeapon.transform.position.x, currentWeapon.transform.position.y);
-            Vector3 direction = (_aimPosition - currentWeaponPosition).normalized;
-
-            _weapons[_currentWeaponIndex].transform.forward = direction;
+            currentWeapon.transform.right = _aimDirection;
         }
         #endregion
     }

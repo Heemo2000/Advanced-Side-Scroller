@@ -41,6 +41,8 @@ namespace Utilities.IOC
                     GameObject globalSLGameObject = new GameObject(ServiceLocatorGlobalName);
                     ServiceLocatorGlobal globalSLInstance = globalSLGameObject.AddComponent<ServiceLocatorGlobal>();
                     globalSLInstance.DoBootstrapOnDemand();
+
+                    return _global;
                 }
 
                 return _global;
@@ -108,7 +110,7 @@ namespace Utilities.IOC
             {
                 Debug.LogError("ServiceLocator:ConfigureAsGlobal():: Already configured as global");
             }
-            else if(_global != this)
+            else if(_global != null)
             {
                 Debug.LogError("ServiceLocator:ConfigureAsGlobal():: Another instance already configured as global");
             }
