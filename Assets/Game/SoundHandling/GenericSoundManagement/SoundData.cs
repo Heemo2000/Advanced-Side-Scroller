@@ -3,6 +3,7 @@ using UnityEngine.Audio;
 
 namespace Game.SoundHandling.GenericSoundManagement
 {
+    [CreateAssetMenu(fileName = "Sound Data", menuName = "SOs/Sound Data")]
     public class SoundData : ScriptableObject
     {
         public AudioClip clip;

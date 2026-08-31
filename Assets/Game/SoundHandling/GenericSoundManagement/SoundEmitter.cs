@@ -77,7 +77,7 @@ namespace Game.SoundHandling.GenericSoundManagement
             }
 
             audioSource.Stop();
-            SoundManager soundManager = ServiceLocator.ForSceneOf(this).Get<SoundManager>();
+            SoundManager soundManager = ServiceLocator.Global.Get<SoundManager>();
             soundManager.ReturnToPool(this);
         }
     }

@@ -53,6 +53,11 @@ namespace Game.SoundHandling.GenericSoundManagement
             _registerInstanceUpdateExecutor.Execute(RegisterInstanceTimeInterval, RegisterInstance);
         }
 
+        private void OnDestroy()
+        {
+            ServiceLocator.Global.Remove(this);
+        }
+
         #endregion
 
 
@@ -141,9 +146,9 @@ namespace Game.SoundHandling.GenericSoundManagement
 
         private void RegisterInstance()
         {
-            if(!_registeredInstance && ServiceLocator.ForSceneOf(this) != null)
+            if(!_registeredInstance)
             {
-                ServiceLocator.ForSceneOf(this).Register(this);
+                ServiceLocator.Global.Register(this);
                 _registeredInstance = true;
             }
         }
