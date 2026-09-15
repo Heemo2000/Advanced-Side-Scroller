@@ -94,7 +94,7 @@ namespace Game.WeaponHandling
             _isPaused = false;
         }
 
-        public override void Use()
+        public override void SingleUse()
         {
             if(_isPaused)
             {
@@ -127,7 +127,54 @@ namespace Game.WeaponHandling
                     bullet.Initialize(_firePoint.position);
                     bullet.transform.right = _firePoint.right;
                     _currentAmmoCount--;
-                    OnUse?.Invoke();
+                    OnSingleUse?.Invoke();
+                }
+                else
+                {
+                    Reload();
+                }
+            }
+        }
+
+        public override void ContinousUse()
+        {
+            if (_isPaused)
+            {
+                return;
+            }
+
+            if (_isReloading)
+            {
+                SoundManager soundManager = ServiceLocator.Global.Get<SoundManager>();
+                soundManager.CreateSoundBuilder().Play(_emptyAmmoSound);
+                return;
+            }
+
+            if (_bulletPoolManager == null)
+            {
+                _bulletPoolManager = ServiceLocator.ForSceneOf(this).Get<BulletPoolManager>();
+            }
+
+            if(_bulletPoolManager == null)
+            {
+                return;
+            }
+
+            if (!_bulletPoolManager.IsPoolExists(_bulletPrefab))
+            {
+                _bulletPoolManager.CreateBulletPool(_bulletPrefab);
+            }
+
+            if (_currentFireTime < Time.time)
+            {
+                _currentFireTime = Time.time + _fireInterval;
+                if (_currentAmmoCount > 0)
+                {
+                    Bullet bullet = _bulletPoolManager.SpawnBullet(_bulletPrefab.GetInstanceID(), _firePoint.position);
+                    bullet.Initialize(_firePoint.position);
+                    bullet.transform.right = _firePoint.right;
+                    _currentAmmoCount--;
+                    OnContinousUse?.Invoke();
                 }
                 else
                 {

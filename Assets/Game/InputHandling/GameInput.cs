@@ -15,7 +15,8 @@ namespace Game.InputHandling
         private GamePauseManager _gamePauseManager;
 
         public event Action OnJump;
-        public event Action OnShoot;
+        public event Action OnSingleShoot;
+        public event Action OnContinousShoot;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -32,7 +33,12 @@ namespace Game.InputHandling
             _gameControls.Mobile.Shoot.performed += OnShootPerformed;
         }
 
-        
+        private void Update()
+        {
+            CheckForContinousShoot();
+        }
+
+
 
         private void OnDestroy()
         {
@@ -119,7 +125,23 @@ namespace Game.InputHandling
 
         private void OnShootPerformed(InputAction.CallbackContext context)
         {
-            OnShoot?.Invoke();
+            OnSingleShoot?.Invoke();
+        }
+
+        private void CheckForContinousShoot()
+        {
+            if (_isPaused)
+            {
+                return;
+            }
+
+            bool shootHeld = !PlatformDetector.IsMobile() ? _gameControls.PC.Shoot.IsPressed() :
+                                                            _gameControls.Mobile.Shoot.IsPressed();
+
+            if(shootHeld)
+            {
+                OnContinousShoot?.Invoke();
+            }
         }
     }
 }

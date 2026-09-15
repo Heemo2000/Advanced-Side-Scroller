@@ -36,14 +36,24 @@ namespace Game.WeaponHandling
 
         #region Class Functionality
 
-        public void Use()
+        public void SingleUse()
         {
             if(_currentWeaponIndex >= _weapons.Length)
             {
                 return;
             }
 
-            _weapons[_currentWeaponIndex].Use();
+            _weapons[_currentWeaponIndex].SingleUse();
+        }
+
+        public void ContinousUse()
+        {
+            if (_currentWeaponIndex >= _weapons.Length)
+            {
+                return;
+            }
+
+            _weapons[_currentWeaponIndex].ContinousUse();
         }
 
         private void HandleWeaponRotation()

@@ -32,7 +32,8 @@ namespace Game.PlayerHandling
             }
 
             _gameInput.OnJump += OnJump;
-            _gameInput.OnShoot += _weaponManager.Use;
+            _gameInput.OnSingleShoot += _weaponManager.SingleUse;
+            _gameInput.OnContinousShoot += _weaponManager.ContinousUse;
 
             ServiceLocator sceneServiceLocator = ServiceLocator.ForSceneOf(this);
             if (sceneServiceLocator != null)
@@ -74,7 +75,8 @@ namespace Game.PlayerHandling
             if (_gameInput != null)
             {
                 _gameInput.OnJump -= OnJump;
-                _gameInput.OnShoot -= _weaponManager.Use;
+                _gameInput.OnSingleShoot -= _weaponManager.SingleUse;
+                _gameInput.OnContinousShoot -= _weaponManager.ContinousUse;
             }
         }
 

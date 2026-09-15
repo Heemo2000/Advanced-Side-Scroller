@@ -8,13 +8,19 @@ namespace Game.WeaponHandling
         #region Events
 
         public Action OnReload;
-        public Action OnUse;
+        public Action OnSingleUse;
+        public Action OnContinousUse;
 
         #endregion
         #region Class Functionality
-        public virtual void Use()
+        public virtual void SingleUse()
         {
-            OnUse?.Invoke();
+            OnSingleUse?.Invoke();
+        }
+
+        public virtual void ContinousUse()
+        {
+            OnContinousUse?.Invoke();
         }
 
         public virtual void Reload()
