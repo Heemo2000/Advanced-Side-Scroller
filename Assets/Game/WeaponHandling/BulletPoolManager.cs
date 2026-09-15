@@ -1,13 +1,18 @@
 #region Headers
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities.IOC;
 using Utilities.ObjectPoolHandling;
+using Utilities.ThrottledUpdate;
 #endregion
 
 namespace Game.WeaponHandling
 {
     public class BulletPoolManager : MonoBehaviour
     {
+        #region Constants
+        private const float RegisterInstanceInterval = 1.0f;
+        #endregion
         #region Serialized Fields
         [Min(10)]
         [SerializeField] private int _maxBulletCount = 100;
@@ -15,7 +20,8 @@ namespace Game.WeaponHandling
         #region Private Fields
 
         private Dictionary<int, ObjectPool<Bullet>> _bulletDict;
-
+        private ThrottledUpdateExecutor _registerInstanceUpdateExecutor;
+        private bool _registeredInstance = false;
         #endregion
 
         #region Unity Methods
@@ -23,18 +29,18 @@ namespace Game.WeaponHandling
         private void Awake()
         {
             _bulletDict = new Dictionary<int, ObjectPool<Bullet>>();
+            _registerInstanceUpdateExecutor = new ThrottledUpdateExecutor();
         }
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        private void Update()
         {
-            
+            _registerInstanceUpdateExecutor.Execute(RegisterInstanceInterval, RegisterInstance);
         }
 
         #endregion
 
         #region Class Functionality
-        
+
         public bool IsPoolExists(Bullet prefab)
         {
             return _bulletDict.ContainsKey(prefab.GetInstanceID());
@@ -93,7 +99,7 @@ namespace Game.WeaponHandling
 
         private Bullet CreateBullet(Bullet prefab)
         {
-            Bullet bullet = Instantiate(prefab);
+            Bullet bullet = Instantiate(prefab, transform);
             bullet.gameObject.SetActive(false);
             return bullet;
         }
@@ -111,6 +117,20 @@ namespace Game.WeaponHandling
         private void OnBulletDestroy(Bullet bullet)
         {
             Destroy(bullet);
+        }
+
+        private void RegisterInstance()
+        {
+            if(_registeredInstance)
+            { 
+                return; 
+            }
+
+            if(ServiceLocator.ForSceneOf(this) != null)
+            {
+                _registeredInstance = true;
+                ServiceLocator.ForSceneOf(this).Register(this);
+            }
         }
         
         #endregion

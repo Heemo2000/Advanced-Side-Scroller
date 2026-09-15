@@ -25,9 +25,11 @@ namespace Game.InputHandling
             
             _gameControls.PC.Jump.started += OnJumpPressed;
             _gameControls.PC.TogglePause.started += OnTogglePausePressed;
+            _gameControls.PC.Shoot.performed += OnShootPerformed;
 
             _gameControls.Mobile.Jump.started += OnJumpPressed;
             _gameControls.Mobile.TogglePause.started += OnTogglePausePressed;
+            _gameControls.Mobile.Shoot.performed += OnShootPerformed;
         }
 
         
@@ -37,9 +39,11 @@ namespace Game.InputHandling
             _gameControls.Disable();
             _gameControls.PC.Jump.started -= OnJumpPressed;
             _gameControls.PC.TogglePause.started -= OnTogglePausePressed;
+            _gameControls.PC.Shoot.performed -= OnShootPerformed;
 
             _gameControls.Mobile.Jump.started -= OnJumpPressed;
             _gameControls.Mobile.TogglePause.started -= OnTogglePausePressed;
+            _gameControls.Mobile.Shoot.performed -= OnShootPerformed;
         }
 
         public void OnPause()
@@ -111,6 +115,11 @@ namespace Game.InputHandling
             }
 
             _gamePauseManager.Toggle();
+        }
+
+        private void OnShootPerformed(InputAction.CallbackContext context)
+        {
+            OnShoot?.Invoke();
         }
     }
 }

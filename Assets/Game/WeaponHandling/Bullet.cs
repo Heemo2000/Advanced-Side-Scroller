@@ -164,6 +164,11 @@ namespace Game.WeaponHandling
             _isPaused = false;
         }
 
+        public void Initialize(Vector2 startPosition)
+        {
+            _currentPosition = startPosition;
+        }
+
         private void DestroyBullet()
         {
             if (_bulletPoolManager != null)

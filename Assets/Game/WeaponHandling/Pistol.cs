@@ -34,8 +34,10 @@ namespace Game.WeaponHandling
         #region Private Fields
         private bool _isReloading = false;
         private int _currentAmmoCount = 0;
+        private float _currentFireTime = 0.0f;
         private BulletPoolManager _bulletPoolManager = null;
         private bool _isPaused = false;
+        
         #endregion
 
         #region Unity Methods
@@ -116,16 +118,21 @@ namespace Game.WeaponHandling
                 _bulletPoolManager.CreateBulletPool(_bulletPrefab);
             }
 
-            if(_currentAmmoCount > 0)
+            if(_currentFireTime < Time.time)
             {
-                Bullet bullet = _bulletPoolManager.SpawnBullet(_bulletPrefab.GetInstanceID(), _firePoint.position);
-                bullet.transform.right = _firePoint.right;
-                _currentAmmoCount--;
-                OnUse?.Invoke();
-            }
-            else
-            {
-                Reload();
+                _currentFireTime = Time.time + _fireInterval;
+                if (_currentAmmoCount > 0)
+                {
+                    Bullet bullet = _bulletPoolManager.SpawnBullet(_bulletPrefab.GetInstanceID(), _firePoint.position);
+                    bullet.Initialize(_firePoint.position);
+                    bullet.transform.right = _firePoint.right;
+                    _currentAmmoCount--;
+                    OnUse?.Invoke();
+                }
+                else
+                {
+                    Reload();
+                }
             }
         }
 

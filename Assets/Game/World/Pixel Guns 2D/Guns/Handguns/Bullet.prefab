@@ -218,7 +218,7 @@ MonoBehaviour:
   _maxBulletReflectHits: 5
   _damageLayerMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 2
   _damage: 10
   _destroyTime: 2
   _moveSpeed: 5
