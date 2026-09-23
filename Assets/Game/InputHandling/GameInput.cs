@@ -116,8 +116,8 @@ namespace Game.InputHandling
         {
             if(_gamePauseManager == null)
             {
-                _gamePauseManager = ServiceLocator.ForSceneOf(this).Get<GamePauseManager>();
-                _gamePauseManager.Register(this);
+                _gamePauseManager = ServiceLocator.Global.Get<GamePauseManager>();
+                GamePauseManager.Register(this);
             }
 
             _gamePauseManager.Toggle();

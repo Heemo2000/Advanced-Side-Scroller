@@ -50,23 +50,7 @@ namespace Game.WeaponHandling
             _gunReloadingSoundPlayer.OnAfterAllAudiosPlayed += InvokeReloadEvent;
             _currentAmmoCount = _ammoCount;
 
-            ServiceLocator sceneServiceLocator = ServiceLocator.ForSceneOf(this);
-            if (sceneServiceLocator != null)
-            {
-                GamePauseManager gamePauseManager = sceneServiceLocator.Get<GamePauseManager>();
-                if (gamePauseManager != null)
-                {
-                    gamePauseManager.Register(this);
-                }
-                else
-                {
-                    GamePauseManager.RegisterStatically(this);
-                }
-            }
-            else
-            {
-                GamePauseManager.RegisterStatically(this);
-            }
+            GamePauseManager.Register(this);
         }
 
 

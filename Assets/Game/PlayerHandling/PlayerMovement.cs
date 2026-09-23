@@ -109,23 +109,7 @@ namespace Game.PlayerHandling
             _currentPosition = transform.position;
             SetupParameters();
 
-            ServiceLocator sceneServiceLocator = ServiceLocator.ForSceneOf(this);
-            if(sceneServiceLocator != null)
-            {
-                GamePauseManager gamePauseManager = sceneServiceLocator.Get<GamePauseManager>();
-                if (gamePauseManager != null)
-                {
-                    gamePauseManager.Register(this);
-                }
-                else
-                {
-                    GamePauseManager.RegisterStatically(this);
-                }
-            }
-            else
-            {
-                GamePauseManager.RegisterStatically(this);
-            }
+            GamePauseManager.Register(this);
         }
 
         private void OnValidate()

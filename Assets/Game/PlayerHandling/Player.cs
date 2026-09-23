@@ -35,23 +35,7 @@ namespace Game.PlayerHandling
             _gameInput.OnSingleShoot += _weaponManager.SingleUse;
             _gameInput.OnContinousShoot += _weaponManager.ContinousUse;
 
-            ServiceLocator sceneServiceLocator = ServiceLocator.ForSceneOf(this);
-            if (sceneServiceLocator != null)
-            {
-                GamePauseManager gamePauseManager = sceneServiceLocator.Get<GamePauseManager>();
-                if (gamePauseManager != null)
-                {
-                    gamePauseManager.Register(this);
-                }
-                else
-                {
-                    GamePauseManager.RegisterStatically(this);
-                }
-            }
-            else
-            {
-                GamePauseManager.RegisterStatically(this);
-            }
+            GamePauseManager.Register(this);
         }
 
         private void Update()

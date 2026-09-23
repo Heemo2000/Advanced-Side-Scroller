@@ -62,23 +62,7 @@ namespace Game.WeaponHandling
             _bulletRB.bodyType = RigidbodyType2D.Kinematic;
             _bulletCollider.isTrigger = true;
 
-            ServiceLocator sceneServiceLocator = ServiceLocator.ForSceneOf(this);
-            if (sceneServiceLocator != null)
-            {
-                GamePauseManager pauseManager = sceneServiceLocator.Get<GamePauseManager>();
-                if(pauseManager != null)
-                {
-                    pauseManager.Register(this);
-                }
-                else
-                {
-                    GamePauseManager.RegisterStatically(this);
-                }
-            }
-            else
-            {
-                GamePauseManager.RegisterStatically(this);
-            }
+            GamePauseManager.Register(this);
         }
 
         private void OnEnable()

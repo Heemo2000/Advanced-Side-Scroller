@@ -7,41 +7,136 @@ namespace Utilities.PauseHandling
 {
     public class GamePauseManager : MonoBehaviour
     {
+        #region Serialized Fields 
+        #endregion
+
+        #region Events
         public event Action OnGamePaused;
         public event Action OnGameResumed;
+        #endregion
 
+        #region Static Fields 
         private static List<IPausable> PendingRegistrations;
-        private List<IPausable> _pausables;
-        private bool _gamePaused = false;
+        #endregion
 
+        #region Private Fields
+        private bool _isInitializing = false;
+        private bool _gamePaused = false;
+        private List<IPausable> _pausables;
+        #endregion
+
+        #region Properties
+        public bool GamePaused { get => _gamePaused; }
+        #endregion
+
+        #region Unity Methods
         private void Awake()
         {
+            _isInitializing = true;
             _pausables = new List<IPausable>();
+            _gamePaused = false;
         }
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            _gamePaused = false;
-            ServiceLocator.ForSceneOf(this).Register(this);
-            OnGamePaused += PausePausables;
-            OnGameResumed += ResumePausables;
-            CompletePendingPausableRegistrations();
+            ServiceLocator.Global.Register(this);
+            OnGameResumed += OnResumed;
+            OnGamePaused += OnPaused;
+            DoPendingRegistrations();
             ResumeGame();
+            _isInitializing = false;
+        }
+
+        private void Update()
+        {
+            if (PendingRegistrations != null && PendingRegistrations.Count > 0)
+            {
+                //Debug.Log("Adding remaining pausables");
+                foreach (IPausable pausable in PendingRegistrations)
+                {
+                    RegisterInstance(pausable);
+                }
+
+                PendingRegistrations.Clear();
+            }
+            else
+            {
+                //Debug.Log("Either PendingRegistrations is null or is empty");
+                if (PendingRegistrations != null)
+                {
+                    //Debug.Log("Pending Registrations Count: " + PendingRegistrations.Count);
+                }
+            }
         }
 
         private void OnDestroy()
         {
-            OnGamePaused -= PausePausables;
-            OnGameResumed -= ResumePausables;
-            ClearStaticVariables();
+            ServiceLocator.Global.Remove(this);
+
+            OnGameResumed -= OnResumed;
+            OnGamePaused -= OnPaused;
+            CleanupStaticVariables();
         }
 
-        public void Register(IPausable pausable)
+        #endregion
+
+        #region Class Functionality
+
+
+        /// <summary>
+        /// Initializes the Pending Registrations list for static registration.
+        /// </summary>
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void InitializePendingRegistrations()
         {
+            PendingRegistrations = new List<IPausable>();
+        }
+
+
+        /// <summary>
+        /// Registers the IPausable's on MonoBehaviour either through service locator or through static way.
+        /// Requires atleast one IPausable on MonoBehaviour.
+        /// </summary>
+        /// <param name="mb"></param>
+        public static void Register(MonoBehaviour mb)
+        {
+
+            IPausable[] pausables = mb.GetComponents<IPausable>();
+            if (pausables == null)
+            {
+                //Debug.LogError("Can't find IPausable interfaces on " +  mb.gameObject.name);
+                return;
+            }
+
+
+            GamePauseManager instance = ServiceLocator.Global.Get<GamePauseManager>();
+
+            foreach (IPausable pausable in pausables)
+            {
+                if (instance != null)
+                {
+                    instance.RegisterInstance(pausable);
+                }
+                else
+                {
+                    GamePauseManager.RegisterStatically(pausable);
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Registers the IPausable, and calls OnPause or OnResume based on whether a game is paused or not.
+        /// </summary>
+        /// <param name="pausable"></param>
+        private void RegisterInstance(IPausable pausable)
+        {
+
+            //Debug.Log("Registering locally");
+
             _pausables.Add(pausable);
 
-            if(_gamePaused)
+            if (_gamePaused)
             {
                 pausable.OnPause();
             }
@@ -49,83 +144,112 @@ namespace Utilities.PauseHandling
             {
                 pausable.OnResume();
             }
+
+            //Debug.Log("Pausables Count: " + _pausables.Count);
         }
 
-        public static void RegisterStatically(IPausable pausable)
+        /// <summary>
+        /// Adds the IPausable reference statically.
+        /// </summary>
+        /// <param name="pausable"></param>
+        private static void RegisterStatically(IPausable pausable)
         {
-            if(PendingRegistrations == null)
-            {
-                PendingRegistrations = new List<IPausable>();
-                Debug.Log("Creating new PendingRegistrations List");
-            }
+            //Debug.Log("Registering Statically");
 
-            Debug.Log("Adding new pausable to PendingRegistrations");
             PendingRegistrations.Add(pausable);
+
+            //Debug.Log("Pending Registrations Count after registering: " +  PendingRegistrations.Count);
         }
 
+        /// <summary>
+        /// Resumes the game.
+        /// </summary>
         public void ResumeGame()
         {
-            _gamePaused = false;
             OnGameResumed?.Invoke();
         }
 
-        public void PauseGame()
-        {
-            _gamePaused = true;
-            OnGamePaused?.Invoke();
-        }
-
+        /// <summary>
+        /// Used to toggle between a game paused state or game resume state.
+        /// </summary>
         public void Toggle()
         {
-            _gamePaused = !_gamePaused;
-            if (_gamePaused)
+            if (_isInitializing)
             {
-                OnGamePaused?.Invoke();
+                return;
             }
-            else
+
+            if (_gamePaused)
             {
                 OnGameResumed?.Invoke();
             }
-        }
-
-        private void CompletePendingPausableRegistrations()
-        {
-            if(PendingRegistrations != null)
+            else
             {
-                foreach(var pausable in PendingRegistrations)
-                {
-                    Debug.Log("Adding " + pausable.GetType().FullName + " to Pending Registrations");
-                    _pausables.Add(pausable);
-                }
-                PendingRegistrations.Clear();
+                OnGamePaused?.Invoke();
             }
         }
 
-        private static void ClearStaticVariables()
+
+        /// <summary>
+        /// Cleanes all the static variables during this instance destruction phase.
+        /// </summary>
+        private void CleanupStaticVariables()
         {
-            if(PendingRegistrations != null)
+            if (PendingRegistrations == null)
             {
-                PendingRegistrations.Clear();
-                PendingRegistrations = null;
+                return;
             }
+
+            PendingRegistrations.Clear();
+            PendingRegistrations = null;
         }
 
-        private void ResumePausables()
+        /// <summary>
+        /// Adds all the IPausable's from static list to actual _pausables list.
+        /// </summary>
+        private void DoPendingRegistrations()
         {
-            foreach(IPausable pausable in _pausables)
+            if (PendingRegistrations == null)
+            {
+                return;
+            }
+
+            _pausables.AddRange(PendingRegistrations);
+            PendingRegistrations.Clear();
+        }
+
+
+        /// <summary>
+        /// Method which gets called when a game is resumed.
+        /// It makes all IPausable's call OnResume.
+        /// </summary>
+        private void OnResumed()
+        {
+            _gamePaused = false;
+
+            foreach (IPausable pausable in _pausables)
             {
                 pausable.OnResume();
             }
+
+            //Debug.Log("Pausable Count while resuming: " + _pausables.Count);
         }
 
-        private void PausePausables()
+        /// <summary>
+        /// Method which gets called when a game is paused.
+        /// It makes all IPausable's call OnPause.
+        /// </summary>
+        private void OnPaused()
         {
+            _gamePaused = true;
+
             foreach (IPausable pausable in _pausables)
             {
                 pausable.OnPause();
             }
+            //Debug.Log("Pausable Count while pausing: " + _pausables.Count);
         }
 
-        
+        #endregion
     }
 }
