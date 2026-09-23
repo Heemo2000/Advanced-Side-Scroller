@@ -217,6 +217,77 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &111727963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3728040553190588705, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+  m_PrefabInstance: {fileID: 4265641689803439427}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &111727965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111727963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c901a4e7ed62044597fb3bb4529fb37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.WeaponHandling.WeaponScreenShake
+  _shootType: 0
+--- !u!114 &111727966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111727963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
+  ImpulseDefinition:
+    ImpulseChannel: 1
+    ImpulseShape: 2
+    CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ImpulseDuration: 0.2
+    ImpulseType: 0
+    DissipationRate: 0.25
+    RawSignal: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    RepeatMode: 0
+    Randomize: 1
+    TimeEnvelope:
+      AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      AttackTime: 0
+      SustainTime: 0.2
+      DecayTime: 0.7
+      ScaleWithImpact: 1
+      HoldForever: 0
+    ImpactRadius: 100
+    DirectionMode: 0
+    DissipationMode: 2
+    DissipationDistance: 100
+    PropagationSpeed: 343
+  DefaultVelocity: {x: 0, y: -1, z: 0}
 --- !u!1 &293629791
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,6 +742,77 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &639206179 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7544023274546209541, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+  m_PrefabInstance: {fileID: 4265641689803439427}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &639206181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639206179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c901a4e7ed62044597fb3bb4529fb37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.WeaponHandling.WeaponScreenShake
+  _shootType: 1
+--- !u!114 &639206182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639206179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
+  ImpulseDefinition:
+    ImpulseChannel: 1
+    ImpulseShape: 2
+    CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ImpulseDuration: 0.2
+    ImpulseType: 0
+    DissipationRate: 0.25
+    RawSignal: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    RepeatMode: 0
+    Randomize: 1
+    TimeEnvelope:
+      AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      AttackTime: 0
+      SustainTime: 0.2
+      DecayTime: 0.7
+      ScaleWithImpact: 1
+      HoldForever: 0
+    ImpactRadius: 100
+    DirectionMode: 0
+    DissipationMode: 2
+    DissipationDistance: 100
+    PropagationSpeed: 343
+  DefaultVelocity: {x: 0, y: -1, z: 0}
 --- !u!1 &650002904
 GameObject:
   m_ObjectHideFlags: 0
@@ -1740,6 +1882,7 @@ GameObject:
   - component: {fileID: 1279475362}
   - component: {fileID: 1279475361}
   - component: {fileID: 1279475360}
+  - component: {fileID: 1279475363}
   m_Layer: 0
   m_Name: Player Following Camera
   m_TagString: Untagged
@@ -1836,6 +1979,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1279475363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279475359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseListener
+  ApplyAfter: 2
+  ChannelMask: 1
+  Gain: 1
+  Use2DDistance: 0
+  UseCameraSpace: 1
+  SignalCombinationMode: 0
+  ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1284823967
 GameObject:
   m_ObjectHideFlags: 0
@@ -2195,6 +2362,77 @@ Transform:
   - {fileID: 293629793}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1606821094 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8443311286016783840, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+  m_PrefabInstance: {fileID: 4265641689803439427}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1606821096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606821094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c901a4e7ed62044597fb3bb4529fb37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.WeaponHandling.WeaponScreenShake
+  _shootType: 1
+--- !u!114 &1606821097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606821094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
+  ImpulseDefinition:
+    ImpulseChannel: 1
+    ImpulseShape: 2
+    CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ImpulseDuration: 0.2
+    ImpulseType: 0
+    DissipationRate: 0.25
+    RawSignal: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    RepeatMode: 0
+    Randomize: 1
+    TimeEnvelope:
+      AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      AttackTime: 0
+      SustainTime: 0.2
+      DecayTime: 0.7
+      ScaleWithImpact: 1
+      HoldForever: 0
+    ImpactRadius: 100
+    DirectionMode: 0
+    DissipationMode: 2
+    DissipationDistance: 100
+    PropagationSpeed: 343
+  DefaultVelocity: {x: 0, y: -1, z: 0}
 --- !u!1 &1628806675
 GameObject:
   m_ObjectHideFlags: 0
@@ -2718,10 +2956,32 @@ PrefabInstance:
       propertyPath: _gameInput
       value: 
       objectReference: {fileID: 1278691975}
+    - target: {fileID: 9006244661838330234, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: _maxShotsComingOut
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8443311286016783840, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1606821097}
+    - targetCorrespondingSourceObject: {fileID: 8443311286016783840, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1606821096}
+    - targetCorrespondingSourceObject: {fileID: 7544023274546209541, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 639206182}
+    - targetCorrespondingSourceObject: {fileID: 7544023274546209541, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 639206181}
+    - targetCorrespondingSourceObject: {fileID: 3728040553190588705, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 111727966}
+    - targetCorrespondingSourceObject: {fileID: 3728040553190588705, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 111727965}
   m_SourcePrefab: {fileID: 100100000, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
