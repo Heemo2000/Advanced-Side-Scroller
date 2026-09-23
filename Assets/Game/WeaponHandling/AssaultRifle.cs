@@ -95,7 +95,10 @@ namespace Game
                 _soundManager = ServiceLocator.Global.Get<SoundManager>();
             }
 
-            _soundManager.CreateSoundBuilder().WithPosition(transform.position).Play(_emptyAmmoSound);
+            if (_currentAmmoCount == 0)
+            {
+                _soundManager.CreateSoundBuilder().WithPosition(transform.position).Play(_emptyAmmoSound);
+            }
         }
 
         public override void ContinousUse()
