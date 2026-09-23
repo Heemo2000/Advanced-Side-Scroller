@@ -6,7 +6,7 @@ namespace Game.SoundHandling.GenericSoundManagement
     [CreateAssetMenu(fileName = "Sound Data", menuName = "SOs/Sound Data")]
     public class SoundData : ScriptableObject
     {
-        public AudioClip clip;
+        public AudioClip[] clips;
         public AudioMixerGroup mixerGroup;
         public bool loop;
         public bool playOnAwake;
@@ -18,7 +18,9 @@ namespace Game.SoundHandling.GenericSoundManagement
         public bool bypassReverbZones;
 
         public int priority = 128;
+        [Range(0f, 1f)]
         public float volume = 1f;
+        [Range (0f, 3f)]
         public float pitch = 1f;
         public float panStereo;
         public float spatialBlend;

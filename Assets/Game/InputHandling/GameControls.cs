@@ -138,6 +138,24 @@ namespace Game.InputHandling
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PreviousWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""ada20aa0-c592-42fe-8ca5-0c0872eaceb8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""ca302bee-4010-4193-9687-4b3f68ffa3b2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -294,6 +312,28 @@ namespace Game.InputHandling
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3b0817d-db97-43ff-a68b-3c2e8f3c8ca8"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PreviousWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""73accdd3-ec21-4beb-a46d-b5f389e6ca7a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -341,6 +381,24 @@ namespace Game.InputHandling
                     ""name"": ""Shoot"",
                     ""type"": ""Button"",
                     ""id"": ""679d0cb4-2e9c-485d-a76b-d48d115760ec"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PreviousWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""78722523-667a-4307-806a-c123c2fcad85"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""978f3f11-205c-4474-8d3d-da5e99bff4b6"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -402,6 +460,28 @@ namespace Game.InputHandling
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb7fa505-26ee-4c4b-9d80-f1ca83779e28"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PreviousWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b1615062-ab02-47dc-90ab-d2a34c178446"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -415,6 +495,8 @@ namespace Game.InputHandling
             m_PC_TogglePause = m_PC.FindAction("TogglePause", throwIfNotFound: true);
             m_PC_AimPosition = m_PC.FindAction("AimPosition", throwIfNotFound: true);
             m_PC_Shoot = m_PC.FindAction("Shoot", throwIfNotFound: true);
+            m_PC_PreviousWeapon = m_PC.FindAction("PreviousWeapon", throwIfNotFound: true);
+            m_PC_NextWeapon = m_PC.FindAction("NextWeapon", throwIfNotFound: true);
             // Mobile
             m_Mobile = asset.FindActionMap("Mobile", throwIfNotFound: true);
             m_Mobile_Movement = m_Mobile.FindAction("Movement", throwIfNotFound: true);
@@ -422,6 +504,8 @@ namespace Game.InputHandling
             m_Mobile_TogglePause = m_Mobile.FindAction("TogglePause", throwIfNotFound: true);
             m_Mobile_AimInput = m_Mobile.FindAction("AimInput", throwIfNotFound: true);
             m_Mobile_Shoot = m_Mobile.FindAction("Shoot", throwIfNotFound: true);
+            m_Mobile_PreviousWeapon = m_Mobile.FindAction("PreviousWeapon", throwIfNotFound: true);
+            m_Mobile_NextWeapon = m_Mobile.FindAction("NextWeapon", throwIfNotFound: true);
         }
 
         ~@GameControls()
@@ -508,6 +592,8 @@ namespace Game.InputHandling
         private readonly InputAction m_PC_TogglePause;
         private readonly InputAction m_PC_AimPosition;
         private readonly InputAction m_PC_Shoot;
+        private readonly InputAction m_PC_PreviousWeapon;
+        private readonly InputAction m_PC_NextWeapon;
         /// <summary>
         /// Provides access to input actions defined in input action map "PC".
         /// </summary>
@@ -539,6 +625,14 @@ namespace Game.InputHandling
             /// Provides access to the underlying input action "PC/Shoot".
             /// </summary>
             public InputAction @Shoot => m_Wrapper.m_PC_Shoot;
+            /// <summary>
+            /// Provides access to the underlying input action "PC/PreviousWeapon".
+            /// </summary>
+            public InputAction @PreviousWeapon => m_Wrapper.m_PC_PreviousWeapon;
+            /// <summary>
+            /// Provides access to the underlying input action "PC/NextWeapon".
+            /// </summary>
+            public InputAction @NextWeapon => m_Wrapper.m_PC_NextWeapon;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -580,6 +674,12 @@ namespace Game.InputHandling
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @PreviousWeapon.started += instance.OnPreviousWeapon;
+                @PreviousWeapon.performed += instance.OnPreviousWeapon;
+                @PreviousWeapon.canceled += instance.OnPreviousWeapon;
+                @NextWeapon.started += instance.OnNextWeapon;
+                @NextWeapon.performed += instance.OnNextWeapon;
+                @NextWeapon.canceled += instance.OnNextWeapon;
             }
 
             /// <summary>
@@ -606,6 +706,12 @@ namespace Game.InputHandling
                 @Shoot.started -= instance.OnShoot;
                 @Shoot.performed -= instance.OnShoot;
                 @Shoot.canceled -= instance.OnShoot;
+                @PreviousWeapon.started -= instance.OnPreviousWeapon;
+                @PreviousWeapon.performed -= instance.OnPreviousWeapon;
+                @PreviousWeapon.canceled -= instance.OnPreviousWeapon;
+                @NextWeapon.started -= instance.OnNextWeapon;
+                @NextWeapon.performed -= instance.OnNextWeapon;
+                @NextWeapon.canceled -= instance.OnNextWeapon;
             }
 
             /// <summary>
@@ -648,6 +754,8 @@ namespace Game.InputHandling
         private readonly InputAction m_Mobile_TogglePause;
         private readonly InputAction m_Mobile_AimInput;
         private readonly InputAction m_Mobile_Shoot;
+        private readonly InputAction m_Mobile_PreviousWeapon;
+        private readonly InputAction m_Mobile_NextWeapon;
         /// <summary>
         /// Provides access to input actions defined in input action map "Mobile".
         /// </summary>
@@ -679,6 +787,14 @@ namespace Game.InputHandling
             /// Provides access to the underlying input action "Mobile/Shoot".
             /// </summary>
             public InputAction @Shoot => m_Wrapper.m_Mobile_Shoot;
+            /// <summary>
+            /// Provides access to the underlying input action "Mobile/PreviousWeapon".
+            /// </summary>
+            public InputAction @PreviousWeapon => m_Wrapper.m_Mobile_PreviousWeapon;
+            /// <summary>
+            /// Provides access to the underlying input action "Mobile/NextWeapon".
+            /// </summary>
+            public InputAction @NextWeapon => m_Wrapper.m_Mobile_NextWeapon;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -720,6 +836,12 @@ namespace Game.InputHandling
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @PreviousWeapon.started += instance.OnPreviousWeapon;
+                @PreviousWeapon.performed += instance.OnPreviousWeapon;
+                @PreviousWeapon.canceled += instance.OnPreviousWeapon;
+                @NextWeapon.started += instance.OnNextWeapon;
+                @NextWeapon.performed += instance.OnNextWeapon;
+                @NextWeapon.canceled += instance.OnNextWeapon;
             }
 
             /// <summary>
@@ -746,6 +868,12 @@ namespace Game.InputHandling
                 @Shoot.started -= instance.OnShoot;
                 @Shoot.performed -= instance.OnShoot;
                 @Shoot.canceled -= instance.OnShoot;
+                @PreviousWeapon.started -= instance.OnPreviousWeapon;
+                @PreviousWeapon.performed -= instance.OnPreviousWeapon;
+                @PreviousWeapon.canceled -= instance.OnPreviousWeapon;
+                @NextWeapon.started -= instance.OnNextWeapon;
+                @NextWeapon.performed -= instance.OnNextWeapon;
+                @NextWeapon.canceled -= instance.OnNextWeapon;
             }
 
             /// <summary>
@@ -821,6 +949,20 @@ namespace Game.InputHandling
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnShoot(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "PreviousWeapon" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnPreviousWeapon(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "NextWeapon" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnNextWeapon(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Mobile" which allows adding and removing callbacks.
@@ -864,6 +1006,20 @@ namespace Game.InputHandling
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnShoot(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "PreviousWeapon" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnPreviousWeapon(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "NextWeapon" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnNextWeapon(InputAction.CallbackContext context);
         }
     }
 }

@@ -5,8 +5,8 @@ namespace Game.SoundHandling.GenericSoundManagement
     public class SoundBuilder
     {
         readonly SoundManager soundManager;
-        Vector3 position = Vector3.zero;
-
+        private Vector3 _position = Vector3.zero;
+        private float _pitch = 1.0f;
         public SoundBuilder(SoundManager soundManager)
         {
             this.soundManager = soundManager;
@@ -14,7 +14,13 @@ namespace Game.SoundHandling.GenericSoundManagement
 
         public SoundBuilder WithPosition(Vector3 position)
         {
-            this.position = position;
+            this._position = position;
+            return this;
+        }
+
+        public SoundBuilder WithRandomPitch(float minPitch = 0.1f, float maxPitch = 0.2f)
+        {
+            this._pitch = Random.Range(minPitch, maxPitch + 0.1f);
             return this;
         }
 
@@ -30,7 +36,8 @@ namespace Game.SoundHandling.GenericSoundManagement
 
             SoundEmitter soundEmitter = soundManager.Get();
             soundEmitter.Initialize(soundData);
-            soundEmitter.transform.position = position;
+            soundEmitter.transform.position = _position;
+            soundEmitter.Data.pitch = _pitch;
             soundEmitter.transform.parent = soundManager.transform;
 
             if (soundData.frequentSound)

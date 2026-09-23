@@ -88,6 +88,7 @@ namespace Game.SoundHandling
                 _audioSource.Play();
                 yield return new WaitWhile(()=>  _audioSource.isPlaying || _isPaused);
                 _audioSource.Stop();
+                yield return new WaitForSeconds(0.2f);
             }
 
             OnAfterAllAudiosPlayed?.Invoke();

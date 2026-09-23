@@ -34,7 +34,8 @@ namespace Game.PlayerHandling
             _gameInput.OnJump += OnJump;
             _gameInput.OnSingleShoot += _weaponManager.SingleUse;
             _gameInput.OnContinousShoot += _weaponManager.ContinousUse;
-
+            _gameInput.OnPreviousWeapon += _weaponManager.SelectPreviousWeapon;
+            _gameInput.OnNextWeapon += _weaponManager.SelectNextWeapon;
             GamePauseManager.Register(this);
         }
 
@@ -61,6 +62,8 @@ namespace Game.PlayerHandling
                 _gameInput.OnJump -= OnJump;
                 _gameInput.OnSingleShoot -= _weaponManager.SingleUse;
                 _gameInput.OnContinousShoot -= _weaponManager.ContinousUse;
+                _gameInput.OnPreviousWeapon -= _weaponManager.SelectPreviousWeapon;
+                _gameInput.OnNextWeapon -= _weaponManager.SelectNextWeapon;
             }
         }
 

@@ -17,6 +17,8 @@ namespace Game.InputHandling
         public event Action OnJump;
         public event Action OnSingleShoot;
         public event Action OnContinousShoot;
+        public event Action OnPreviousWeapon;
+        public event Action OnNextWeapon;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -27,10 +29,14 @@ namespace Game.InputHandling
             _gameControls.PC.Jump.started += OnJumpPressed;
             _gameControls.PC.TogglePause.started += OnTogglePausePressed;
             _gameControls.PC.Shoot.performed += OnShootPerformed;
+            _gameControls.PC.PreviousWeapon.started += OnPreviousWeaponBtnPressed;
+            _gameControls.PC.NextWeapon.started += OnNextWeaponBtnPressed;
 
             _gameControls.Mobile.Jump.started += OnJumpPressed;
             _gameControls.Mobile.TogglePause.started += OnTogglePausePressed;
             _gameControls.Mobile.Shoot.performed += OnShootPerformed;
+            _gameControls.Mobile.PreviousWeapon.started += OnPreviousWeaponBtnPressed;
+            _gameControls.Mobile.NextWeapon.started += OnNextWeaponBtnPressed;
         }
 
         private void Update()
@@ -46,10 +52,14 @@ namespace Game.InputHandling
             _gameControls.PC.Jump.started -= OnJumpPressed;
             _gameControls.PC.TogglePause.started -= OnTogglePausePressed;
             _gameControls.PC.Shoot.performed -= OnShootPerformed;
+            _gameControls.PC.PreviousWeapon.started += OnPreviousWeaponBtnPressed;
+            _gameControls.PC.NextWeapon.started += OnNextWeaponBtnPressed;
 
             _gameControls.Mobile.Jump.started -= OnJumpPressed;
             _gameControls.Mobile.TogglePause.started -= OnTogglePausePressed;
             _gameControls.Mobile.Shoot.performed -= OnShootPerformed;
+            _gameControls.Mobile.PreviousWeapon.started += OnPreviousWeaponBtnPressed;
+            _gameControls.Mobile.NextWeapon.started += OnNextWeaponBtnPressed;
         }
 
         public void OnPause()
@@ -128,6 +138,16 @@ namespace Game.InputHandling
             OnSingleShoot?.Invoke();
         }
 
+        private void OnPreviousWeaponBtnPressed(InputAction.CallbackContext context)
+        {
+            OnPreviousWeapon?.Invoke();
+        }
+
+        private void OnNextWeaponBtnPressed(InputAction.CallbackContext context)
+        {
+            OnNextWeapon?.Invoke();
+        }
+
         private void CheckForContinousShoot()
         {
             if (_isPaused)
@@ -143,5 +163,7 @@ namespace Game.InputHandling
                 OnContinousShoot?.Invoke();
             }
         }
+
+
     }
 }

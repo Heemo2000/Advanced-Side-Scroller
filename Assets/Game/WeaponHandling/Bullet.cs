@@ -111,18 +111,20 @@ namespace Game.WeaponHandling
             }
             else if((colliderLayerMask & _bulletReflectCheckMask.value) != 0)
             {
+                Debug.Log("Detected reflection collider");
                 if(_currentBulletReflectHits >= _maxBulletReflectHits)
                 {
                     DestroyBullet();
                     return;
                 }
                 Vector2 rightDir = new Vector2(transform.right.x, transform.right.y);
-                RaycastHit2D hit = Physics2D.Linecast(_currentPosition,
-                                                      _currentPosition + rightDir * _bulletReflectCheckDistance,
+                Vector2 checkPosition = _currentPosition;
+                RaycastHit2D hit = Physics2D.Linecast(checkPosition,
+                                                      checkPosition + rightDir * _bulletReflectCheckDistance,
                                                       _bulletReflectCheckMask.value);
 
                 Vector2 reflectRightDir = Vector2.Reflect(rightDir, hit.normal);
-
+                Debug.DrawLine(checkPosition, checkPosition + hit.normal * _bulletReflectCheckDistance, Color.red, 1.0f);
                 transform.right = reflectRightDir;
                 _currentBulletReflectHits++;
             }

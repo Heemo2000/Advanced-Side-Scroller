@@ -24,7 +24,13 @@ namespace Game.WeaponHandling
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            foreach (Weapon weapon in _weapons)
+            {
+                weapon.gameObject.SetActive(false);
+            }
+
             _currentWeaponIndex = 0;
+            _weapons[0].gameObject.SetActive(true);
         }
 
         private void Update()
@@ -35,6 +41,33 @@ namespace Game.WeaponHandling
         #endregion
 
         #region Class Functionality
+
+        public void SelectPreviousWeapon()
+        {
+            _weapons[_currentWeaponIndex].gameObject.SetActive(false);
+            
+            _currentWeaponIndex--;
+            if(_currentWeaponIndex < 0)
+            {
+                _currentWeaponIndex = _weapons.Length - 1;
+            }
+            
+            _weapons[_currentWeaponIndex].gameObject.SetActive(true);
+        }
+
+        public void SelectNextWeapon()
+        {
+            _weapons[_currentWeaponIndex].gameObject.SetActive(false);
+
+            _currentWeaponIndex++;
+            if (_currentWeaponIndex >= _weapons.Length)
+            {
+                _currentWeaponIndex = 0;
+            }
+            
+            _weapons[_currentWeaponIndex].gameObject.SetActive(true);
+        }
+
 
         public void SingleUse()
         {

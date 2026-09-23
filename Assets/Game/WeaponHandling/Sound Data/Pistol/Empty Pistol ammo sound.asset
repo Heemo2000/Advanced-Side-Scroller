@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c62c3d20a9930740aad635abb6690cd, type: 3}
-  m_Name: Empty ammo sound
+  m_Name: Empty Pistol ammo sound
   m_EditorClassIdentifier: Game::Game.SoundHandling.GenericSoundManagement.SoundData
-  clip: {fileID: 8300000, guid: 98809d2fe68d3ef4ebb406d5ade3df36, type: 3}
+  clips:
+  - {fileID: 8300000, guid: 74b34124f68768a4eb45af871e0f7606, type: 3}
   mixerGroup: {fileID: 24300002, guid: 4979b0e94dca8e3479003553b365b815, type: 2}
   loop: 0
   playOnAwake: 0

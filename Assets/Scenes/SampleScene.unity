@@ -2714,14 +2714,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8124273046565761032, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: _fireInterval
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8660869242927725668, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
       propertyPath: _gameInput
       value: 
       objectReference: {fileID: 1278691975}
+    - target: {fileID: 8842980296078440098, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: clipsToPlay.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8842980296078440098, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: 'clipsToPlay.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 0de87080feb9e4d46b1133b7a197ac4e, type: 3}
+    - target: {fileID: 8842980296078440098, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: 'clipsToPlay.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 17e1fac9dd649c048a8e57b51b3b7d0e, type: 3}
+    - target: {fileID: 8842980296078440098, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: 'clipsToPlay.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 82ab12c3d05cb3244a685281f8934e26, type: 3}
+    - target: {fileID: 8842980296078440098, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: 'clipsToPlay.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 0de87080feb9e4d46b1133b7a197ac4e, type: 3}
+    - target: {fileID: 8842980296078440098, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: 'clipsToPlay.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 17e1fac9dd649c048a8e57b51b3b7d0e, type: 3}
+    - target: {fileID: 8842980296078440098, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: 'clipsToPlay.Array.data[5]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 82ab12c3d05cb3244a685281f8934e26, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

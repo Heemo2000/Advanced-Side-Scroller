@@ -15,8 +15,10 @@ namespace Game.WeaponHandling
     public class Pistol :  Weapon, IPausable
     {
         #region Serialized Fields
+        
         [Header("Reload Settings:")]
         [SerializeField] private MultipleSoundPlayer _gunReloadingSoundPlayer; 
+        
         [Header("Bullet Settings:")]
         [SerializeField] private Bullet _bulletPrefab;
         [Min(0.1f)]
@@ -24,8 +26,15 @@ namespace Game.WeaponHandling
         [SerializeField] private Transform _firePoint;
         [Min(5)]
         [SerializeField] private int _ammoCount = 10;
-        [SerializeField] private SoundData _emptyAmmoSound;
         
+        [Header("Sound Settings:")]
+        [SerializeField] private SoundData _emptyAmmoSound;
+        [SerializeField] private SoundData _shootingSound;
+        [Range(0.0f, 1.0f)]
+        [SerializeField] private float _minShootingPitch = 0.6f;
+        [Range(0.0f, 1.0f)]
+        [SerializeField] private float _maxShootingPitch = 1.5f;
+
         #endregion
         #region Properties
 
@@ -37,6 +46,7 @@ namespace Game.WeaponHandling
         private float _currentFireTime = 0.0f;
         private BulletPoolManager _bulletPoolManager = null;
         private bool _isPaused = false;
+        private SoundManager _soundManager = null;
         
         #endregion
 
@@ -80,7 +90,12 @@ namespace Game.WeaponHandling
 
         public override void SingleUse()
         {
-            
+            if (_soundManager == null)
+            {
+                _soundManager = ServiceLocator.Global.Get<SoundManager>();
+            }
+
+            _soundManager.CreateSoundBuilder().WithPosition(transform.position).Play(_emptyAmmoSound);
         }
 
         public override void ContinousUse()
@@ -90,11 +105,9 @@ namespace Game.WeaponHandling
                 return;
             }
 
-            if (_isReloading)
+            if (_soundManager == null)
             {
-                SoundManager soundManager = ServiceLocator.Global.Get<SoundManager>();
-                soundManager.CreateSoundBuilder().Play(_emptyAmmoSound);
-                return;
+                _soundManager = ServiceLocator.Global.Get<SoundManager>();
             }
 
             if (_bulletPoolManager == null)
@@ -102,7 +115,7 @@ namespace Game.WeaponHandling
                 _bulletPoolManager = ServiceLocator.ForSceneOf(this).Get<BulletPoolManager>();
             }
 
-            if(_bulletPoolManager == null)
+            if (_bulletPoolManager == null)
             {
                 return;
             }
@@ -120,11 +133,13 @@ namespace Game.WeaponHandling
                     Bullet bullet = _bulletPoolManager.SpawnBullet(_bulletPrefab.GetInstanceID(), _firePoint.position);
                     bullet.Initialize(_firePoint.position);
                     bullet.transform.right = _firePoint.right;
+                    _soundManager.CreateSoundBuilder().WithPosition(transform.position).WithRandomPitch(_minShootingPitch, _maxShootingPitch).Play(_shootingSound);
                     _currentAmmoCount--;
                     OnContinousUse?.Invoke();
                 }
                 else
                 {
+
                     Reload();
                 }
             }
@@ -132,7 +147,10 @@ namespace Game.WeaponHandling
 
         public override void Reload()
         {
-            _gunReloadingSoundPlayer.Play();
+            if (!_gunReloadingSoundPlayer.IsPlaying)
+            {
+                _gunReloadingSoundPlayer.Play();
+            }
         }
 
         private void InvokeReloadEvent()

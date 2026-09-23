@@ -27,8 +27,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.2, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1262213807128826775}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8bc4d8bb69117f34db9281ee027aa11f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 5456863136408523671}
   - component: {fileID: 8034616137518344847}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Pistol Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &5456863136408523671
 BoxCollider2D:
@@ -197,7 +197,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.43086052, y: 0.22353005}
+  m_Size: {x: 0.28724033, y: 0.22353005}
   m_EdgeRadius: 0
 --- !u!114 &8034616137518344847
 MonoBehaviour:
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f103829967eb8547bfbd44582613370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.WeaponHandling.Bullet
-  _bulletReflectCheckDistance: 0.5
+  _bulletReflectCheckDistance: 1
   _bulletReflectCheckMask:
     serializedVersion: 2
     m_Bits: 64

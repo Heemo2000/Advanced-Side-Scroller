@@ -23,7 +23,7 @@ namespace Game.SoundHandling.GenericSoundManagement
         public void Initialize(SoundData data)
         {
             Data = data;
-            audioSource.clip = data.clip;
+            audioSource.clip = data.clips[Random.Range(0, data.clips.Length)];
             audioSource.outputAudioMixerGroup = data.mixerGroup;
             audioSource.loop = data.loop;
             audioSource.playOnAwake = data.playOnAwake;
