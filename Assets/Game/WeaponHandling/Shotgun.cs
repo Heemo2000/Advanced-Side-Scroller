@@ -134,7 +134,7 @@ namespace Game
             if (_currentAmmoCount > 0)
             {
                 _currentDelta = 0.0f;
-                _deltaToAdd = _spreadRange / (float)(_maxShotsComingOut);
+                _deltaToAdd = 1.0f / (float)(_maxShotsComingOut);
                 _currentAngle = _spreadRange / 2.0f;
 
                 while(_currentDelta <= 1.0f)
