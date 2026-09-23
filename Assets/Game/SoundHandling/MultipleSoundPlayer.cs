@@ -102,7 +102,7 @@ namespace Game.SoundHandling
             {
                 _audioSource.clip = clip;
                 _audioSource.Play();
-                yield return new WaitUntil(()=>  _audioSource.isPlaying || _isPaused);
+                yield return new WaitWhile(()=>  _audioSource.isPlaying || _isPaused);
                 _audioSource.Stop();
             }
 
