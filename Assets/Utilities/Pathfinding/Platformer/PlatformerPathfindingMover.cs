@@ -150,19 +150,27 @@ namespace Utilities.Pathfinding.Platformer
             {
                 return;
             }
+            _platformPathfindingManager.FindPathNodes(transform.position, destination, OnPathFound, OnPathNotFound);
+        }
 
+        public void ForcefullyStop()
+        {
+            _shouldStop = true;
+        }
 
-            _destination = destination;
-            _currentPath = _platformPathfindingManager.FindPathNodes(transform.position, destination);
+        private void OnPathFound(List<IAstarNode> path)
+        {
+            _destination = path[path.Count - 1].WorldPos;
+            _currentPath = path;
             _currentPathCount = _currentPath.Count;
             _currentWaypointIndex = 0;
             _isAlreadyReachedDestination = false;
             _shouldStop = false;
         }
 
-        public void ForcefullyStop()
+        private void OnPathNotFound()
         {
-            _shouldStop = true;
+
         }
 
         private void HandleOverallMovement()

@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -6,15 +8,32 @@ namespace Utilities.Pathfinding.Platformer
 {
     public class PlatformerPathfindingManager : MonoBehaviour
     {
+        #region Enums
+        public enum Stage
+        {
+            None = -1,
+            SearchNodes,
+            ActualPathfinding,
+            InvokingEvents
+        }
+
+        #endregion
+
         #region Constants
         private const float RegisterInstanceCheckInterval = 1.0f;
         #endregion
         [SerializeField] private Tilemap _tilemap;
         [SerializeField] private List<PlatformerGraphAstarNode> _nodesList;
+        [SerializeField] private float _eachPathfindingPhaseTime = 0.03f;
 
         private PlatformerGraph _graph;
         private AstarPathfinding _pathfinding;
-
+        private Queue<PlatformerPathfindingPathRequest> _requests;
+        private Stage _currentStage = Stage.None;
+        PlatformerGraphAstarNode _nodeA = null;
+        PlatformerGraphAstarNode _nodeB = null;
+        private List<IAstarNode> _pathList = null;
+        private Coroutine _pathRequestCoroutine = null;
         public List<PlatformerGraphAstarNode> NodesList { get => _nodesList; set => _nodesList = value; }
 
         private void Start()
@@ -23,7 +42,7 @@ namespace Utilities.Pathfinding.Platformer
             {
                 _nodesList = GenerateNodesAndPartiallyCreateConnections();
             }
-            
+
             _graph = new PlatformerGraph(_nodesList);
             _pathfinding = new AstarPathfinding(_graph, EuclideanHeuristic, true);
             ServiceLocator sceneServiceLocator = ServiceLocator.ForSceneOf(this);
@@ -38,7 +57,7 @@ namespace Utilities.Pathfinding.Platformer
         /// <returns>List of nodes with partial connections.</returns>
         public List<PlatformerGraphAstarNode> GenerateNodesAndPartiallyCreateConnections()
         {
-            if(_tilemap == null)
+            if (_tilemap == null)
             {
                 throw new System.ArgumentException("The property _tilemap is null!");
             }
@@ -50,7 +69,7 @@ namespace Utilities.Pathfinding.Platformer
             List<PlatformerGraphAstarNode> nodesList = new List<PlatformerGraphAstarNode>();
 
             //This dictionary is responsible for storing a list of nodes which are at same X-axis position.
-            Dictionary<int, List<PlatformerGraphAstarNode>> nodesInXAxisDict = 
+            Dictionary<int, List<PlatformerGraphAstarNode>> nodesInXAxisDict =
                             new Dictionary<int, List<PlatformerGraphAstarNode>>();
 
             Dictionary<int, List<PlatformerGraphAstarNode>> nodesInYAxisDict =
@@ -67,7 +86,7 @@ namespace Utilities.Pathfinding.Platformer
                 for (int y = 0; y < tilemapBounds.size.y; y++)
                 {
                     TileBase tile = allTiles[x + y * tilemapBounds.size.x];
-                    if(tile != null)
+                    if (tile != null)
                     {
                         Vector3Int cellPos = new Vector3Int(tilemapBounds.xMin + x, tilemapBounds.yMin + y, 0);
                         Vector3Int topPos = cellPos + Vector3Int.up;
@@ -82,14 +101,14 @@ namespace Utilities.Pathfinding.Platformer
                         node.WorldPos = _tilemap.GetCellCenterWorld(topPos) - Vector3.up * _tilemap.cellSize.y / 2.0f;
                         nodesList.Add(node);
 
-                        if(!nodesInXAxisDict.ContainsKey(topPos.x))
+                        if (!nodesInXAxisDict.ContainsKey(topPos.x))
                         {
                             nodesInXAxisDict.Add(topPos.x, new List<PlatformerGraphAstarNode>());
                         }
 
                         nodesInXAxisDict[topPos.x].Add(node);
 
-                        if(!nodesInYAxisDict.ContainsKey(topPos.y))
+                        if (!nodesInYAxisDict.ContainsKey(topPos.y))
                         {
                             nodesInYAxisDict.Add(topPos.y, new List<PlatformerGraphAstarNode>());
                         }
@@ -102,14 +121,14 @@ namespace Utilities.Pathfinding.Platformer
             }
 
             //Now, find and connect neighbours.
-            foreach(PlatformerGraphAstarNode node in nodesList)
+            foreach (PlatformerGraphAstarNode node in nodesList)
             {
                 Vector3Int position = positionsDict[node.GetInstanceID()];
 
                 //First, connect nodes which are just left or right of each other.
                 Vector3Int justLeftPosition = new Vector3Int(position.x - 1, position.y, position.z);
                 Vector3Int justRightPosition = new Vector3Int(position.x + 1, position.y, position.z);
-                
+
                 List<IAstarNode> iNeighbours = new List<IAstarNode>();
 
                 //If the particular position exists in both x-axis nodes dictionary and y-axis nodes dictionary, then add that node.
@@ -120,15 +139,15 @@ namespace Utilities.Pathfinding.Platformer
                     var justLeftNodesY = nodesInYAxisDict[justLeftPosition.y];
 
                     PlatformerGraphAstarNode justLeftNode = null;
-                    foreach(var a in justLeftNodesX)
+                    foreach (var a in justLeftNodesX)
                     {
-                        if(justLeftNode != null)
+                        if (justLeftNode != null)
                         {
                             break;
                         }
-                        foreach(var b in justLeftNodesY)
+                        foreach (var b in justLeftNodesY)
                         {
-                            if(a.GetInstanceID() == b.GetInstanceID())
+                            if (a.GetInstanceID() == b.GetInstanceID())
                             {
                                 justLeftNode = a;
                                 break;
@@ -136,7 +155,7 @@ namespace Utilities.Pathfinding.Platformer
                         }
                     }
 
-                    if(justLeftNode != null)
+                    if (justLeftNode != null)
                     {
                         iNeighbours.Add(justLeftNode);
                     }
@@ -175,7 +194,7 @@ namespace Utilities.Pathfinding.Platformer
             }
 
 
-            
+
             return nodesList;
         }
 
@@ -187,17 +206,82 @@ namespace Utilities.Pathfinding.Platformer
             return _pathfinding.FindPath(nodeA, nodeB);
         }
 
-        public List<IAstarNode> FindPathNodes(Vector2 positionA,  Vector2 positionB)
+        public void FindPathNodes(Vector2 positionA, Vector2 positionB, 
+                                              Action<List<IAstarNode>> onPathFoundCallback = null, 
+                                              Action onPathNotFoundCallback = null)
         {
-            PlatformerGraphAstarNode nodeA = _graph.FindNode(positionA);
-            PlatformerGraphAstarNode nodeB = _graph.FindNode(positionB);
-
-            return _pathfinding.FindPathNodes(nodeA, nodeB);
+            if(_requests == null)
+            {
+                _requests = new Queue<PlatformerPathfindingPathRequest>();
+            }
+            _requests.Enqueue(new PlatformerPathfindingPathRequest(positionA, positionB, onPathFoundCallback, onPathNotFoundCallback));
+            
+            if(_pathRequestCoroutine == null)
+            {
+                _pathRequestCoroutine = StartCoroutine(HandlePathfinding());
+            }
         }
 
         private int EuclideanHeuristic(IAstarNode nodeA, IAstarNode nodeB)
         {
             return (int)Vector2.SqrMagnitude(nodeB.WorldPos - nodeA.WorldPos);
+        }
+
+        private IEnumerator HandlePathfinding()
+        {
+            while (_requests.Count > 0)
+            {
+                PlatformerPathfindingPathRequest request = _requests.Dequeue();
+
+                if (_currentStage == Stage.None)
+                {
+                    _currentStage = Stage.SearchNodes;
+                }
+                float startingTime = Time.time;
+
+                while (_currentStage != Stage.None)
+                {
+                    if((Time.time - startingTime) < _eachPathfindingPhaseTime)
+                    {
+                        yield return null;
+                        continue;
+                    }
+                    else
+                    {
+                        startingTime = Time.time;
+                    }
+
+                    switch (_currentStage)
+                    {
+                        case Stage.SearchNodes:
+                    
+                            _nodeA = _graph.FindNode(request.positionA);
+                            _nodeB = _graph.FindNode(request.positionB);
+                            _currentStage = Stage.ActualPathfinding;
+                            break;
+                    
+                        case Stage.ActualPathfinding:
+                    
+                            _pathList = _pathfinding.FindPathNodes(_nodeA, _nodeB);
+                            _currentStage = Stage.InvokingEvents;
+                            break;
+                        case Stage.InvokingEvents:
+                    
+                            if (_pathList == null)
+                            {
+                                request.OnPathNotFound?.Invoke();
+                            }
+                            else
+                            {
+                                request.OnPathFound?.Invoke(_pathList);
+                            }
+                            _currentStage = Stage.None;
+                            break;
+                    }
+                }
+            }
+            
+            _pathRequestCoroutine = null;
         }
     }
 }

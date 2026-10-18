@@ -15,6 +15,7 @@ namespace Utilities.Pathfinding.Platformer
     {
         private const string TilemapPropertyName = "_tilemap";
         private const string NodesListPropertyName = "_nodesList";
+        private const string EachPathfindingPhaseTimeName = "_eachPathfindingPhaseTime";
         private const float MinOrthographicSize = 6.0f;
 
         private GUIStyle _labelStyle = null;
@@ -29,6 +30,10 @@ namespace Utilities.Pathfinding.Platformer
             SerializedProperty nodesListProperty = serializedObject.FindProperty(NodesListPropertyName);
 
             root.Add(new PropertyField(nodesListProperty));
+
+            SerializedProperty eachPathfindingPhaseTimeProperty = serializedObject.FindProperty(EachPathfindingPhaseTimeName);
+
+            root.Add(new PropertyField(eachPathfindingPhaseTimeProperty));
 
             Button createNodesAndPartiallyCreateConnections = new Button(()=>
             {
