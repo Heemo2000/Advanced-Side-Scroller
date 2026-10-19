@@ -198,14 +198,6 @@ namespace Utilities.Pathfinding.Platformer
             return nodesList;
         }
 
-        public List<Vector2> FindPath(Vector2 positionA, Vector2 positionB)
-        {
-            PlatformerGraphAstarNode nodeA = _graph.FindNode(positionA);
-            PlatformerGraphAstarNode nodeB = _graph.FindNode(positionB);
-
-            return _pathfinding.FindPath(nodeA, nodeB);
-        }
-
         public void FindPathNodes(Vector2 positionA, Vector2 positionB, 
                                               Action<List<IAstarNode>> onPathFoundCallback = null, 
                                               Action onPathNotFoundCallback = null)

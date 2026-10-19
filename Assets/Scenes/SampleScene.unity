@@ -2185,6 +2185,7 @@ MonoBehaviour:
   - {fileID: 406887060}
   - {fileID: 302778550}
   - {fileID: 293629792}
+  _eachPathfindingPhaseTime: 0.03
 --- !u!4 &1451396452
 Transform:
   m_ObjectHideFlags: 0
