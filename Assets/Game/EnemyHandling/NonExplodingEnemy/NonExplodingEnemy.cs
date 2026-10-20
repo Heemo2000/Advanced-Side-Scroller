@@ -29,8 +29,13 @@ namespace Game.EnemyHandling
         [SerializeField] private float _pathSearchingInterval = 0.5f;
 
         [Header("Attack Settings:")]
+        [Min(0.1f)]
         [SerializeField] private float _attackDistance = 5.0f;
         [SerializeField] private NonExplodingEnemyAttackMechanic _attackMechanic;
+        [Min(0.1f)]
+        [SerializeField] private float _attackTime = 2.0f;
+        [Min(0.1f)]
+        [SerializeField] private float _attackWaitTime = 3.0f;
 
         [Header("Target Settings:")]
         [SerializeField] private Transform _target;
@@ -53,6 +58,8 @@ namespace Game.EnemyHandling
         public PlatformerPathfindingMover Mover { get => _mover; }
         public float PathSearchingInterval { get => _pathSearchingInterval; }
         public NonExplodingEnemyAttackMechanic AttackMechanic { get => _attackMechanic; }
+        public float AttackTime { get => _attackTime; }
+        public float AttackWaitTime { get => _attackWaitTime; set => _attackWaitTime = value; }
         #endregion
 
         #region Unity Methods
