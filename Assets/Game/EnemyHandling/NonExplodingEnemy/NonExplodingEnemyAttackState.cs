@@ -6,7 +6,7 @@ namespace Game
 {
     public class NonExplodingEnemyAttackState : StateBase
     {
-        private NonExplodingEnemy _enemy;
+        private readonly NonExplodingEnemy _enemy;
         private float _currentTime = 0.0f;
         public NonExplodingEnemyAttackState(NonExplodingEnemy enemy) : base(false, false)
         {

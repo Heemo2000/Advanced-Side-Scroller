@@ -5,7 +5,7 @@ namespace Game.EnemyHandling
 {
     public class NonExplodingEnemyPatrolState : StateBase
     {
-        private NonExplodingEnemy _enemy;
+        private readonly NonExplodingEnemy _enemy;
         private int _patrolIndex = 0;
         private bool _shouldStop = false;
         private float _currentStopTime = 0.0f;

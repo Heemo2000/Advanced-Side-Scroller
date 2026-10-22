@@ -5,7 +5,7 @@ namespace Game.EnemyHandling
 {
     public class NonExplodingEnemyChaseState : StateBase
     {
-        private NonExplodingEnemy _enemy;
+        private readonly NonExplodingEnemy _enemy;
         private float _currentTime = 0.0f;
         public NonExplodingEnemyChaseState(NonExplodingEnemy enemy) : base(false, false)
         {

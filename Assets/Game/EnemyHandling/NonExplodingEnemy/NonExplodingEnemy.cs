@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityHFSM;
 using Utilities.Pathfinding.Platformer;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 namespace Game.EnemyHandling
 {
-    public class NonExplodingEnemy : MonoBehaviour
+    public class NonExplodingEnemy : MonoBehaviour, IEnemy
     {
         #region Static Variables
 
@@ -54,7 +57,7 @@ namespace Game.EnemyHandling
         public float PatrolSpeed { get => _patrolSpeed; }
         public float PatrolStopTime { get => _patrolStopTime; }
         public float ChaseSpeed { get => _chaseSpeed; }
-        public Transform Target { get => _target; }
+        public Transform Target { get => _target; set => _target = value; }
         public PlatformerPathfindingMover Mover { get => _mover; }
         public float PathSearchingInterval { get => _pathSearchingInterval; }
         public NonExplodingEnemyAttackMechanic AttackMechanic { get => _attackMechanic; }
@@ -95,6 +98,18 @@ namespace Game.EnemyHandling
         void Update()
         {
             _fsm.OnLogic();
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            #if UNITY_EDITOR
+            
+            Handles.color = Color.yellow;
+            Handles.DrawWireDisc(transform.position, Vector3.forward, _chaseDistance);
+
+            Handles.color = Color.red;
+            Handles.DrawWireDisc(transform.position, Vector3.forward, _attackDistance);
+            #endif
         }
 
         #endregion
