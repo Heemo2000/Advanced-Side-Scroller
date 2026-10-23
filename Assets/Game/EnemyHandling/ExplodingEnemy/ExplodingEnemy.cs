@@ -2,7 +2,8 @@ using System;
 using UnityEngine;
 using UnityHFSM;
 using Utilities.Pathfinding.Platformer;
-
+using Game.CoreHandling;
+using Utilities.IOC;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -43,6 +44,9 @@ namespace Game.EnemyHandling
 
         [Header("Target Settings:")]
         [SerializeField] private Transform _target;
+
+        [Header("Death Settings:")]
+        [SerializeField] private ParticleSystem _explodeEffect;
         #endregion
 
         #region Private Fields
@@ -51,7 +55,7 @@ namespace Game.EnemyHandling
         private ExplodingEnemyChaseState _chaseState;
         private ExplodingEnemyExplodeState _explodeState;
         private PlatformerPathfindingMover _mover;
-
+        private Health _health;
         #endregion
 
         #region Properties
@@ -65,10 +69,12 @@ namespace Game.EnemyHandling
         public float ExplodeDamage { get => _explodeDamage; }
         public float ExplodeRange { get => _explodeRange; }
         public float BeforeExplodeTime { get => _beforeExplodeTime; }
+        public Health Health { get => _health; }
         #endregion
 
         #region Events
-        public event Action OnBeforeExplode;
+        public event Action OnExplosionTimerStarts;
+        public event Action<float> OnBeforeExplode;
         public event Action OnExplode;
         #endregion
 
@@ -78,6 +84,7 @@ namespace Game.EnemyHandling
         void Awake()
         {
             _mover = GetComponent<PlatformerPathfindingMover>();
+            _health = GetComponent<Health>();
 
             _fsm = new StateMachine();
             _patrolState = new ExplodingEnemyPatrolState(this);
@@ -88,10 +95,9 @@ namespace Game.EnemyHandling
             _fsm.AddState(ChaseStateName, _chaseState);
             _fsm.AddState(ExplodeStateName, _explodeState);
 
-            _fsm.AddTransition(new Transition(PatrolStateName, ChaseStateName, t => Vector2.SqrMagnitude(_target.position - transform.position) <= _chaseDistance * _chaseDistance));
-            _fsm.AddTransition(new Transition(ChaseStateName, PatrolStateName, t => Vector2.SqrMagnitude(_target.position - transform.position) > _chaseDistance * _chaseDistance));
-
-            _fsm.AddTransition(new Transition(ChaseStateName, ExplodeStateName, t => Vector2.SqrMagnitude(_target.position - transform.position) <= _explodeDistance * _explodeDistance));
+            _fsm.AddTransition(new Transition(PatrolStateName, ChaseStateName, PatrolToChaseTransition));
+            _fsm.AddTransition(new Transition(ChaseStateName, PatrolStateName, ChaseToPatrolTransition));
+            _fsm.AddTransition(new Transition(ChaseStateName, ExplodeStateName, ChaseToExplodeTransition));
         }
 
         private void OnEnable()
@@ -99,10 +105,20 @@ namespace Game.EnemyHandling
             _fsm.SetStartState(PatrolStateName);
         }
 
+        private void Start()
+        {
+            OnExplode += SpawnExplodeEffect;
+        }
+
         // Update is called once per frame
         void Update()
         {
             _fsm.OnLogic();
+        }
+
+        private void OnDestroy()
+        {
+            OnExplode -= SpawnExplodeEffect;
         }
 
         private void OnDrawGizmosSelected()
@@ -121,9 +137,14 @@ namespace Game.EnemyHandling
 
         #region Class Functionality
 
-        public void InvokeBeforeExplodeEvent()
+        public void InvokeExplosionTimerStartsEvent()
         {
-            OnBeforeExplode?.Invoke();
+            OnExplosionTimerStarts?.Invoke();
+        }
+
+        public void InvokeBeforeExplodeEvent(float remainingTime)
+        {
+            OnBeforeExplode?.Invoke(remainingTime);
         }
 
         public void InvokeExplodeEvent()
@@ -131,6 +152,48 @@ namespace Game.EnemyHandling
             OnExplode?.Invoke();
         }
 
+
+        private bool PatrolToChaseTransition(Transition<string> t)
+        {
+            if(_target == null)
+            {
+                return false;
+            }
+
+            if(Vector2.SqrMagnitude(_target.position - transform.position) <= _chaseDistance * _chaseDistance)
+            {
+                return Physics2D.Linecast(transform.position, _target.position, ~(1 << _target.gameObject.layer));
+            }
+
+            return false;
+        }
+
+        private bool ChaseToPatrolTransition(Transition<string> t)
+        {
+            if (_target == null)
+            {
+                return false;
+            }
+
+
+            return Vector2.SqrMagnitude(_target.position - transform.position) > _chaseDistance * _chaseDistance;
+        }
+
+        private bool ChaseToExplodeTransition(Transition<string> t)
+        {
+            if (_target == null)
+            {
+                return false;
+            }
+
+            return Vector2.SqrMagnitude(_target.position - transform.position) <= _explodeDistance * _explodeDistance;
+        }
+
+        private void SpawnExplodeEffect()
+        {
+            ParticleSystemObjectPoolManager poolManager = ServiceLocator.ForSceneOf(this).Get<ParticleSystemObjectPoolManager>();
+            poolManager.SpawnEffect(_explodeEffect, transform.position);
+        }
         #endregion
     }
 }

@@ -42,7 +42,7 @@ namespace Game
                 if(_remainingTime > 0.0f)
                 {
                     _remainingTime -= Time.deltaTime;
-                    _enemy.InvokeBeforeExplodeEvent();
+                    _enemy.InvokeBeforeExplodeEvent(_remainingTime);
                 }
                 else
                 {
@@ -62,6 +62,7 @@ namespace Game
         {
             _startExplodeTimer = true;
             _remainingTime = _enemy.BeforeExplodeTime;
+            _enemy.InvokeExplosionTimerStartsEvent();
         }
 
         private void Explode()
@@ -71,6 +72,8 @@ namespace Game
                 Health health = _detectedColliders[0].transform.GetComponent<Health>();
                 health.TakeDamage(_enemy.ExplodeDamage, HealthDamageType.Explode);
             }
+
+            _enemy.Health.TakeDamage(_enemy.Health.MaxAmount, HealthDamageType.Explode);
         }
 
         #endregion

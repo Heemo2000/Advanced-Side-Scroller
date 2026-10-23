@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityHFSM;
 using Utilities.Pathfinding.Platformer;
+using Game.CoreHandling;
+using Utilities.IOC;
+
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -42,6 +46,9 @@ namespace Game.EnemyHandling
 
         [Header("Target Settings:")]
         [SerializeField] private Transform _target;
+
+        [Header("Death Settings:")]
+        [SerializeField] private ParticleSystem _deathEffect;
         #endregion
 
         #region Private Fields
@@ -50,6 +57,7 @@ namespace Game.EnemyHandling
         private NonExplodingEnemyChaseState _chaseState;
         private NonExplodingEnemyAttackState _attackState;
         private PlatformerPathfindingMover _mover;
+        private Health _health;
         #endregion
 
         #region Properties
@@ -71,6 +79,7 @@ namespace Game.EnemyHandling
         void Awake()
         {
             _mover = GetComponent<PlatformerPathfindingMover>();
+            _health = GetComponent<Health>();
 
             _fsm = new StateMachine();
             _patrolState = new NonExplodingEnemyPatrolState(this);
@@ -94,10 +103,20 @@ namespace Game.EnemyHandling
             _fsm.SetStartState(PatrolStateName);
         }
 
+        private void Start()
+        {
+            _health.OnDeath += OnDeath;
+        }
+
         // Update is called once per frame
         void Update()
         {
             _fsm.OnLogic();
+        }
+
+        private void OnDestroy()
+        {
+            _health.OnDeath -= OnDeath;
         }
 
         private void OnDrawGizmosSelected()
@@ -116,7 +135,11 @@ namespace Game.EnemyHandling
 
         #region Class Functionality
 
-
+        private void OnDeath(HealthDamageType damageType)
+        {
+            ParticleSystemObjectPoolManager poolManager = ServiceLocator.ForSceneOf(this).Get<ParticleSystemObjectPoolManager>();
+            poolManager.SpawnEffect(_deathEffect, transform.position);
+        }
 
         #endregion
     }
