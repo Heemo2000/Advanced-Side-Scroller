@@ -3,6 +3,8 @@ using UnityHFSM;
 using Utilities.Pathfinding.Platformer;
 using Game.CoreHandling;
 using Utilities.IOC;
+using Utilities.PauseHandling;
+
 
 
 #if UNITY_EDITOR
@@ -10,7 +12,7 @@ using UnityEditor;
 #endif
 namespace Game.EnemyHandling
 {
-    public class NonExplodingEnemy : MonoBehaviour, IEnemy
+    public class NonExplodingEnemy : MonoBehaviour, IEnemy, IPausable
     {
         #region Static Variables
 
@@ -22,7 +24,6 @@ namespace Game.EnemyHandling
 
         #region Serialized Fields
         [Header("Patrol Settings:")]
-        [Min(0.1f)]
         [SerializeField] private Transform[] _patrolPoints;
         [SerializeField] private float _patrolSpeed = 5.0f;
         [SerializeField] private float _patrolStopTime = 2.0f;
@@ -58,6 +59,7 @@ namespace Game.EnemyHandling
         private NonExplodingEnemyAttackState _attackState;
         private PlatformerPathfindingMover _mover;
         private Health _health;
+        private bool _isPaused = false;
         #endregion
 
         #region Properties
@@ -101,17 +103,31 @@ namespace Game.EnemyHandling
         private void OnEnable()
         {
             _fsm.SetStartState(PatrolStateName);
+            _fsm.Init();
+        }
+
+        private void OnValidate()
+        {
+            if(_attackMechanic != null)
+            {
+                _attackMechanic.Target = _target;
+            }
         }
 
         private void Start()
         {
+            _attackMechanic.Target = _target;
             _health.OnDeath += OnDeath;
+            GamePauseManager.Register(this);
         }
 
         // Update is called once per frame
         void Update()
         {
-            _fsm.OnLogic();
+            if(!_isPaused)
+            {
+                _fsm.OnLogic();
+            }
         }
 
         private void OnDestroy()
@@ -139,6 +155,16 @@ namespace Game.EnemyHandling
         {
             ParticleSystemObjectPoolManager poolManager = ServiceLocator.ForSceneOf(this).Get<ParticleSystemObjectPoolManager>();
             poolManager.SpawnEffect(_deathEffect, transform.position);
+        }
+
+        public void OnPause()
+        {
+            _isPaused = true;
+        }
+
+        public void OnResume()
+        {
+            _isPaused = false;
         }
 
         #endregion

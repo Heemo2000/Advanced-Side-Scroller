@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1262213807128826775}
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 08246dce43a96d24a9666eb728585212, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8bc4d8bb69117f34db9281ee027aa11f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 5456863136408523671}
   - component: {fileID: 8034616137518344847}
   m_Layer: 0
-  m_Name: Assault Rifle Bullet
+  m_Name: Enemy Pistol Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,7 +197,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.3734124, y: 0.14902006}
+  m_Size: {x: 0.28724033, y: 0.22353005}
   m_EdgeRadius: 0
 --- !u!114 &8034616137518344847
 MonoBehaviour:
@@ -218,7 +218,7 @@ MonoBehaviour:
   _maxBulletReflectHits: 5
   _damageLayerMask:
     serializedVersion: 2
-    m_Bits: 2
+    m_Bits: 8
   _damage: 10
   _destroyTime: 2
-  _moveSpeed: 10
+  _moveSpeed: 5

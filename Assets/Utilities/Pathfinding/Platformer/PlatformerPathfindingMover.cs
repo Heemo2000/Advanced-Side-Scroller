@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities.PauseHandling;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -10,7 +12,7 @@ namespace Utilities.Pathfinding.Platformer
 {
     [RequireComponent(typeof(BoxCollider))]
     [RequireComponent(typeof(Rigidbody))]
-    public class PlatformerPathfindingMover : MonoBehaviour
+    public class PlatformerPathfindingMover : MonoBehaviour, IPausable
     {
         public enum PlatformerPathfindingMoverState
         {
@@ -76,6 +78,7 @@ namespace Utilities.Pathfinding.Platformer
         private Vector2 _currentJumpPosition = Vector2.zero;
         private float _jumpDelta = 0.0f;
         private bool _isAlreadyReachedDestination = false;
+        private bool _isPaused = false;
         #endregion
 
 
@@ -109,10 +112,13 @@ namespace Utilities.Pathfinding.Platformer
             _currentState = PlatformerPathfindingMoverState.Normal;
             ServiceLocator sceneServiceLocator = ServiceLocator.ForSceneOf(this);
             _platformPathfindingManager = sceneServiceLocator.Get<PlatformerPathfindingManager>();
+            GamePauseManager.Register(this);
         }
 
         private void FixedUpdate()
         {
+            if(_isPaused) return;
+
             HandleOverallMovement();
         }
 
@@ -310,7 +316,17 @@ namespace Utilities.Pathfinding.Platformer
 
             return false;
         }
-        
+
+        public void OnPause()
+        {
+            _isPaused = true;
+        }
+
+        public void OnResume()
+        {
+            _isPaused = false;
+        }
+
         #endregion
     }
 }

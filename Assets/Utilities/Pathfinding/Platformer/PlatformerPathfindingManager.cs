@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Utilities.IOC;
+using Utilities.PauseHandling;
 namespace Utilities.Pathfinding.Platformer
 {
-    public class PlatformerPathfindingManager : MonoBehaviour
+    public class PlatformerPathfindingManager : MonoBehaviour, IPausable
     {
         #region Enums
         public enum Stage
@@ -34,6 +35,7 @@ namespace Utilities.Pathfinding.Platformer
         PlatformerGraphAstarNode _nodeB = null;
         private List<IAstarNode> _pathList = null;
         private Coroutine _pathRequestCoroutine = null;
+        private bool _isPaused = false;
         public List<PlatformerGraphAstarNode> NodesList { get => _nodesList; set => _nodesList = value; }
 
         private void Start()
@@ -47,6 +49,7 @@ namespace Utilities.Pathfinding.Platformer
             _pathfinding = new AstarPathfinding(_graph, EuclideanHeuristic, true);
             ServiceLocator sceneServiceLocator = ServiceLocator.ForSceneOf(this);
             sceneServiceLocator.Register(this);
+            GamePauseManager.Register(this);
         }
 
 
@@ -233,6 +236,11 @@ namespace Utilities.Pathfinding.Platformer
 
                 while (_currentStage != Stage.None)
                 {
+                    if(_isPaused)
+                    {
+                        yield return null;
+                        continue;
+                    }
                     if((Time.time - startingTime) < _eachPathfindingPhaseTime)
                     {
                         yield return null;
@@ -274,6 +282,16 @@ namespace Utilities.Pathfinding.Platformer
             }
             
             _pathRequestCoroutine = null;
+        }
+
+        public void OnPause()
+        {
+            _isPaused = true;
+        }
+
+        public void OnResume()
+        {
+            _isPaused = false;
         }
     }
 }
