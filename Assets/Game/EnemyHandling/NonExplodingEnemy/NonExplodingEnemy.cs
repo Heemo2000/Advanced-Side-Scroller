@@ -171,6 +171,7 @@ namespace Game.EnemyHandling
         {
             ParticleSystemObjectPoolManager poolManager = ServiceLocator.ForSceneOf(this).Get<ParticleSystemObjectPoolManager>();
             poolManager.SpawnEffect(_deathEffect, transform.position);
+            Destroy(gameObject);
         }
 
         private bool PatrolToChaseState(Transition<string> t)

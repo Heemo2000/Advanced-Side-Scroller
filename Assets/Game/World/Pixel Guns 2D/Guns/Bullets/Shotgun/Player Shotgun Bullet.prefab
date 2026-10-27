@@ -220,5 +220,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   _damage: 10
+  _damageType: 1
   _destroyTime: 2
   _moveSpeed: 15

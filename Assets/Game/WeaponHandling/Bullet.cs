@@ -1,4 +1,5 @@
 #region Headers
+using Game.CoreHandling;
 using UnityEngine;
 using Utilities.IOC;
 using Utilities.PauseHandling;
@@ -21,6 +22,7 @@ namespace Game.WeaponHandling
         [SerializeField] private LayerMask _damageLayerMask;
         [Min(0.1f)]
         [SerializeField] private float _damage = 10.0f;
+        [SerializeField] private HealthDamageType _damageType = HealthDamageType.NormalShot;
         [Header("Destroy Settings:")]
         [SerializeField] private float _destroyTime = 2.0f;
         [Min(0.1f)]
@@ -107,6 +109,10 @@ namespace Game.WeaponHandling
 
             if((colliderLayerMask & _damageLayerMask.value) != 0)
             {
+                if (other.transform.TryGetComponent<Health>(out var health))
+                {
+                    health.TakeDamage(_damage, _damageType);
+                }
                 DestroyBullet();
             }
             else if((colliderLayerMask & _bulletReflectCheckMask.value) != 0)
