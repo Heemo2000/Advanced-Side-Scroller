@@ -44,6 +44,8 @@ namespace Game.EnemyHandling
         [SerializeField] private float _attackTime = 2.0f;
         [Min(0.1f)]
         [SerializeField] private float _attackWaitTime = 3.0f;
+        [Range(0.1f, 1.0f)]
+        [SerializeField] private float _maxClosestDistancePercent = 0.4f;
 
         [Header("Target Settings:")]
         [SerializeField] private Transform _target;
@@ -78,6 +80,7 @@ namespace Game.EnemyHandling
         public float AttackTime { get => _attackTime; }
         public float AttackWaitTime { get => _attackWaitTime; set => _attackWaitTime = value; }
         public float AttackDistance { get => _attackDistance; }
+        public float MaxClosestDistancePercent { get => _maxClosestDistancePercent; }
         #endregion
 
         #region Unity Methods
@@ -106,7 +109,7 @@ namespace Game.EnemyHandling
         }
 
         private void OnEnable()
-        {
+        {            
             _fsm.SetStartState(PatrolStateName);
             _currentState = PatrolStateName;
             _fsm.Init();
@@ -122,6 +125,7 @@ namespace Game.EnemyHandling
 
         private void Start()
         {
+            _fsm.StateChanged += OnStateChanged;
             _attackMechanic.Target = _target;
             _health.OnDeath += OnDeath;
             GamePauseManager.Register(this);
@@ -138,6 +142,7 @@ namespace Game.EnemyHandling
 
         private void OnDestroy()
         {
+            _fsm.StateChanged -= OnStateChanged;
             _health.OnDeath -= OnDeath;
         }
 
@@ -176,35 +181,35 @@ namespace Game.EnemyHandling
 
         private bool PatrolToChaseState(Transition<string> t)
         {
-            _currentState = t.to;
             return Vector2.SqrMagnitude(_target.position - transform.position) <= _chaseDistance * _chaseDistance;
         }
 
         private bool ChaseToPatrolState(Transition<string> t)
         {
-            _currentState = t.to;
             return Vector2.SqrMagnitude(_target.position - transform.position) > _chaseDistance * _chaseDistance;
         }
 
         private bool ChaseToAttackState(Transition<string> t)
         {
-            _currentState = t.to;
             return Vector2.SqrMagnitude(_target.position - transform.position) <= _attackDistance * _attackDistance;
         }
 
         private bool AttackToChaseState(Transition<string> t)
         {
-            _currentState = t.to;
             float sqrDistance = Vector2.SqrMagnitude(_target.position - transform.position);
             return sqrDistance > _attackDistance * _attackDistance && sqrDistance <= _chaseDistance * _chaseDistance;
         }
 
         private bool AttackToPatrolState(Transition<string> t)
         {
-            _currentState = t.to;
             float sqrDistance = Vector2.SqrMagnitude(_target.position - transform.position);
             return sqrDistance > _attackDistance * _attackDistance && 
                    sqrDistance > _chaseDistance * _chaseDistance;
+        }
+
+        private void OnStateChanged(StateBase<string> state)
+        {
+            _currentState = state.name;
         }
 
         #endregion

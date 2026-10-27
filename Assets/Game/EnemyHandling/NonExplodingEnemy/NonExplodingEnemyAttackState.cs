@@ -28,7 +28,7 @@ namespace Game
             Vector2 position = _enemy.transform.position;
             Vector2 direction = (targetPosition - position).normalized;
             
-            _enemy.Mover.SetDestination(targetPosition - direction * _enemy.AttackDistance/ 2.0f);
+            _enemy.Mover.SetDestination(targetPosition - direction * _enemy.AttackDistance * (1.0f - _enemy.MaxClosestDistancePercent));
         }
 
         public override void OnLogic()

@@ -51,10 +51,6 @@ namespace Utilities.Pathfinding.Platformer
         [Min(0.1f)]
         [SerializeField] private float _jumpSpeed = 0.5f;
         [SerializeField] private AnimationCurve _jumpCurve;
-
-        [Header("Pathfinding Check Settings:")]
-        [Min(0.1f)]
-        [SerializeField] private float _minPathfindingSearchDistance = 3.0f;
         #endregion
         #region Private Fields
         private BoxCollider2D _boxCollider;
@@ -161,24 +157,6 @@ namespace Utilities.Pathfinding.Platformer
 
         public void SetDestination(Vector2 destination)
         {
-            //If the path is already calculated for the destination closer
-            //than the previous destination, then no need to calculated again the path.
-            if(_shouldStop == false && _currentPath != null)
-            {
-                if(Vector2.SqrMagnitude(new Vector2(transform.position.x, transform.position.y) - _startPosition) <=
-               _minPathfindingSearchDistance * _minPathfindingSearchDistance)
-                {
-                    return;
-                }
-                else if(Vector2.SqrMagnitude(destination - _destination) <=
-               _minPathfindingSearchDistance * _minPathfindingSearchDistance)
-                {
-                    return;
-                }
-                
-            }
-            
-
             if (_platformPathfindingManager != null)
             {
                 _platformPathfindingManager.FindPathNodes(transform.position, destination, OnPathFound, OnPathNotFound);

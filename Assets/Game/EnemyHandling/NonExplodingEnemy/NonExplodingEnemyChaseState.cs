@@ -19,6 +19,7 @@ namespace Game.EnemyHandling
 
         public override void OnEnter()
         {
+            _currentTime = 0.0f;
             _enemy.Mover.MoveSpeed = _enemy.ChaseSpeed;
             _enemy.Mover.SetDestination(_enemy.Target.position);
         }
