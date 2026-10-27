@@ -20,9 +20,15 @@ namespace Game
 
         public override void OnEnter()
         {
+            _enemy.Mover.ForcefullyStop();
             _enemy.AttackMechanic.ShouldAttack = true;
             _currentTime = _enemy.AttackTime;
             _enemy.AttackMechanic.ShouldAttack = true;
+            Vector2 targetPosition = _enemy.Target.position;
+            Vector2 position = _enemy.transform.position;
+            Vector2 direction = (targetPosition - position).normalized;
+            
+            _enemy.Mover.SetDestination(targetPosition - direction * _enemy.AttackDistance/ 2.0f);
         }
 
         public override void OnLogic()

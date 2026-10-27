@@ -189,16 +189,13 @@ namespace Utilities.Pathfinding
         {
             List<IAstarNode> result = new List<IAstarNode>();
 
-            result.Add(endNode);
-
-            IAstarNode currentNode = endNode.ParentNode;
-            while (currentNode != startNode)
+            
+            IAstarNode currentNode = endNode;
+            while (currentNode != null)
             {
                 result.Add(currentNode);
                 currentNode = currentNode.ParentNode;
             }
-
-            result.Add(currentNode);
 
             result.Reverse();
             return result;

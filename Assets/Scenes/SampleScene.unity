@@ -119,7 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &29755523
+--- !u!1 &59461076
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,22 +127,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 29755525}
-  - component: {fileID: 29755524}
+  - component: {fileID: 59461078}
+  - component: {fileID: 59461077}
   m_Layer: 0
-  m_Name: Node (22, 3, 0)
+  m_Name: Node (23, 3, 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &29755524
+--- !u!114 &59461077
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29755523}
+  m_GameObject: {fileID: 59461076}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
@@ -150,25 +150,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
   _isWalkable: 1
   _neighbours:
-  - underlyingValue: {fileID: 330196340}
-  - underlyingValue: {fileID: 406887060}
+  - underlyingValue: {fileID: 1655567194}
+  - underlyingValue: {fileID: 1757951528}
   _isJumpable: 0
---- !u!4 &29755525
+--- !u!4 &59461078
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29755523}
+  m_GameObject: {fileID: 59461076}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.4500008, y: 3, z: 0}
+  m_LocalPosition: {x: 3.4500008, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &89090345
+--- !u!1 &63609133
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,22 +176,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 89090347}
-  - component: {fileID: 89090346}
+  - component: {fileID: 63609135}
+  - component: {fileID: 63609134}
   m_Layer: 0
-  m_Name: Node (12, 3, 0)
+  m_Name: Node (15, 3, 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &89090346
+--- !u!114 &63609134
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 89090345}
+  m_GameObject: {fileID: 63609133}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
@@ -199,25 +199,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
   _isWalkable: 1
   _neighbours:
-  - underlyingValue: {fileID: 2081061633}
-  - underlyingValue: {fileID: 698308793}
+  - underlyingValue: {fileID: 758171393}
+  - underlyingValue: {fileID: 1580720778}
   _isJumpable: 0
---- !u!4 &89090347
+--- !u!4 &63609135
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 89090345}
+  m_GameObject: {fileID: 63609133}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.549999, y: 3, z: 0}
+  m_LocalPosition: {x: -4.549999, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &293629791
+--- !u!1 &162260907
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,105 +225,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 293629793}
-  - component: {fileID: 293629792}
-  m_Layer: 0
-  m_Name: Node (25, 3, 0)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &293629792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 293629791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
-  _isWalkable: 1
-  _neighbours:
-  - underlyingValue: {fileID: 302778550}
-  _isJumpable: 0
---- !u!4 &293629793
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 293629791}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.450001, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1451396452}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &302778549
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 302778551}
-  - component: {fileID: 302778550}
-  m_Layer: 0
-  m_Name: Node (24, 3, 0)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &302778550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 302778549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
-  _isWalkable: 1
-  _neighbours:
-  - underlyingValue: {fileID: 406887060}
-  - underlyingValue: {fileID: 293629792}
-  _isJumpable: 0
---- !u!4 &302778551
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 302778549}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.450001, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1451396452}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &330196339
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 330196341}
-  - component: {fileID: 330196340}
+  - component: {fileID: 162260909}
+  - component: {fileID: 162260908}
   m_Layer: 0
   m_Name: Node (21, 3, 0)
   m_TagString: Untagged
@@ -331,13 +234,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &330196340
+--- !u!114 &162260908
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330196339}
+  m_GameObject: {fileID: 162260907}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
@@ -345,16 +248,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
   _isWalkable: 1
   _neighbours:
-  - underlyingValue: {fileID: 1628806676}
-  - underlyingValue: {fileID: 29755524}
+  - underlyingValue: {fileID: 553357752}
+  - underlyingValue: {fileID: 1655567194}
   _isJumpable: 0
---- !u!4 &330196341
+--- !u!4 &162260909
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330196339}
+  m_GameObject: {fileID: 162260907}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.4500008, y: 3, z: 0}
@@ -363,7 +266,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &406887059
+--- !u!1 &326666173
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -371,22 +274,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 406887061}
-  - component: {fileID: 406887060}
+  - component: {fileID: 326666175}
+  - component: {fileID: 326666174}
   m_Layer: 0
-  m_Name: Node (23, 3, 0)
+  m_Name: Node (12, -1, 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &406887060
+--- !u!114 &326666174
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 406887059}
+  m_GameObject: {fileID: 326666173}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
@@ -394,19 +297,112 @@ MonoBehaviour:
   m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
   _isWalkable: 1
   _neighbours:
-  - underlyingValue: {fileID: 29755524}
-  - underlyingValue: {fileID: 302778550}
+  - underlyingValue: {fileID: 1967334103}
   _isJumpable: 0
---- !u!4 &406887061
+--- !u!4 &326666175
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 406887059}
+  m_GameObject: {fileID: 326666173}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.4500008, y: 3, z: 0}
+  m_LocalPosition: {x: -7.549999, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1451396452}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &444283022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 444283024}
+  - component: {fileID: 444283023}
+  m_Layer: 0
+  m_Name: FPS Modifier
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &444283023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444283022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1298188e577782046b2fc59d2df59774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Utilities::Utilities.Generic.FPSModifier
+  _targetFrameRate: 60
+--- !u!4 &444283024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444283022}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.85, y: -0.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &467224523
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 467224525}
+  - component: {fileID: 467224524}
+  m_Layer: 0
+  m_Name: Node (16, -1, 0)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &467224524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467224523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
+  _isWalkable: 1
+  _neighbours:
+  - underlyingValue: {fileID: 1282561966}
+  - underlyingValue: {fileID: 582859073}
+  _isJumpable: 0
+--- !u!4 &467224525
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467224523}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.5499992, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -582,11 +578,110 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!1 &553357751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 553357753}
+  - component: {fileID: 553357752}
+  m_Layer: 0
+  m_Name: Node (20, 3, 0)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &553357752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553357751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
+  _isWalkable: 1
+  _neighbours:
+  - underlyingValue: {fileID: 162260908}
+  - underlyingValue: {fileID: 1954389724}
+  - underlyingValue: {fileID: 1580720778}
+  _isJumpable: 1
+--- !u!4 &553357753
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553357751}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.45000076, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1451396452}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &576799777 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1974036745377130364, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
   m_PrefabInstance: {fileID: 4265641689803439427}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &582859072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 582859074}
+  - component: {fileID: 582859073}
+  m_Layer: 0
+  m_Name: Node (17, -1, 0)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &582859073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582859072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
+  _isWalkable: 1
+  _neighbours:
+  - underlyingValue: {fileID: 467224524}
+  - underlyingValue: {fileID: 1954389724}
+  _isJumpable: 0
+--- !u!4 &582859074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582859072}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.5499992, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1451396452}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,7 +1213,7 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
---- !u!1 &698308792
+--- !u!1 &735233854
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1126,8 +1221,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 698308794}
-  - component: {fileID: 698308793}
+  - component: {fileID: 735233856}
+  - component: {fileID: 735233855}
   m_Layer: 0
   m_Name: Node (13, 3, 0)
   m_TagString: Untagged
@@ -1135,13 +1230,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &698308793
+--- !u!114 &735233855
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 698308792}
+  m_GameObject: {fileID: 735233854}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
@@ -1149,16 +1244,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
   _isWalkable: 1
   _neighbours:
-  - underlyingValue: {fileID: 89090346}
-  - underlyingValue: {fileID: 1174556651}
+  - underlyingValue: {fileID: 1583412154}
+  - underlyingValue: {fileID: 758171393}
   _isJumpable: 0
---- !u!4 &698308794
+--- !u!4 &735233856
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 698308792}
+  m_GameObject: {fileID: 735233854}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -6.549999, y: 3, z: 0}
@@ -1167,7 +1262,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &751560843
+--- !u!1 &758171392
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1175,22 +1270,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 751560845}
-  - component: {fileID: 751560844}
+  - component: {fileID: 758171394}
+  - component: {fileID: 758171393}
   m_Layer: 0
-  m_Name: Node (17, -1, 0)
+  m_Name: Node (14, 3, 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &751560844
+--- !u!114 &758171393
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 751560843}
+  m_GameObject: {fileID: 758171392}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
@@ -1198,25 +1293,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
   _isWalkable: 1
   _neighbours:
-  - underlyingValue: {fileID: 1959669408}
-  - underlyingValue: {fileID: 1286506897}
+  - underlyingValue: {fileID: 735233855}
+  - underlyingValue: {fileID: 63609134}
   _isJumpable: 0
---- !u!4 &751560845
+--- !u!4 &758171394
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 751560843}
+  m_GameObject: {fileID: 758171392}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5499992, y: -1, z: 0}
+  m_LocalPosition: {x: -5.549999, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &788769984
+--- !u!1 &783178203
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1224,22 +1319,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 788769986}
-  - component: {fileID: 788769985}
+  - component: {fileID: 783178205}
+  - component: {fileID: 783178204}
   m_Layer: 0
-  m_Name: Node (12, -1, 0)
+  m_Name: Node (11, 3, 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &788769985
+--- !u!114 &783178204
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 788769984}
+  m_GameObject: {fileID: 783178203}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
@@ -1247,67 +1342,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
   _isWalkable: 1
   _neighbours:
-  - underlyingValue: {fileID: 1374032353}
+  - underlyingValue: {fileID: 1583412154}
   _isJumpable: 0
---- !u!4 &788769986
+--- !u!4 &783178205
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 788769984}
+  m_GameObject: {fileID: 783178203}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.549999, y: -1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1451396452}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1063841078
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1063841080}
-  - component: {fileID: 1063841079}
-  m_Layer: 0
-  m_Name: Node (15, -1, 0)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1063841079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1063841078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
-  _isWalkable: 1
-  _neighbours:
-  - underlyingValue: {fileID: 1128086372}
-  - underlyingValue: {fileID: 1959669408}
-  _isJumpable: 0
---- !u!4 &1063841080
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1063841078}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.549999, y: -1, z: 0}
+  m_LocalPosition: {x: -8.549999, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1357,55 +1403,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1128086371
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1128086373}
-  - component: {fileID: 1128086372}
-  m_Layer: 0
-  m_Name: Node (14, -1, 0)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1128086372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128086371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
-  _isWalkable: 1
-  _neighbours:
-  - underlyingValue: {fileID: 1374032353}
-  - underlyingValue: {fileID: 1063841079}
-  _isJumpable: 0
---- !u!4 &1128086373
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128086371}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.549999, y: -1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1451396452}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1134672014
 GameObject:
   m_ObjectHideFlags: 0
@@ -1450,55 +1447,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1174556650
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1174556652}
-  - component: {fileID: 1174556651}
-  m_Layer: 0
-  m_Name: Node (14, 3, 0)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1174556651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174556650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
-  _isWalkable: 1
-  _neighbours:
-  - underlyingValue: {fileID: 698308793}
-  - underlyingValue: {fileID: 1284823968}
-  _isJumpable: 0
---- !u!4 &1174556652
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174556650}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.549999, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1220201261
 GameObject:
@@ -1710,7 +1658,7 @@ MonoBehaviour:
     FrequencyGain: 1
     Duration: 1
     m_NoiseOffsets: {x: 0, y: 0, z: 0}
---- !u!1 &1284823967
+--- !u!1 &1282561965
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1718,22 +1666,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1284823969}
-  - component: {fileID: 1284823968}
+  - component: {fileID: 1282561967}
+  - component: {fileID: 1282561966}
   m_Layer: 0
-  m_Name: Node (15, 3, 0)
+  m_Name: Node (15, -1, 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1284823968
+--- !u!114 &1282561966
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1284823967}
+  m_GameObject: {fileID: 1282561965}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
@@ -1741,117 +1689,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
   _isWalkable: 1
   _neighbours:
-  - underlyingValue: {fileID: 1174556651}
-  - underlyingValue: {fileID: 1642270216}
+  - underlyingValue: {fileID: 2089167475}
+  - underlyingValue: {fileID: 467224524}
   _isJumpable: 0
---- !u!4 &1284823969
+--- !u!4 &1282561967
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1284823967}
+  m_GameObject: {fileID: 1282561965}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.549999, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1451396452}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1286506896
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1286506898}
-  - component: {fileID: 1286506897}
-  m_Layer: 0
-  m_Name: Node (18, -1, 0)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1286506897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1286506896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
-  _isWalkable: 1
-  _neighbours:
-  - underlyingValue: {fileID: 751560844}
-  - underlyingValue: {fileID: 2099053729}
-  _isJumpable: 0
---- !u!4 &1286506898
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1286506896}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5499992, y: -1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1451396452}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1374032352
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1374032354}
-  - component: {fileID: 1374032353}
-  m_Layer: 0
-  m_Name: Node (13, -1, 0)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1374032353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1374032352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
-  _isWalkable: 1
-  _neighbours:
-  - underlyingValue: {fileID: 788769985}
-  - underlyingValue: {fileID: 1128086372}
-  _isJumpable: 0
---- !u!4 &1374032354
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1374032352}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.549999, y: -1, z: 0}
+  m_LocalPosition: {x: -4.549999, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1886,7 +1736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a1b083cb742bf548bf9db03daad95bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.WeaponHandling.BulletPoolManager
-  _maxBulletCount: 100
+  _maxBulletCount: 40
 --- !u!4 &1375336737
 Transform:
   m_ObjectHideFlags: 0
@@ -1980,26 +1830,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerPathfindingManager
   _tilemap: {fileID: 694829639}
   _nodesList:
-  - {fileID: 2081061633}
-  - {fileID: 788769985}
-  - {fileID: 89090346}
-  - {fileID: 1374032353}
-  - {fileID: 698308793}
-  - {fileID: 1128086372}
-  - {fileID: 1174556651}
-  - {fileID: 1063841079}
-  - {fileID: 1284823968}
-  - {fileID: 1959669408}
-  - {fileID: 1642270216}
-  - {fileID: 751560844}
-  - {fileID: 1286506897}
-  - {fileID: 2099053729}
-  - {fileID: 1628806676}
-  - {fileID: 330196340}
-  - {fileID: 29755524}
-  - {fileID: 406887060}
-  - {fileID: 302778550}
-  - {fileID: 293629792}
+  - {fileID: 783178204}
+  - {fileID: 326666174}
+  - {fileID: 1583412154}
+  - {fileID: 1967334103}
+  - {fileID: 735233855}
+  - {fileID: 2089167475}
+  - {fileID: 758171393}
+  - {fileID: 1282561966}
+  - {fileID: 63609134}
+  - {fileID: 467224524}
+  - {fileID: 1580720778}
+  - {fileID: 582859073}
+  - {fileID: 1954389724}
+  - {fileID: 2034736530}
+  - {fileID: 553357752}
+  - {fileID: 162260908}
+  - {fileID: 1655567194}
+  - {fileID: 59461077}
+  - {fileID: 1757951528}
+  - {fileID: 1950606803}
   _eachPathfindingPhaseTime: 0.03
 --- !u!4 &1451396452
 Transform:
@@ -2014,27 +1864,126 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2081061634}
-  - {fileID: 788769986}
-  - {fileID: 89090347}
-  - {fileID: 1374032354}
-  - {fileID: 698308794}
-  - {fileID: 1128086373}
-  - {fileID: 1174556652}
-  - {fileID: 1063841080}
-  - {fileID: 1284823969}
-  - {fileID: 1959669409}
-  - {fileID: 1642270217}
-  - {fileID: 751560845}
-  - {fileID: 1286506898}
-  - {fileID: 2099053730}
-  - {fileID: 1628806677}
-  - {fileID: 330196341}
-  - {fileID: 29755525}
-  - {fileID: 406887061}
-  - {fileID: 302778551}
-  - {fileID: 293629793}
+  - {fileID: 783178205}
+  - {fileID: 326666175}
+  - {fileID: 1583412155}
+  - {fileID: 1967334104}
+  - {fileID: 735233856}
+  - {fileID: 2089167476}
+  - {fileID: 758171394}
+  - {fileID: 1282561967}
+  - {fileID: 63609135}
+  - {fileID: 467224525}
+  - {fileID: 1580720779}
+  - {fileID: 582859074}
+  - {fileID: 1954389725}
+  - {fileID: 2034736531}
+  - {fileID: 553357753}
+  - {fileID: 162260909}
+  - {fileID: 1655567195}
+  - {fileID: 59461078}
+  - {fileID: 1757951529}
+  - {fileID: 1950606804}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1580720777
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1580720779}
+  - component: {fileID: 1580720778}
+  m_Layer: 0
+  m_Name: Node (16, 3, 0)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1580720778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580720777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
+  _isWalkable: 1
+  _neighbours:
+  - underlyingValue: {fileID: 63609134}
+  - underlyingValue: {fileID: 1954389724}
+  - underlyingValue: {fileID: 553357752}
+  _isJumpable: 1
+--- !u!4 &1580720779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580720777}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.5499992, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1451396452}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1583412153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1583412155}
+  - component: {fileID: 1583412154}
+  m_Layer: 0
+  m_Name: Node (12, 3, 0)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1583412154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583412153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
+  _isWalkable: 1
+  _neighbours:
+  - underlyingValue: {fileID: 783178204}
+  - underlyingValue: {fileID: 735233855}
+  _isJumpable: 0
+--- !u!4 &1583412155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583412153}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.549999, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1606151773
 GameObject:
@@ -2067,7 +2016,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1220201262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1628806675
+--- !u!1 &1655567193
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2075,22 +2024,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1628806677}
-  - component: {fileID: 1628806676}
+  - component: {fileID: 1655567195}
+  - component: {fileID: 1655567194}
   m_Layer: 0
-  m_Name: Node (20, 3, 0)
+  m_Name: Node (22, 3, 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1628806676
+--- !u!114 &1655567194
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628806675}
+  m_GameObject: {fileID: 1655567193}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
@@ -2098,25 +2047,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
   _isWalkable: 1
   _neighbours:
-  - underlyingValue: {fileID: 330196340}
-  - underlyingValue: {fileID: 2099053729}
-  _isJumpable: 1
---- !u!4 &1628806677
+  - underlyingValue: {fileID: 162260908}
+  - underlyingValue: {fileID: 59461077}
+  _isJumpable: 0
+--- !u!4 &1655567195
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628806675}
+  m_GameObject: {fileID: 1655567193}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.45000076, y: 3, z: 0}
+  m_LocalPosition: {x: 2.4500008, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1642270215
+--- !u!1 &1757951527
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2124,22 +2073,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1642270217}
-  - component: {fileID: 1642270216}
+  - component: {fileID: 1757951529}
+  - component: {fileID: 1757951528}
   m_Layer: 0
-  m_Name: Node (16, 3, 0)
+  m_Name: Node (24, 3, 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1642270216
+--- !u!114 &1757951528
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642270215}
+  m_GameObject: {fileID: 1757951527}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
@@ -2147,19 +2096,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
   _isWalkable: 1
   _neighbours:
-  - underlyingValue: {fileID: 1284823968}
-  - underlyingValue: {fileID: 2099053729}
-  _isJumpable: 1
---- !u!4 &1642270217
+  - underlyingValue: {fileID: 59461077}
+  - underlyingValue: {fileID: 1950606803}
+  _isJumpable: 0
+--- !u!4 &1757951529
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642270215}
+  m_GameObject: {fileID: 1757951527}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.5499992, y: 3, z: 0}
+  m_LocalPosition: {x: 4.450001, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2221,7 +2170,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1821393085}
   m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 0}
+  m_CellSize: {x: 1, y: 1, z: 1}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
@@ -2241,7 +2190,7 @@ Transform:
   - {fileID: 694829637}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1959669407
+--- !u!1 &1950606802
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2249,22 +2198,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1959669409}
-  - component: {fileID: 1959669408}
+  - component: {fileID: 1950606804}
+  - component: {fileID: 1950606803}
   m_Layer: 0
-  m_Name: Node (16, -1, 0)
+  m_Name: Node (25, 3, 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1959669408
+--- !u!114 &1950606803
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959669407}
+  m_GameObject: {fileID: 1950606802}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
@@ -2272,25 +2221,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
   _isWalkable: 1
   _neighbours:
-  - underlyingValue: {fileID: 1063841079}
-  - underlyingValue: {fileID: 751560844}
+  - underlyingValue: {fileID: 1757951528}
   _isJumpable: 0
---- !u!4 &1959669409
+--- !u!4 &1950606804
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959669407}
+  m_GameObject: {fileID: 1950606802}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.5499992, y: -1, z: 0}
+  m_LocalPosition: {x: 5.450001, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2081061632
+--- !u!1 &1954389723
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2298,22 +2246,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2081061634}
-  - component: {fileID: 2081061633}
+  - component: {fileID: 1954389725}
+  - component: {fileID: 1954389724}
   m_Layer: 0
-  m_Name: Node (11, 3, 0)
+  m_Name: Node (18, -1, 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2081061633
+--- !u!114 &1954389724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081061632}
+  m_GameObject: {fileID: 1954389723}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
@@ -2321,24 +2269,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
   _isWalkable: 1
   _neighbours:
-  - underlyingValue: {fileID: 89090346}
-  _isJumpable: 0
---- !u!4 &2081061634
+  - underlyingValue: {fileID: 582859073}
+  - underlyingValue: {fileID: 2034736530}
+  - underlyingValue: {fileID: 1580720778}
+  - underlyingValue: {fileID: 553357752}
+  _isJumpable: 1
+--- !u!4 &1954389725
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081061632}
+  m_GameObject: {fileID: 1954389723}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.549999, y: 3, z: 0}
+  m_LocalPosition: {x: -1.5499992, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2099053728
+--- !u!1 &1967334102
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2346,8 +2297,57 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2099053730}
-  - component: {fileID: 2099053729}
+  - component: {fileID: 1967334104}
+  - component: {fileID: 1967334103}
+  m_Layer: 0
+  m_Name: Node (13, -1, 0)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1967334103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967334102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
+  _isWalkable: 1
+  _neighbours:
+  - underlyingValue: {fileID: 326666174}
+  - underlyingValue: {fileID: 2089167475}
+  _isJumpable: 0
+--- !u!4 &1967334104
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967334102}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.549999, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1451396452}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2034736529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2034736531}
+  - component: {fileID: 2034736530}
   m_Layer: 0
   m_Name: Node (19, -1, 0)
   m_TagString: Untagged
@@ -2355,13 +2355,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2099053729
+--- !u!114 &2034736530
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2099053728}
+  m_GameObject: {fileID: 2034736529}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
@@ -2369,20 +2369,67 @@ MonoBehaviour:
   m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
   _isWalkable: 1
   _neighbours:
-  - underlyingValue: {fileID: 1286506897}
-  - underlyingValue: {fileID: 1642270216}
-  - underlyingValue: {fileID: 1628806676}
-  _isJumpable: 1
---- !u!4 &2099053730
+  - underlyingValue: {fileID: 1954389724}
+  _isJumpable: 0
+--- !u!4 &2034736531
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2099053728}
+  m_GameObject: {fileID: 2034736529}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.54999924, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1451396452}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2089167474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2089167476}
+  - component: {fileID: 2089167475}
+  m_Layer: 0
+  m_Name: Node (14, -1, 0)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2089167475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089167474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 429948e64c6c12c4e9f7c4e5734b5aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Utilities::Utilities.Pathfinding.Platformer.PlatformerGraphAstarNode
+  _isWalkable: 1
+  _neighbours:
+  - underlyingValue: {fileID: 1967334103}
+  - underlyingValue: {fileID: 1282561966}
+  _isJumpable: 0
+--- !u!4 &2089167476
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089167474}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5.549999, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2480,11 +2527,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1356522146024407319, guid: 5c85dff51c46cf3478b6ee1cfc1b5688, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.01
+      value: 21.885
       objectReference: {fileID: 0}
     - target: {fileID: 1356522146024407319, guid: 5c85dff51c46cf3478b6ee1cfc1b5688, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.3035
+      value: 3.23
       objectReference: {fileID: 0}
     - target: {fileID: 1356522146024407319, guid: 5c85dff51c46cf3478b6ee1cfc1b5688, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2518,10 +2565,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5724959185681916381, guid: 5c85dff51c46cf3478b6ee1cfc1b5688, type: 3}
-      propertyPath: _bulletPrefab
-      value: 
-      objectReference: {fileID: 8034616137518344847, guid: 318aa3fbdaa7d9145b9c6ed2258eede8, type: 3}
     - target: {fileID: 6341560474305884737, guid: 5c85dff51c46cf3478b6ee1cfc1b5688, type: 3}
       propertyPath: m_Name
       value: Non Exploding Enemy
@@ -2530,6 +2573,10 @@ PrefabInstance:
       propertyPath: _target
       value: 
       objectReference: {fileID: 576799777}
+    - target: {fileID: 6625366495025462440, guid: 5c85dff51c46cf3478b6ee1cfc1b5688, type: 3}
+      propertyPath: _attackDistance
+      value: 4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6625366495025462440, guid: 5c85dff51c46cf3478b6ee1cfc1b5688, type: 3}
       propertyPath: '_patrolPoints.Array.data[0]'
       value: 
@@ -2565,3 +2612,4 @@ SceneRoots:
   - {fileID: 1375336737}
   - {fileID: 1220201262}
   - {fileID: 1134672016}
+  - {fileID: 444283024}

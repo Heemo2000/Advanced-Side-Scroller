@@ -9,7 +9,14 @@ namespace Game.EnemyHandling
         protected override void Update()
         {
             base.Update();
-            _weaponManager.AimDirection = (base.Target.position - transform.position).normalized;
+            if (base.ShouldAttack)
+            {
+                _weaponManager.AimDirection = (base.Target.position - transform.position).normalized;
+            }
+            else
+            {
+                _weaponManager.AimDirection = Vector2.right;
+            }
         }
 
         protected override void Attack()

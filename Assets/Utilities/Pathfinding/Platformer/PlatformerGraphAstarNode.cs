@@ -24,7 +24,7 @@ namespace Utilities.Pathfinding.Platformer
         public bool IsWalkable { get => _isWalkable; set => _isWalkable = value; }
         public int GCost { get; set; }
         public int HCost { get; set; }
-        public Vector2 WorldPos { get => transform.position; set => transform.position = new Vector3(value.x, value.y, 0.0f); }
+        public Vector2 WorldPos { get => transform.position; set => transform.position = new Vector3(value.x, value.y, transform.position.y); }
         public List<IAstarNode> Neighbours { get => _actualNeighbours; set => SetNeighboursValues(value); }
         public IAstarNode ParentNode { get; set; }
         public PlatformerGraph Graph { get; set; }

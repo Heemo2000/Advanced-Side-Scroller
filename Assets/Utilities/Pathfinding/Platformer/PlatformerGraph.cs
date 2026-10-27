@@ -1,3 +1,4 @@
+using Codice.Client.Common.TreeGrouper;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,13 +35,14 @@ namespace Utilities.Pathfinding.Platformer
             {
                 node.HCost = 0;
                 node.GCost = 0;
+                node.ParentNode = null;
             }
         }
 
         public PlatformerGraphAstarNode FindNode(Vector2 position)
         {
-            PlatformerGraphAstarNode result = null;
-            float closestSqrDistance = float.MaxValue;
+            PlatformerGraphAstarNode result = _nodes[0];
+            float closestSqrDistance = Vector2.SqrMagnitude(_nodes[0].WorldPos - position);
 
             foreach (var node in _nodes)
             {

@@ -50,6 +50,9 @@ namespace Game.EnemyHandling
 
         [Header("Death Settings:")]
         [SerializeField] private ParticleSystem _deathEffect;
+
+        [Header("State change Status:")]
+        [SerializeField] private string _currentState = "";
         #endregion
 
         #region Private Fields
@@ -60,6 +63,7 @@ namespace Game.EnemyHandling
         private PlatformerPathfindingMover _mover;
         private Health _health;
         private bool _isPaused = false;
+        
         #endregion
 
         #region Properties
@@ -73,6 +77,7 @@ namespace Game.EnemyHandling
         public NonExplodingEnemyAttackMechanic AttackMechanic { get => _attackMechanic; }
         public float AttackTime { get => _attackTime; }
         public float AttackWaitTime { get => _attackWaitTime; set => _attackWaitTime = value; }
+        public float AttackDistance { get => _attackDistance; }
         #endregion
 
         #region Unity Methods
@@ -92,17 +97,18 @@ namespace Game.EnemyHandling
             _fsm.AddState(ChaseStateName, _chaseState);
             _fsm.AddState(AttackStateName, _attackState);
 
-            _fsm.AddTransition(new Transition(PatrolStateName, ChaseStateName, t => Vector2.SqrMagnitude(_target.position - transform.position) <= _chaseDistance * _chaseDistance));
-            _fsm.AddTransition(new Transition(ChaseStateName, PatrolStateName, t => Vector2.SqrMagnitude(_target.position - transform.position) > _chaseDistance * _chaseDistance));
+            _fsm.AddTransition(new Transition(PatrolStateName, ChaseStateName, PatrolToChaseState));
+            _fsm.AddTransition(new Transition(ChaseStateName, PatrolStateName, ChaseToPatrolState));
 
-            _fsm.AddTransition(new Transition(ChaseStateName, AttackStateName, t => Vector2.SqrMagnitude(_target.position - transform.position) <= _attackDistance * _attackDistance));
-            _fsm.AddTransition(new Transition(AttackStateName, ChaseStateName, t => Vector2.SqrMagnitude(_target.position - transform.position) > _attackDistance * _attackDistance));
-
+            _fsm.AddTransition(new Transition(ChaseStateName, AttackStateName, ChaseToAttackState));
+            _fsm.AddTransition(new Transition(AttackStateName, ChaseStateName, AttackToChaseState));
+            _fsm.AddTransition(new Transition(AttackStateName, PatrolStateName, AttackToPatrolState));
         }
 
         private void OnEnable()
         {
             _fsm.SetStartState(PatrolStateName);
+            _currentState = PatrolStateName;
             _fsm.Init();
         }
 
@@ -151,12 +157,6 @@ namespace Game.EnemyHandling
 
         #region Class Functionality
 
-        private void OnDeath(HealthDamageType damageType)
-        {
-            ParticleSystemObjectPoolManager poolManager = ServiceLocator.ForSceneOf(this).Get<ParticleSystemObjectPoolManager>();
-            poolManager.SpawnEffect(_deathEffect, transform.position);
-        }
-
         public void OnPause()
         {
             _isPaused = true;
@@ -165,6 +165,45 @@ namespace Game.EnemyHandling
         public void OnResume()
         {
             _isPaused = false;
+        }
+
+        private void OnDeath(HealthDamageType damageType)
+        {
+            ParticleSystemObjectPoolManager poolManager = ServiceLocator.ForSceneOf(this).Get<ParticleSystemObjectPoolManager>();
+            poolManager.SpawnEffect(_deathEffect, transform.position);
+        }
+
+        private bool PatrolToChaseState(Transition<string> t)
+        {
+            _currentState = t.to;
+            return Vector2.SqrMagnitude(_target.position - transform.position) <= _chaseDistance * _chaseDistance;
+        }
+
+        private bool ChaseToPatrolState(Transition<string> t)
+        {
+            _currentState = t.to;
+            return Vector2.SqrMagnitude(_target.position - transform.position) > _chaseDistance * _chaseDistance;
+        }
+
+        private bool ChaseToAttackState(Transition<string> t)
+        {
+            _currentState = t.to;
+            return Vector2.SqrMagnitude(_target.position - transform.position) <= _attackDistance * _attackDistance;
+        }
+
+        private bool AttackToChaseState(Transition<string> t)
+        {
+            _currentState = t.to;
+            float sqrDistance = Vector2.SqrMagnitude(_target.position - transform.position);
+            return sqrDistance > _attackDistance * _attackDistance && sqrDistance <= _chaseDistance * _chaseDistance;
+        }
+
+        private bool AttackToPatrolState(Transition<string> t)
+        {
+            _currentState = t.to;
+            float sqrDistance = Vector2.SqrMagnitude(_target.position - transform.position);
+            return sqrDistance > _attackDistance * _attackDistance && 
+                   sqrDistance > _chaseDistance * _chaseDistance;
         }
 
         #endregion

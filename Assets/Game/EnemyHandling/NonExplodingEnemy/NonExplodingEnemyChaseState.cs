@@ -20,19 +20,18 @@ namespace Game.EnemyHandling
         public override void OnEnter()
         {
             _enemy.Mover.MoveSpeed = _enemy.ChaseSpeed;
-            _currentTime = _enemy.PathSearchingInterval;
             _enemy.Mover.SetDestination(_enemy.Target.position);
         }
 
         public override void OnLogic()
         {
-            if(_currentTime >= 0.0f)
+            if(_currentTime < _enemy.PathSearchingInterval)
             {
-                _currentTime -= Time.deltaTime;
+                _currentTime += Time.deltaTime;
                 return;
             }
             _enemy.Mover.SetDestination(_enemy.Target.position);
-            _currentTime = _enemy.PathSearchingInterval;
+            _currentTime = 0.0f;
         }
 
         public override void OnExit()

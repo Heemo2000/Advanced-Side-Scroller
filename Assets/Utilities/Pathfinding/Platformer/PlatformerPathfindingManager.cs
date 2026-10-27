@@ -202,7 +202,7 @@ namespace Utilities.Pathfinding.Platformer
         }
 
         public void FindPathNodes(Vector2 positionA, Vector2 positionB, 
-                                              Action<List<IAstarNode>> onPathFoundCallback = null, 
+                                              Action<PlatformerPathfindingPathResult> onPathFoundCallback = null, 
                                               Action onPathNotFoundCallback = null)
         {
             if(_requests == null)
@@ -226,6 +226,7 @@ namespace Utilities.Pathfinding.Platformer
         {
             while (_requests.Count > 0)
             {
+                yield return null;
                 PlatformerPathfindingPathRequest request = _requests.Dequeue();
 
                 if (_currentStage == Stage.None)
@@ -249,6 +250,7 @@ namespace Utilities.Pathfinding.Platformer
                     else
                     {
                         startingTime = Time.time;
+                        yield return null;
                     }
 
                     switch (_currentStage)
@@ -273,7 +275,7 @@ namespace Utilities.Pathfinding.Platformer
                             }
                             else
                             {
-                                request.OnPathFound?.Invoke(_pathList);
+                                request.OnPathFound?.Invoke(new PlatformerPathfindingPathResult(_pathList, request.positionA, request.positionB));
                             }
                             _currentStage = Stage.None;
                             break;
