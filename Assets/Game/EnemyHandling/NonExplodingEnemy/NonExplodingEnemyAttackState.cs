@@ -24,6 +24,7 @@ namespace Game
             _enemy.AttackMechanic.ShouldAttack = true;
             _currentTime = _enemy.AttackTime;
             _enemy.AttackMechanic.ShouldAttack = true;
+
             Vector2 targetPosition = _enemy.Target.position;
             Vector2 position = _enemy.transform.position;
             Vector2 direction = (targetPosition - position).normalized;

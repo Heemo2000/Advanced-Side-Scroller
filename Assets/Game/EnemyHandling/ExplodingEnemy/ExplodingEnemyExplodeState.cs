@@ -29,6 +29,11 @@ namespace Game
 
         public override void OnEnter()
         {
+            Vector2 targetPosition = _enemy.Target.position;
+            Vector2 position = _enemy.transform.position;
+            Vector2 direction = (targetPosition - position).normalized;
+
+            _enemy.Mover.SetDestination(targetPosition - direction * _enemy.ExplodeDistance * (1.0f - _enemy.MaxClosestDistancePercent));
             _enemy.Mover.OnReachingDestination += OnReachingDestination;
             _enemy.OnExplode += Explode;
         }
@@ -67,10 +72,12 @@ namespace Game
 
         private void Explode()
         {
-            if(Physics.OverlapSphereNonAlloc(_enemy.transform.position, _enemy.ExplodeRange, _detectedColliders, 1 << _enemy.Target.gameObject.layer) > 0)
+            if(Vector3.SqrMagnitude(_enemy.Target.position - _enemy.transform.position) <= _enemy.ExplodeRange * _enemy.ExplodeRange)
             {
-                Health health = _detectedColliders[0].transform.GetComponent<Health>();
-                health.TakeDamage(_enemy.ExplodeDamage,_enemy.transform.position, Vector2.zero, HealthDamageType.Explode);
+                if(_enemy.Target.TryGetComponent<Health>(out Health health))
+                {
+                    health.TakeDamage(_enemy.ExplodeDamage, _enemy.transform.position, Vector2.zero, HealthDamageType.Explode);
+                }   
             }
 
             _enemy.Health.TakeDamage(_enemy.Health.MaxAmount, _enemy.Health.transform.position, Vector2.zero, HealthDamageType.Explode);

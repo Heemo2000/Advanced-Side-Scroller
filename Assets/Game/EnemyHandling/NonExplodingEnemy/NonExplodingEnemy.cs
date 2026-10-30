@@ -54,6 +54,7 @@ namespace Game.EnemyHandling
         [SerializeField] private float _chaseDistance = 10.0f;
         [Min(0.1f)]
         [SerializeField] private float _chaseSpeed = 10.0f;
+        
         [Min(0.1f)]
         [Tooltip("This tells after how much time should an enemy recalculate path when chasing the player")]
         [SerializeField] private float _pathSearchingInterval = 0.5f;
@@ -233,7 +234,7 @@ namespace Game.EnemyHandling
             {
                 return false;
             }
-            if(!_target.TryGetComponent<BoxCollider2D>(out _targetBoxCollider))
+            if(_targetBoxCollider == null && !_target.TryGetComponent<BoxCollider2D>(out _targetBoxCollider))
             {
                 return false;
             }
@@ -268,12 +269,12 @@ namespace Game.EnemyHandling
                 return false;
             }
 
-            if (!_target.TryGetComponent<BoxCollider2D>(out _targetBoxCollider))
+            if (_targetBoxCollider == null && !_target.TryGetComponent<BoxCollider2D>(out _targetBoxCollider))
             {
                 return false;
             }
 
-            int directionX = (int)Mathf.Sign(_target.position.x - transform.position.x);
+            float directionX = Mathf.Sign(_target.position.x - transform.position.x);
             return (_mover.InputX == 0.0f || directionX == _mover.InputX) && HelperFunctions.IsDetectable(_targetBoxCollider, _boxCollider, _chaseDistance, ~((1 << _target.gameObject.layer) | (1 << gameObject.layer)));
         }
         private bool ChaseToPatrolState(Transition<string> t)
@@ -283,7 +284,7 @@ namespace Game.EnemyHandling
                 return false;
             }
 
-            if (!_target.TryGetComponent<BoxCollider2D>(out _targetBoxCollider))
+            if (_targetBoxCollider == null && !_target.TryGetComponent<BoxCollider2D>(out _targetBoxCollider))
             {
                 return false;
             }
@@ -298,7 +299,7 @@ namespace Game.EnemyHandling
                 return false;
             }
 
-            if (!_target.TryGetComponent<BoxCollider2D>(out _targetBoxCollider))
+            if (_targetBoxCollider == null && !_target.TryGetComponent<BoxCollider2D>(out _targetBoxCollider))
             {
                 return false;
             }
@@ -313,7 +314,7 @@ namespace Game.EnemyHandling
                 return false;
             }
             
-            if (!_target.TryGetComponent<BoxCollider2D>(out _targetBoxCollider))
+            if (_targetBoxCollider == null && !_target.TryGetComponent<BoxCollider2D>(out _targetBoxCollider))
             {
                 return false;
             }
@@ -329,7 +330,7 @@ namespace Game.EnemyHandling
                 return false;
             }
 
-            if (!_target.TryGetComponent<BoxCollider2D>(out _targetBoxCollider))
+            if (_targetBoxCollider == null && !_target.TryGetComponent<BoxCollider2D>(out _targetBoxCollider))
             {
                 return false;
             }

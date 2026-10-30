@@ -488,10 +488,13 @@ MonoBehaviour:
   - {fileID: 0}
   _patrolSpeed: 5
   _patrolStopTime: 2
-  _chaseDistance: 10
+  _minSuspicionCheckDistance: 1
+  _maxSuspicionCheckDistance: 1.5
+  _suspicionCheckTime: 5
+  _chaseDistance: 2
   _chaseSpeed: 10
   _pathSearchingInterval: 0.2
-  _attackDistance: 4.5
+  _attackDistance: 1
   _attackMechanic: {fileID: 8917419996794537996}
   _attackTime: 2
   _attackWaitTime: 3
