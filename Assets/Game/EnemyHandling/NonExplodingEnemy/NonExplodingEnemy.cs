@@ -28,16 +28,25 @@ namespace Game.EnemyHandling
 
         #region Serialized Fields
         [Header("Patrol Settings:")]
+        [Tooltip("These are the points which enemy uses to patrol around the particular area")]
         [SerializeField] private Transform[] _patrolPoints;
+        
+        [Min(0.1f)]
         [SerializeField] private float _patrolSpeed = 5.0f;
+        
+        [Min(0.1f)]
+        [Tooltip("This is a variable which tells how much an enemy waits at a particular patrol point")]
         [SerializeField] private float _patrolStopTime = 2.0f;
 
         [Header("Suspicion Settings:")]
         [Min(0.1f)]
         [SerializeField] private float _minSuspicionCheckDistance = 1.0f;
+        
         [Min(0.1f)]
         [SerializeField] private float _maxSuspicionCheckDistance = 3.0f;
+        
         [Min(0.1f)]
+        [Tooltip("This tells how much an enemy waits when in suspicious state")]
         [SerializeField] private float _suspicionCheckTime = 5.0f;
         
         [Header("Chase Settings:")]
@@ -46,6 +55,7 @@ namespace Game.EnemyHandling
         [Min(0.1f)]
         [SerializeField] private float _chaseSpeed = 10.0f;
         [Min(0.1f)]
+        [Tooltip("This tells after how much time should an enemy recalculate path when chasing the player")]
         [SerializeField] private float _pathSearchingInterval = 0.5f;
 
         [Header("Attack Settings:")]
@@ -57,6 +67,7 @@ namespace Game.EnemyHandling
         [Min(0.1f)]
         [SerializeField] private float _attackWaitTime = 3.0f;
         [Range(0.1f, 1.0f)]
+        [Tooltip("This tells how much to stay close to the player when in attack state")]
         [SerializeField] private float _maxClosestDistancePercent = 0.4f;
 
         [Header("Target Settings:")]
@@ -87,7 +98,7 @@ namespace Game.EnemyHandling
         #endregion
 
         #region Properties
-        public Transform[] PatrolPoints { get => _patrolPoints; }
+        public Transform[] PatrolPoints { get => _patrolPoints; set => _patrolPoints = value; }
         public float PatrolSpeed { get => _patrolSpeed; }
         public float PatrolStopTime { get => _patrolStopTime; }
         public float ChaseSpeed { get => _chaseSpeed; }
