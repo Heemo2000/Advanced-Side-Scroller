@@ -70,10 +70,10 @@ namespace Game
             if(Physics.OverlapSphereNonAlloc(_enemy.transform.position, _enemy.ExplodeRange, _detectedColliders, 1 << _enemy.Target.gameObject.layer) > 0)
             {
                 Health health = _detectedColliders[0].transform.GetComponent<Health>();
-                health.TakeDamage(_enemy.ExplodeDamage, HealthDamageType.Explode);
+                health.TakeDamage(_enemy.ExplodeDamage,_enemy.transform.position, Vector2.zero, HealthDamageType.Explode);
             }
 
-            _enemy.Health.TakeDamage(_enemy.Health.MaxAmount, HealthDamageType.Explode);
+            _enemy.Health.TakeDamage(_enemy.Health.MaxAmount, _enemy.Health.transform.position, Vector2.zero, HealthDamageType.Explode);
         }
 
         #endregion

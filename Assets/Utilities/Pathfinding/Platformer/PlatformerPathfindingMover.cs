@@ -93,6 +93,7 @@ namespace Utilities.Pathfinding.Platformer
         public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
         public Vector2 Destination { get => _destination; }
         public bool AllowJumping { get => _allowJumping; set => _allowJumping = value; }
+        public float InputX { get => _inputX; }
 
         #endregion
 

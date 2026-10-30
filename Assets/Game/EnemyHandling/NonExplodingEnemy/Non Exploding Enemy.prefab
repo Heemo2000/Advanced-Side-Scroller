@@ -429,7 +429,7 @@ MonoBehaviour:
   - {fileID: 6430591428399377636}
   - {fileID: 2100381785629625559}
   - {fileID: 5450672059250688460}
-  _groundCheckRadius: 0.05
+  _groundCheckRadius: 0.1
   _groundCheckLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -471,7 +471,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _minPathfindingSearchDistance: 1
 --- !u!114 &6625366495025462440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,10 +491,11 @@ MonoBehaviour:
   _chaseDistance: 10
   _chaseSpeed: 10
   _pathSearchingInterval: 0.2
-  _attackDistance: 5
+  _attackDistance: 4.5
   _attackMechanic: {fileID: 8917419996794537996}
   _attackTime: 2
   _attackWaitTime: 3
+  _maxClosestDistancePercent: 0.4
   _target: {fileID: 0}
   _deathEffect: {fileID: 6192724089161036655, guid: e17d9a3f04750764c8c0a7a0461e4c3b, type: 3}
   _currentState: 

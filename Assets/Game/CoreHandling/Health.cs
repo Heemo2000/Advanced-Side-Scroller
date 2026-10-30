@@ -20,7 +20,7 @@ namespace Game.CoreHandling
 
         #region Events
         public event Action<float, float> OnHealthSet;
-        public event Action<float, HealthDamageType> OnHealthDamage;
+        public event Action<float, Vector2, Vector2, HealthDamageType> OnHealthDamage;
         public event Action<float> OnHealthRepaired;
         public event Action<HealthDamageType> OnDeath;
         #endregion
@@ -36,7 +36,7 @@ namespace Game.CoreHandling
 
         #region Class Functionality
         
-        public void TakeDamage(float amount, HealthDamageType type = HealthDamageType.NormalShot)
+        public void TakeDamage(float amount, Vector2 position, Vector2 hitDirection, HealthDamageType type = HealthDamageType.NormalShot)
         {
             _currentAmount -= amount;
             if(_currentAmount < 0.0f)
@@ -46,7 +46,7 @@ namespace Game.CoreHandling
             OnHealthSet?.Invoke(_currentAmount, _maxAmount);
             if(_currentAmount > 0.0f)
             {
-                OnHealthDamage?.Invoke(amount, type);
+                OnHealthDamage?.Invoke(amount, position, hitDirection, type);
             }
             else
             {

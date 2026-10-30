@@ -111,7 +111,7 @@ namespace Game.WeaponHandling
             {
                 if (other.transform.TryGetComponent<Health>(out var health))
                 {
-                    health.TakeDamage(_damage, _damageType);
+                    health.TakeDamage(_damage, transform.position, transform.right, _damageType);
                 }
                 DestroyBullet();
             }
