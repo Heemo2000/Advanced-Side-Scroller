@@ -2702,10 +2702,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Non Exploding Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 6341560474305884737, guid: 5c85dff51c46cf3478b6ee1cfc1b5688, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6625366495025462440, guid: 5c85dff51c46cf3478b6ee1cfc1b5688, type: 3}
       propertyPath: _target
       value: 
