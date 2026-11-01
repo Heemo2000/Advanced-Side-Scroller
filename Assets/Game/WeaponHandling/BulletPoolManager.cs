@@ -66,16 +66,11 @@ namespace Game.WeaponHandling
         {
             if (_bulletDict.ContainsKey(prefabID))
             {
-                if (_bulletDict[prefabID].IsSpaceThereInPool())
-                {
-                    Bullet bulletInstance = _bulletDict[prefabID].Get();
-                    bulletInstance.transform.position = position;
-                    
-                    return bulletInstance;
-                }
+                Bullet bulletInstance = _bulletDict[prefabID].Get();
+                bulletInstance.BulletPoolManager = this;
+                bulletInstance.transform.position = position;
 
-                Debug.Log($"No bullet in the pool with prefab ID: {prefabID}");
-                return null;
+                return bulletInstance;
 
             }
 
@@ -100,6 +95,8 @@ namespace Game.WeaponHandling
         private Bullet CreateBullet(Bullet prefab)
         {
             Bullet bullet = Instantiate(prefab, transform);
+            bullet.BulletPoolManager = this;
+            bullet.PrefabID = prefab.GetInstanceID();
             bullet.gameObject.SetActive(false);
             return bullet;
         }

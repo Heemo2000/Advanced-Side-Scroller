@@ -131,7 +131,10 @@ namespace Utilities.PauseHandling
         /// <param name="pausable"></param>
         private void RegisterInstance(IPausable pausable)
         {
-
+            if(_pausables.Contains(pausable))
+            {
+                return;
+            }
             //Debug.Log("Registering locally");
 
             _pausables.Add(pausable);
@@ -154,6 +157,11 @@ namespace Utilities.PauseHandling
         /// <param name="pausable"></param>
         private static void RegisterStatically(IPausable pausable)
         {
+            if(!PendingRegistrations.Contains(pausable))
+            {
+                return;
+            }
+
             //Debug.Log("Registering Statically");
 
             PendingRegistrations.Add(pausable);

@@ -9,6 +9,7 @@ namespace Utilities.ObjectPoolHandling
     public class ObjectPool<T>
     {
         #region Private Fields
+        private Func<T> _onCreate;
         private Action<T> _onGetObj;
         private Action<T> _onObjReturnToPool;
         private Action<T> _onDestroyObj;
@@ -19,6 +20,7 @@ namespace Utilities.ObjectPoolHandling
         #region Class Functionality
         public ObjectPool(Func<T> onCreate, Action<T> onGetObj, Action<T> onObjReturnToPool, Action<T> onDestroyObj, int initialGenerateCount)
         {
+            _onCreate = onCreate;
             _onGetObj = onGetObj;
             _onObjReturnToPool = onObjReturnToPool;
             _onDestroyObj = onDestroyObj;
@@ -37,7 +39,9 @@ namespace Utilities.ObjectPoolHandling
             if(_poolQueue.Count == 0)
             {
                 Debug.LogError("Pool is empty, return default of type " + typeof(T).FullName);
-                return default(T);
+                T newObj = _onCreate();
+                _onGetObj?.Invoke(newObj);
+                return newObj;
             }
 
             T obj = _poolQueue.Dequeue();

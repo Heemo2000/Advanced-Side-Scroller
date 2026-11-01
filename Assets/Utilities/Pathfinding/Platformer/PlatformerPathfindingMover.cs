@@ -1,6 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities.PauseHandling;
+
+
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -8,9 +13,9 @@ using Utilities.IOC;
 
 namespace Utilities.Pathfinding.Platformer
 {
-    [RequireComponent(typeof(BoxCollider))]
-    [RequireComponent(typeof(Rigidbody))]
-    public class PlatformerPathfindingMover : MonoBehaviour
+    [RequireComponent(typeof(BoxCollider2D))]
+    [RequireComponent(typeof(Rigidbody2D))]
+    public class PlatformerPathfindingMover : MonoBehaviour, IPausable
     {
         public enum PlatformerPathfindingMoverState
         {
@@ -19,7 +24,7 @@ namespace Utilities.Pathfinding.Platformer
             Jumping
         }
         #region Constants
-        private const float DifferenceEpsilon = 0.1f;
+        private const float DifferenceEpsilon = 0.2f;
         #endregion
         
         #region Serialized Fields
@@ -46,14 +51,10 @@ namespace Utilities.Pathfinding.Platformer
         [Min(0.1f)]
         [SerializeField] private float _jumpSpeed = 0.5f;
         [SerializeField] private AnimationCurve _jumpCurve;
-
-        [Header("Pathfinding Check Settings:")]
-        [Min(0.1f)]
-        [SerializeField] private float _minPathfindingSearchDistance = 3.0f;
         #endregion
         #region Private Fields
-        private BoxCollider _boxCollider;
-        private Rigidbody _rigidbody;
+        private BoxCollider2D _boxCollider;
+        private Rigidbody2D _rigidbody;
 
         private bool _shouldStop = false;
         private PlatformerPathfindingMoverState _currentState = PlatformerPathfindingMoverState.None;
@@ -61,6 +62,7 @@ namespace Utilities.Pathfinding.Platformer
         private bool _isGrounded = false;
         private float _velocityY = 0.0f;
         
+        private Vector2 _startPosition = Vector2.zero;
         private Vector2 _destination = Vector2.zero;
         
         private float _inputX = 0.0f;
@@ -76,6 +78,7 @@ namespace Utilities.Pathfinding.Platformer
         private Vector2 _currentJumpPosition = Vector2.zero;
         private float _jumpDelta = 0.0f;
         private bool _isAlreadyReachedDestination = false;
+        private bool _isPaused = false;
         #endregion
 
 
@@ -90,6 +93,7 @@ namespace Utilities.Pathfinding.Platformer
         public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
         public Vector2 Destination { get => _destination; }
         public bool AllowJumping { get => _allowJumping; set => _allowJumping = value; }
+        public float InputX { get => _inputX; }
 
         #endregion
 
@@ -97,22 +101,25 @@ namespace Utilities.Pathfinding.Platformer
 
         private void Awake()
         {
-            _boxCollider = GetComponent<BoxCollider>();
-            _rigidbody = GetComponent<Rigidbody>();
+            _boxCollider = GetComponent<BoxCollider2D>();
+            _rigidbody = GetComponent<Rigidbody2D>();
         }
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             _currentMovement = transform.position;
-            _rigidbody.isKinematic = true;
+            _rigidbody.bodyType = RigidbodyType2D.Kinematic;
             _boxCollider.isTrigger = true;
             _currentState = PlatformerPathfindingMoverState.Normal;
             ServiceLocator sceneServiceLocator = ServiceLocator.ForSceneOf(this);
             _platformPathfindingManager = sceneServiceLocator.Get<PlatformerPathfindingManager>();
+            GamePauseManager.Register(this);
         }
 
         private void FixedUpdate()
         {
+            if(_isPaused) return;
+
             HandleOverallMovement();
         }
 
@@ -135,6 +142,15 @@ namespace Utilities.Pathfinding.Platformer
                 Handles.DrawLine(groundCheckPos, groundCheckPos + extraDetectedMovement);
                 #endif
             }
+
+            if (_currentPath != null)
+            {
+                Gizmos.color = Color.blueViolet;
+                for (int i = 0; i < _currentPath.Count - 1; i++)
+                {
+                    Gizmos.DrawLine(_currentPath[i].WorldPos, _currentPath[i + 1].WorldPos);
+                }
+            }
         }
         #endregion
 
@@ -142,35 +158,26 @@ namespace Utilities.Pathfinding.Platformer
 
         public void SetDestination(Vector2 destination)
         {
-            //If the path is already calculated for the destination closer
-            //than the previous destination, then no need to calculated again the path.
-            if(_shouldStop == false && _currentPath != null && 
-               Vector3.SqrMagnitude(destination - _destination) <= 
-               _minPathfindingSearchDistance * _minPathfindingSearchDistance)
+            if (_platformPathfindingManager != null)
             {
-                return;
+                _platformPathfindingManager.FindPathNodes(transform.position, destination, OnPathFound, OnPathNotFound);
             }
-            _platformPathfindingManager.FindPathNodes(transform.position, destination, OnPathFound, OnPathNotFound);
         }
 
         public void ForcefullyStop()
         {
+            _currentPath = null;
             _shouldStop = true;
         }
 
-        private void OnPathFound(List<IAstarNode> path)
-        {
-            _destination = path[path.Count - 1].WorldPos;
-            _currentPath = path;
-            _currentPathCount = _currentPath.Count;
-            _currentWaypointIndex = 0;
-            _isAlreadyReachedDestination = false;
-            _shouldStop = false;
+        private void OnPathFound(PlatformerPathfindingPathResult result)
+        {   
+            StartCoroutine(ResetMovementParameters(result)); 
         }
 
         private void OnPathNotFound()
         {
-
+            _shouldStop = true;
         }
 
         private void HandleOverallMovement()
@@ -200,7 +207,7 @@ namespace Utilities.Pathfinding.Platformer
             else
             {
                 
-                Vector3 currentWaypoint = _currentPath[_currentWaypointIndex].WorldPos;
+                Vector2 currentWaypoint = _currentPath[_currentWaypointIndex].WorldPos;
                 Vector2 difference = currentWaypoint - _rigidbody.position;
                 _inputX = Mathf.Sign(difference.x);
 
@@ -302,7 +309,8 @@ namespace Utilities.Pathfinding.Platformer
                 }
 
                 Vector2 groundCheckPos = new Vector2(groundCheck.position.x, groundCheck.position.y);
-                if (Physics2D.CircleCast(groundCheckPos, _groundCheckRadius, -Vector2.up, extraDetectedMovement, _groundCheckLayerMask.value).collider != null)
+                if (Physics2D.OverlapCircle(groundCheckPos, _groundCheckRadius, _groundCheckLayerMask.value) != null ||
+                    Physics2D.CircleCast(groundCheckPos, _groundCheckRadius, -Vector2.up, extraDetectedMovement, _groundCheckLayerMask.value).collider != null)
                 {
                     return true;
                 }
@@ -310,7 +318,51 @@ namespace Utilities.Pathfinding.Platformer
 
             return false;
         }
-        
+
+        public void OnPause()
+        {
+            _isPaused = true;
+        }
+
+        public void OnResume()
+        {
+            _isPaused = false;
+        }
+
+        private IEnumerator ResetMovementParameters(PlatformerPathfindingPathResult result)
+        {
+            yield return new WaitWhile(() => _currentState == PlatformerPathfindingMoverState.Jumping);
+
+            _startPosition = result.Start;
+            _destination = result.Destination;
+            _currentPath = result.Path;
+            _currentPathCount = _currentPath.Count;
+            _currentWaypointIndex = GetClosestMovementIndex(result.Path);
+            _isAlreadyReachedDestination = false;
+            _shouldStop = false;
+
+            yield return null;
+        }
+
+        private int GetClosestMovementIndex(List<IAstarNode> path)
+        {
+            int result = -1;
+            float minSqrDistance = float.MaxValue;
+            int i = 0;
+            foreach (IAstarNode node in path)
+            {
+                float sqrDistance = Vector2.SqrMagnitude(node.WorldPos - _rigidbody.position);
+                if (sqrDistance < minSqrDistance)
+                {
+                    minSqrDistance = sqrDistance;
+                    result = i;
+                }
+                i++;
+            }
+
+            return result;
+        }
+
         #endregion
     }
 }
