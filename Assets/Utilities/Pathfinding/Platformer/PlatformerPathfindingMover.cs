@@ -331,7 +331,16 @@ namespace Utilities.Pathfinding.Platformer
 
         private IEnumerator ResetMovementParameters(PlatformerPathfindingPathResult result)
         {
-            yield return new WaitWhile(() => _currentState == PlatformerPathfindingMoverState.Jumping);
+            yield return null;
+            if(this == null)
+            {
+                yield break;
+            }
+            yield return new WaitWhile(() => this != null && _currentState == PlatformerPathfindingMoverState.Jumping);
+            if(this == null)
+            {
+                yield break;
+            }
 
             _startPosition = result.Start;
             _destination = result.Destination;

@@ -7,6 +7,7 @@ namespace Utilities.InterfaceSerialization.EditorHandling
 {
     public class InterfaceReferenceUtil
     {
+#if UNITY_EDITOR
         private static GUIStyle LabelStyle;
 
         public static void OnGUI(Rect position, SerializedProperty property, GUIContent label, InterfaceArgs args)
@@ -55,5 +56,6 @@ namespace Utilities.InterfaceSerialization.EditorHandling
 
             LabelStyle = style;
         }
+#endif
     }
 }
