@@ -42,6 +42,8 @@ namespace Game.PlayerHandling
         [Range(45.0f, 90.0f)]
         [SerializeField] private float _maxSteepAngle = 45.0f;
         [SerializeField] private float _fallingThroughSteepSpeed = 10.0f;
+        [Range(0.0f, 1.0f)]
+        [SerializeField] private float _speedPercent = 1.0f;
         
         [Header("Jump Settings:")]
         [Min(0.1f)]
@@ -87,6 +89,8 @@ namespace Game.PlayerHandling
         private float _jumpHoldCounter = 0.0f;
 
         private bool _isPaused = false;
+
+        public float SpeedPercent { get => _speedPercent; set => _speedPercent = value; }
 
         public event Action OnJump;
         public event Action OnExtraLongerJump;
@@ -229,7 +233,7 @@ namespace Game.PlayerHandling
             {
                 Debug.Log("Moving in X-axis only");
 
-                _currentPosition.x += _currentInputX * Time.fixedDeltaTime * requiredMoveSpeed;
+                _currentPosition.x += _currentInputX * Time.fixedDeltaTime * requiredMoveSpeed * _speedPercent;
             }
             else
             {
@@ -243,7 +247,7 @@ namespace Game.PlayerHandling
                 if (slopeAngle <= _maxSteepAngle)
                 {
                     Debug.Log("Moving in tangent");
-                    _currentPosition += tangent * _currentInputX * Time.fixedDeltaTime * requiredMoveSpeed;
+                    _currentPosition += tangent * _currentInputX * Time.fixedDeltaTime * requiredMoveSpeed * _speedPercent;
                 }
                 else
                 {
@@ -253,7 +257,7 @@ namespace Game.PlayerHandling
                     {
                         fallTangent = -fallTangent; // make sure it always points downward
                     }
-                    _currentPosition += fallTangent * Time.fixedDeltaTime * _fallingThroughSteepSpeed;
+                    _currentPosition += fallTangent * Time.fixedDeltaTime * _fallingThroughSteepSpeed * _speedPercent;
                 }
             }
 

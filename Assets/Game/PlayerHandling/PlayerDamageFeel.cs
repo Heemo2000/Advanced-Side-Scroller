@@ -21,14 +21,18 @@ namespace Game.PlayerHandling
         [SerializeField] private float _maxBlurAmount = 3.0f;
         [Min(0.1f)]
         [SerializeField] private float _returnToClearScreenTime = 0.2f;
+        [Range(0.0f, 1.0f)]
+        [SerializeField] private float _speedPercentDuringExplosion = 0.4f;
         private Health _health;
         private CinemachineImpulseSource _impulseSource;
+        private PlayerMovement _movement;
         private Coroutine _explodeCoroutine;
         private int _blurID = 0;
         private void Awake()
         {
             _health = GetComponent<Health>();
             _impulseSource = GetComponent<CinemachineImpulseSource>();
+            _movement = GetComponent<PlayerMovement>();
         }
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -81,6 +85,7 @@ namespace Game.PlayerHandling
             Sequence sequence = DOTween.Sequence();
             sequence.Join(DOTween.To(OnExplosion, 1.0f, 0.0f, _totalExplosionShakeEffectTime));
             sequence.Append(DOTween.To(AfterExplosion, 0.0f, 1.0f, _returnToClearScreenTime));
+            sequence.AppendCallback(SetSpeedPercentBackTo1);
             sequence.SetUpdate(false);
             yield return sequence.WaitForCompletion();
             _explodeCoroutine = null;
@@ -88,6 +93,7 @@ namespace Game.PlayerHandling
 
         private void OnExplosion(float value)
         {
+            _movement.SpeedPercent = _speedPercentDuringExplosion;
             _impulseSource.ImpulseDefinition.ImpulseDuration = Mathf.Max(value * _deltaExplosionShakeEffectTime, 0.02f);
             _impulseSource.GenerateImpulse(Random.insideUnitCircle * _explosionForce);
 
@@ -97,6 +103,11 @@ namespace Game.PlayerHandling
         private void AfterExplosion(float value)
         {
             _blurMaterial.SetFloat(_blurID, Mathf.Lerp(_maxBlurAmount, 0.0f, value));
+        }
+
+        private void SetSpeedPercentBackTo1()
+        {
+            _movement.SpeedPercent = 1.0f;
         }
     }
 

@@ -47,7 +47,7 @@ namespace Game.PlayerHandling
             }
 
             float moveInputX = _gameInput.GetMoveInput();
-            _movement.HandleInputX(moveInputX, false);
+            _movement.HandleInputX(moveInputX, _gameInput.SprintPressed);
 
             bool jumpHeld = _gameInput.GetJumpHeldInput();
             _movement.SetJumpHeld(jumpHeld);
