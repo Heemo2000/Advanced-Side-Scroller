@@ -13,6 +13,7 @@ namespace Game.CoreHandling
 
         #region Properties
         public int OriginalParticlePrefabID { get; set; } = -1;
+        public ParticleSystem ParticleSystem { get => _particleSystem; }
         #endregion
 
         #region Unity Methods        

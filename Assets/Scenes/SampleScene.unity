@@ -217,6 +217,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &97771392 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5674368957523012442, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+  m_PrefabInstance: {fileID: 4265641689803439427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &162260907
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,6 +271,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &211927476 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7544023274546209541, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+  m_PrefabInstance: {fileID: 4265641689803439427}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &211927483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211927476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03f6d612ff0659449f50db24ebe2bf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.WeaponHandling.MuzzleFlash
+  _muzzleFlashEffect: {fileID: 9164169876882709281, guid: 6f9117cb8f036914497329d653c12292, type: 3}
+  _firePoint: {fileID: 1990252702}
 --- !u!1 &326666173
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,7 +567,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 100
   field of view: 34
   orthographic: 1
   orthographic size: 10
@@ -1324,6 +1348,11 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!4 &695739203 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1615200911678373617, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+  m_PrefabInstance: {fileID: 4265641689803439427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &735233854
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,6 +1601,44 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &791622798 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3884133786450644537, guid: 5c85dff51c46cf3478b6ee1cfc1b5688, type: 3}
+  m_PrefabInstance: {fileID: 8294573531243319393}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &791622803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791622798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03f6d612ff0659449f50db24ebe2bf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.WeaponHandling.MuzzleFlash
+  _muzzleFlashEffect: {fileID: 9164169876882709281, guid: 6f9117cb8f036914497329d653c12292, type: 3}
+  _firePoint: {fileID: 1705489780}
+--- !u!1 &1067340207 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8443311286016783840, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+  m_PrefabInstance: {fileID: 4265641689803439427}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1067340214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067340207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03f6d612ff0659449f50db24ebe2bf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.WeaponHandling.MuzzleFlash
+  _muzzleFlashEffect: {fileID: 9164169876882709281, guid: 6f9117cb8f036914497329d653c12292, type: 3}
+  _firePoint: {fileID: 97771392}
 --- !u!1 &1115954372
 GameObject:
   m_ObjectHideFlags: 0
@@ -1832,6 +1899,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.InputHandling.GameInput
   _aimJoystick: {fileID: 0}
+  _shouldTestJoystickInEditor: 0
 --- !u!4 &1278691976
 Transform:
   m_ObjectHideFlags: 0
@@ -1924,7 +1992,7 @@ MonoBehaviour:
     FieldOfView: 34
     OrthographicSize: 10
     NearClipPlane: 0.3
-    FarClipPlane: 1000
+    FarClipPlane: 100
     Dutch: 0
     ModeOverride: 0
     PhysicalProperties:
@@ -2207,6 +2275,25 @@ Transform:
   - {fileID: 1950606804}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1553644603 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3728040553190588705, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+  m_PrefabInstance: {fileID: 4265641689803439427}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1553644610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553644603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03f6d612ff0659449f50db24ebe2bf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.WeaponHandling.MuzzleFlash
+  _muzzleFlashEffect: {fileID: 9164169876882709281, guid: 6f9117cb8f036914497329d653c12292, type: 3}
+  _firePoint: {fileID: 695739203}
 --- !u!1 &1580720777
 GameObject:
   m_ObjectHideFlags: 0
@@ -2386,6 +2473,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1705489780 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6465184016183224742, guid: 5c85dff51c46cf3478b6ee1cfc1b5688, type: 3}
+  m_PrefabInstance: {fileID: 8294573531243319393}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1757951527
 GameObject:
   m_ObjectHideFlags: 0
@@ -2796,6 +2888,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1451396452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1990252702 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5852438607114691425, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+  m_PrefabInstance: {fileID: 4265641689803439427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2034736529
 GameObject:
   m_ObjectHideFlags: 0
@@ -3021,7 +3118,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8443311286016783840, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1067340214}
+    - targetCorrespondingSourceObject: {fileID: 7544023274546209541, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 211927483}
+    - targetCorrespondingSourceObject: {fileID: 3728040553190588705, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1553644610}
   m_SourcePrefab: {fileID: 100100000, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
 --- !u!1001 &8294573531243319393
 PrefabInstance:
@@ -3094,7 +3200,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3884133786450644537, guid: 5c85dff51c46cf3478b6ee1cfc1b5688, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 791622803}
   m_SourcePrefab: {fileID: 100100000, guid: 5c85dff51c46cf3478b6ee1cfc1b5688, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

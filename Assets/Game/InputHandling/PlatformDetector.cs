@@ -9,10 +9,10 @@ namespace Game.InputHandling
     {
         #region Class Functionality
 
-        #if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL && !UNITY_EDITOR
             [DllImport("__Internal")]
         private static extern int IsMobileBrowser();
-        #endif
+#endif
 
         public static bool IsMobile()
         {

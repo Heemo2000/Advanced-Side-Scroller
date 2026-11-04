@@ -438,7 +438,7 @@ namespace Game.InputHandling
                 {
                     ""name"": """",
                     ""id"": ""78e15abc-52f5-4593-a6fb-adb8ccd9313b"",
-                    ""path"": ""<Gamepad>/leftStick"",
+                    ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

@@ -10,6 +10,7 @@ namespace Game.InputHandling
     public class GameInput : MonoBehaviour, IPausable
     {
         [SerializeField] private OnScreenStick _aimJoystick;
+        [SerializeField] private bool _shouldTestJoystickInEditor = false;
         private GameControls _gameControls;
         private bool _isPaused = false;
         private bool _sprintPressed = false;
@@ -109,7 +110,7 @@ namespace Game.InputHandling
             {
                 return 0.0f;
             }
-            float moveInputX = !PlatformDetector.IsMobile() ? 
+            float moveInputX = !PlatformDetector.IsMobile() && !_shouldTestJoystickInEditor ? 
                                 _gameControls.PC.Movement.ReadValue<Vector2>().x :
                                 _gameControls.Mobile.Movement.ReadValue<Vector2>().x;
             return moveInputX;
