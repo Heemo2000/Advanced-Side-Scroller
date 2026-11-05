@@ -16,9 +16,15 @@ namespace Game.PlayerHandling
         [SerializeField] private float _deltaExplosionShakeEffectTime = 0.2f;
         [Min(0.1f)]
         [SerializeField] private float _explosionForce = 10.0f;
+
+        [SerializeField] private Canvas _screenBlurCanvas;
         [SerializeField] private Material _blurMaterial;
+        
         [Min(0.1f)]
-        [SerializeField] private float _maxBlurAmount = 3.0f;
+        [SerializeField] private float _minBlurScaleAmount = 0.5f;
+        [Min(0.1f)]
+        [SerializeField] private float _maxBlurScaleAmount = 2.0f;
+        
         [Min(0.1f)]
         [SerializeField] private float _returnToClearScreenTime = 0.2f;
         [Range(0.0f, 1.0f)]
@@ -27,7 +33,7 @@ namespace Game.PlayerHandling
         private CinemachineImpulseSource _impulseSource;
         private PlayerMovement _movement;
         private Coroutine _explodeCoroutine;
-        private int _blurID = 0;
+        private int _scaleID = 0;
         private void Awake()
         {
             _health = GetComponent<Health>();
@@ -37,8 +43,9 @@ namespace Game.PlayerHandling
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            _blurID = Shader.PropertyToID("_Blur");
-            _blurMaterial.SetFloat(_blurID, 0.0f);
+            _scaleID = Shader.PropertyToID("_Scale");
+            _blurMaterial.SetFloat(_scaleID, _minBlurScaleAmount);
+            DisableBlurCanvas();
             _health.OnHealthDamage += OnHealthDamage;
         }
 
@@ -73,22 +80,26 @@ namespace Game.PlayerHandling
 
         private IEnumerator ShowExplodeBehaviour()
         {
-            /*float currentTime = 0.0f;
-            _impulseSource.ImpulseDefinition.ImpulseShape = CinemachineImpulseDefinition.ImpulseShapes.Explosion;
-            while (currentTime <= _totalExplosionShakeEffectTime)
-            {
-                _impulseSource.ImpulseDefinition.ImpulseDuration = _deltaExplosionShakeEffectTime;
-                _impulseSource.GenerateImpulse(Random.insideUnitCircle * _explosionForce);
-                currentTime += Time.deltaTime;
-                yield return null;
-            }*/
             Sequence sequence = DOTween.Sequence();
+            sequence.AppendCallback(EnableBlurCanvas);
             sequence.Join(DOTween.To(OnExplosion, 1.0f, 0.0f, _totalExplosionShakeEffectTime));
             sequence.Append(DOTween.To(AfterExplosion, 0.0f, 1.0f, _returnToClearScreenTime));
             sequence.AppendCallback(SetSpeedPercentBackTo1);
+            sequence.AppendCallback(DisableBlurCanvas);
+
             sequence.SetUpdate(false);
             yield return sequence.WaitForCompletion();
             _explodeCoroutine = null;
+        }
+
+        private void EnableBlurCanvas()
+        {
+            _screenBlurCanvas.gameObject.SetActive(true);
+        }
+
+        private void DisableBlurCanvas()
+        {
+            _screenBlurCanvas.gameObject.SetActive(false);
         }
 
         private void OnExplosion(float value)
@@ -97,12 +108,12 @@ namespace Game.PlayerHandling
             _impulseSource.ImpulseDefinition.ImpulseDuration = Mathf.Max(value * _deltaExplosionShakeEffectTime, 0.02f);
             _impulseSource.GenerateImpulse(Random.insideUnitCircle * _explosionForce);
 
-            _blurMaterial.SetFloat(_blurID, Mathf.Lerp(0.0f, _maxBlurAmount, 1.0f - value));
+            _blurMaterial.SetFloat(_scaleID, Mathf.Lerp(_minBlurScaleAmount, _maxBlurScaleAmount, 1.0f - value));
         }
 
         private void AfterExplosion(float value)
         {
-            _blurMaterial.SetFloat(_blurID, Mathf.Lerp(_maxBlurAmount, 0.0f, value));
+            _blurMaterial.SetFloat(_scaleID, Mathf.Lerp(_maxBlurScaleAmount, _minBlurScaleAmount, value));
         }
 
         private void SetSpeedPercentBackTo1()

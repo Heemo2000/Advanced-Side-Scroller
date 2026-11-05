@@ -775,7 +775,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 000000006fe94e19
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1481,7 +1481,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 424601967
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &741580128
@@ -1777,7 +1777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 2100000, guid: 32b002b97a9135c4f8b2e514ad7940ef, type: 2}
+  m_Material: {fileID: 2100000, guid: 4b1d1586180860c4ea167413d0759482, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -3106,6 +3106,18 @@ PrefabInstance:
     - target: {fileID: 1974036745377130364, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3216901922890471273, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: _blurMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 4b1d1586180860c4ea167413d0759482, type: 2}
+    - target: {fileID: 3216901922890471273, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: _screenBlurCanvas
+      value: 
+      objectReference: {fileID: 741580127}
+    - target: {fileID: 3216901922890471273, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: _maxBlurScaleAmount
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5703080620606645597, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
       propertyPath: m_Name
