@@ -156,6 +156,15 @@ namespace Game.InputHandling
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""c0b89279-8b75-4890-8293-de13ca5c9e41"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -334,6 +343,17 @@ namespace Game.InputHandling
                     ""action"": ""NextWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ebcee89-1c6a-457c-b90c-309c1a92dd66"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -403,13 +423,22 @@ namespace Game.InputHandling
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""2fe90697-938e-40a9-8f13-0d589e603a81"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""78e15abc-52f5-4593-a6fb-adb8ccd9313b"",
-                    ""path"": ""<Gamepad>/leftStick"",
+                    ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -464,7 +493,7 @@ namespace Game.InputHandling
                 {
                     ""name"": """",
                     ""id"": ""bb7fa505-26ee-4c4b-9d80-f1ca83779e28"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -475,11 +504,22 @@ namespace Game.InputHandling
                 {
                     ""name"": """",
                     ""id"": ""b1615062-ab02-47dc-90ab-d2a34c178446"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""NextWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b70af23d-16c7-49c2-937c-60fcbf05498a"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -497,6 +537,7 @@ namespace Game.InputHandling
             m_PC_Shoot = m_PC.FindAction("Shoot", throwIfNotFound: true);
             m_PC_PreviousWeapon = m_PC.FindAction("PreviousWeapon", throwIfNotFound: true);
             m_PC_NextWeapon = m_PC.FindAction("NextWeapon", throwIfNotFound: true);
+            m_PC_Sprint = m_PC.FindAction("Sprint", throwIfNotFound: true);
             // Mobile
             m_Mobile = asset.FindActionMap("Mobile", throwIfNotFound: true);
             m_Mobile_Movement = m_Mobile.FindAction("Movement", throwIfNotFound: true);
@@ -506,6 +547,7 @@ namespace Game.InputHandling
             m_Mobile_Shoot = m_Mobile.FindAction("Shoot", throwIfNotFound: true);
             m_Mobile_PreviousWeapon = m_Mobile.FindAction("PreviousWeapon", throwIfNotFound: true);
             m_Mobile_NextWeapon = m_Mobile.FindAction("NextWeapon", throwIfNotFound: true);
+            m_Mobile_Sprint = m_Mobile.FindAction("Sprint", throwIfNotFound: true);
         }
 
         ~@GameControls()
@@ -594,6 +636,7 @@ namespace Game.InputHandling
         private readonly InputAction m_PC_Shoot;
         private readonly InputAction m_PC_PreviousWeapon;
         private readonly InputAction m_PC_NextWeapon;
+        private readonly InputAction m_PC_Sprint;
         /// <summary>
         /// Provides access to input actions defined in input action map "PC".
         /// </summary>
@@ -633,6 +676,10 @@ namespace Game.InputHandling
             /// Provides access to the underlying input action "PC/NextWeapon".
             /// </summary>
             public InputAction @NextWeapon => m_Wrapper.m_PC_NextWeapon;
+            /// <summary>
+            /// Provides access to the underlying input action "PC/Sprint".
+            /// </summary>
+            public InputAction @Sprint => m_Wrapper.m_PC_Sprint;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -680,6 +727,9 @@ namespace Game.InputHandling
                 @NextWeapon.started += instance.OnNextWeapon;
                 @NextWeapon.performed += instance.OnNextWeapon;
                 @NextWeapon.canceled += instance.OnNextWeapon;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
             }
 
             /// <summary>
@@ -712,6 +762,9 @@ namespace Game.InputHandling
                 @NextWeapon.started -= instance.OnNextWeapon;
                 @NextWeapon.performed -= instance.OnNextWeapon;
                 @NextWeapon.canceled -= instance.OnNextWeapon;
+                @Sprint.started -= instance.OnSprint;
+                @Sprint.performed -= instance.OnSprint;
+                @Sprint.canceled -= instance.OnSprint;
             }
 
             /// <summary>
@@ -756,6 +809,7 @@ namespace Game.InputHandling
         private readonly InputAction m_Mobile_Shoot;
         private readonly InputAction m_Mobile_PreviousWeapon;
         private readonly InputAction m_Mobile_NextWeapon;
+        private readonly InputAction m_Mobile_Sprint;
         /// <summary>
         /// Provides access to input actions defined in input action map "Mobile".
         /// </summary>
@@ -795,6 +849,10 @@ namespace Game.InputHandling
             /// Provides access to the underlying input action "Mobile/NextWeapon".
             /// </summary>
             public InputAction @NextWeapon => m_Wrapper.m_Mobile_NextWeapon;
+            /// <summary>
+            /// Provides access to the underlying input action "Mobile/Sprint".
+            /// </summary>
+            public InputAction @Sprint => m_Wrapper.m_Mobile_Sprint;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -842,6 +900,9 @@ namespace Game.InputHandling
                 @NextWeapon.started += instance.OnNextWeapon;
                 @NextWeapon.performed += instance.OnNextWeapon;
                 @NextWeapon.canceled += instance.OnNextWeapon;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
             }
 
             /// <summary>
@@ -874,6 +935,9 @@ namespace Game.InputHandling
                 @NextWeapon.started -= instance.OnNextWeapon;
                 @NextWeapon.performed -= instance.OnNextWeapon;
                 @NextWeapon.canceled -= instance.OnNextWeapon;
+                @Sprint.started -= instance.OnSprint;
+                @Sprint.performed -= instance.OnSprint;
+                @Sprint.canceled -= instance.OnSprint;
             }
 
             /// <summary>
@@ -963,6 +1027,13 @@ namespace Game.InputHandling
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnNextWeapon(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Sprint" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnSprint(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Mobile" which allows adding and removing callbacks.
@@ -1020,6 +1091,13 @@ namespace Game.InputHandling
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnNextWeapon(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Sprint" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnSprint(InputAction.CallbackContext context);
         }
     }
 }

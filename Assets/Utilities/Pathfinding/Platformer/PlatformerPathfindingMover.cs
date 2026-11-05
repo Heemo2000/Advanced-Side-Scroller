@@ -79,6 +79,7 @@ namespace Utilities.Pathfinding.Platformer
         private float _jumpDelta = 0.0f;
         private bool _isAlreadyReachedDestination = false;
         private bool _isPaused = false;
+        private Coroutine _resetParametersCoroutine = null;
         #endregion
 
 
@@ -171,8 +172,13 @@ namespace Utilities.Pathfinding.Platformer
         }
 
         private void OnPathFound(PlatformerPathfindingPathResult result)
-        {   
-            StartCoroutine(ResetMovementParameters(result)); 
+        {
+            if(_resetParametersCoroutine != null)
+            {
+                StopCoroutine(_resetParametersCoroutine);
+            }
+            _resetParametersCoroutine = StartCoroutine(ResetMovementParameters(result)); 
+            
         }
 
         private void OnPathNotFound()
@@ -331,8 +337,15 @@ namespace Utilities.Pathfinding.Platformer
 
         private IEnumerator ResetMovementParameters(PlatformerPathfindingPathResult result)
         {
-            yield return new WaitWhile(() => _currentState == PlatformerPathfindingMoverState.Jumping);
-
+            if (this == null)
+            {
+                yield break;
+            }
+            yield return new WaitWhile(() => this != null && _currentState == PlatformerPathfindingMoverState.Jumping);
+            if(this == null)
+            {
+                yield break;
+            }
             _startPosition = result.Start;
             _destination = result.Destination;
             _currentPath = result.Path;
@@ -342,10 +355,16 @@ namespace Utilities.Pathfinding.Platformer
             _shouldStop = false;
 
             yield return null;
+
+            _resetParametersCoroutine = null;
         }
 
         private int GetClosestMovementIndex(List<IAstarNode> path)
         {
+            if(_rigidbody == null)
+            {
+                return -1;
+            }
             int result = -1;
             float minSqrDistance = float.MaxValue;
             int i = 0;

@@ -14,7 +14,8 @@ namespace Game.WeaponHandling
         }
 
         [SerializeField] private ShootType _shootType = ShootType.None;
-
+        [Min(0.1f)]
+        [SerializeField] private float _recoilForce = 5.0f;
         private CinemachineImpulseSource _impulseSource;
         private Weapon _weapon;
         private void Awake()
@@ -39,7 +40,7 @@ namespace Game.WeaponHandling
 
         private void DoScreenShake()
         {
-            _impulseSource.GenerateImpulse();
+            _impulseSource.GenerateImpulseAt(transform.position, transform.right * _recoilForce);
         }
     }
 }

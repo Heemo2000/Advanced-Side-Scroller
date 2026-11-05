@@ -10,9 +10,13 @@ namespace Game.InputHandling
     public class GameInput : MonoBehaviour, IPausable
     {
         [SerializeField] private OnScreenStick _aimJoystick;
+        [SerializeField] private bool _shouldTestJoystickInEditor = false;
         private GameControls _gameControls;
         private bool _isPaused = false;
+        private bool _sprintPressed = false;
         private GamePauseManager _gamePauseManager;
+
+        public bool SprintPressed { get => _sprintPressed; }
 
         public event Action OnJump;
         public event Action OnSingleShoot;
@@ -31,12 +35,16 @@ namespace Game.InputHandling
             _gameControls.PC.Shoot.performed += OnShootPerformed;
             _gameControls.PC.PreviousWeapon.started += OnPreviousWeaponBtnPressed;
             _gameControls.PC.NextWeapon.started += OnNextWeaponBtnPressed;
+            _gameControls.PC.Sprint.started += OnSprintStarted;
+            _gameControls.PC.Sprint.canceled += OnSprintCancelled;
 
             _gameControls.Mobile.Jump.started += OnJumpPressed;
             _gameControls.Mobile.TogglePause.started += OnTogglePausePressed;
             _gameControls.Mobile.Shoot.performed += OnShootPerformed;
             _gameControls.Mobile.PreviousWeapon.started += OnPreviousWeaponBtnPressed;
             _gameControls.Mobile.NextWeapon.started += OnNextWeaponBtnPressed;
+            _gameControls.Mobile.Sprint.started += OnSprintStarted;
+            _gameControls.Mobile.Sprint.canceled += OnSprintCancelled;
         }
 
         private void Update()
@@ -54,12 +62,16 @@ namespace Game.InputHandling
             _gameControls.PC.Shoot.performed -= OnShootPerformed;
             _gameControls.PC.PreviousWeapon.started += OnPreviousWeaponBtnPressed;
             _gameControls.PC.NextWeapon.started += OnNextWeaponBtnPressed;
+            _gameControls.PC.Sprint.started -= OnSprintStarted;
+            _gameControls.PC.Sprint.canceled -= OnSprintCancelled;
 
             _gameControls.Mobile.Jump.started -= OnJumpPressed;
             _gameControls.Mobile.TogglePause.started -= OnTogglePausePressed;
             _gameControls.Mobile.Shoot.performed -= OnShootPerformed;
             _gameControls.Mobile.PreviousWeapon.started += OnPreviousWeaponBtnPressed;
             _gameControls.Mobile.NextWeapon.started += OnNextWeaponBtnPressed;
+            _gameControls.Mobile.Sprint.started -= OnSprintStarted;
+            _gameControls.Mobile.Sprint.canceled -= OnSprintCancelled;
         }
 
         public void OnPause()
@@ -98,7 +110,7 @@ namespace Game.InputHandling
             {
                 return 0.0f;
             }
-            float moveInputX = !PlatformDetector.IsMobile() ? 
+            float moveInputX = !PlatformDetector.IsMobile() && !_shouldTestJoystickInEditor ? 
                                 _gameControls.PC.Movement.ReadValue<Vector2>().x :
                                 _gameControls.Mobile.Movement.ReadValue<Vector2>().x;
             return moveInputX;
@@ -146,6 +158,16 @@ namespace Game.InputHandling
         private void OnNextWeaponBtnPressed(InputAction.CallbackContext context)
         {
             OnNextWeapon?.Invoke();
+        }
+
+        private void OnSprintStarted(InputAction.CallbackContext context)
+        {
+            _sprintPressed = true;
+        }
+
+        private void OnSprintCancelled(InputAction.CallbackContext context)
+        {
+            _sprintPressed = false;
         }
 
         private void CheckForContinousShoot()

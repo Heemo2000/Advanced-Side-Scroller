@@ -59,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 3694066076176267706}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.291, y: 0.089, z: 0}
+  m_LocalPosition: {x: 0.284, y: 0.096, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
   ImpulseDefinition:
     ImpulseChannel: 1
-    ImpulseShape: 2
+    ImpulseShape: 1
     CustomImpulseShape:
       serializedVersion: 2
       m_Curve: []
@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.WeaponHandling.WeaponScreenShake
   _shootType: 0
+  _recoilForce: 5
 --- !u!1 &4272108321843588059
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +331,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3244913727934624259}
@@ -384,7 +385,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 24db8b1e40da92c4199a81a20bf8ecfe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cad2c20b1d95354439c545dd1971a68a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -442,6 +443,9 @@ GameObject:
   - component: {fileID: 1041157788116871028}
   - component: {fileID: 8660869242927725668}
   - component: {fileID: 8493139905124103242}
+  - component: {fileID: 2634075976305385138}
+  - component: {fileID: 4979958012720444746}
+  - component: {fileID: 3216901922890471273}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -602,6 +606,91 @@ MonoBehaviour:
   - {fileID: 8124273046565761032}
   - {fileID: 7840646691988768520}
   - {fileID: 9006244661838330234}
+--- !u!114 &2634075976305385138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5703080620606645597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da69cc4b8e91c144bba5babca6d3d5b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.CoreHandling.Health
+  _maxAmount: 100
+--- !u!114 &4979958012720444746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5703080620606645597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
+  ImpulseDefinition:
+    ImpulseChannel: 1
+    ImpulseShape: 3
+    CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ImpulseDuration: 0.2
+    ImpulseType: 0
+    DissipationRate: 0.25
+    RawSignal: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    RepeatMode: 0
+    Randomize: 1
+    TimeEnvelope:
+      AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      AttackTime: 0
+      SustainTime: 0.2
+      DecayTime: 0.7
+      ScaleWithImpact: 1
+      HoldForever: 0
+    ImpactRadius: 100
+    DirectionMode: 0
+    DissipationMode: 2
+    DissipationDistance: 100
+    PropagationSpeed: 343
+  DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!114 &3216901922890471273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5703080620606645597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c21b0e99b11b24bad54ad541a6a906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.PlayerHandling.PlayerDamageFeel
+  _normalDamageShakeEffectTime: 0.2
+  _totalExplosionShakeEffectTime: 2
+  _deltaExplosionShakeEffectTime: 0.2
+  _explosionForce: 1
+  _blurMaterial: {fileID: 2100000, guid: 32b002b97a9135c4f8b2e514ad7940ef, type: 2}
+  _maxBlurAmount: 3
+  _returnToClearScreenTime: 0.2
 --- !u!1 &5769395830501204837
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,7 +749,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7487536283055540742}
@@ -714,7 +803,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: f7905c5281d4ada4b934ff68e90ff6fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 46223c9e0b31bcb42b17a8bd037b6ef2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -749,7 +838,7 @@ Transform:
   m_GameObject: {fileID: 7422156583748315426}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.825, y: 0.041, z: 0}
+  m_LocalPosition: {x: 0.869, y: 0.121, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -941,7 +1030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
   ImpulseDefinition:
     ImpulseChannel: 1
-    ImpulseShape: 2
+    ImpulseShape: 1
     CustomImpulseShape:
       serializedVersion: 2
       m_Curve: []
@@ -993,6 +1082,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.WeaponHandling.WeaponScreenShake
   _shootType: 1
+  _recoilForce: 2.5
 --- !u!1 &7680253970364975274
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,7 +1108,7 @@ Transform:
   m_GameObject: {fileID: 7680253970364975274}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.805, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0.857, y: 0.158, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1210,7 +1300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
   ImpulseDefinition:
     ImpulseChannel: 1
-    ImpulseShape: 2
+    ImpulseShape: 1
     CustomImpulseShape:
       serializedVersion: 2
       m_Curve: []
@@ -1262,6 +1352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.WeaponHandling.WeaponScreenShake
   _shootType: 1
+  _recoilForce: 1.5
 --- !u!1 &8592938203154811807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1380,7 +1471,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5258745214231739054}
@@ -1434,7 +1525,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 788fdcfc1d2dbfe4680cd67e2abefa6b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7b0c8c33138b34641afc94f718278cd2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

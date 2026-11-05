@@ -63,6 +63,25 @@ namespace Game.CoreHandling
             particleSystemHandler.Play();
         }
 
+        public void SpawnEffect(ParticleSystem particleSystem, Vector3 position, Vector3 direction)
+        {
+            if (!_particlesLookup.ContainsKey(particleSystem.GetInstanceID()))
+            {
+                AddObjectPool(particleSystem);
+            }
+
+            ParticleSystemHandler particleSystemHandler = _particlesLookup[particleSystem.GetInstanceID()].Get();
+            _activeParticleHandlers.Add(particleSystemHandler);
+            particleSystemHandler.transform.position = position;
+            
+            var main = particleSystemHandler.ParticleSystem.main;
+            float angle = Mathf.Atan2(direction.y, direction.x);
+            
+            main.startRotationZ = -angle;
+            
+            particleSystemHandler.Play();
+        }
+
         public void ReturnToPool(ParticleSystemHandler particleSystem)
         {
             _activeParticleHandlers.Remove(particleSystem);

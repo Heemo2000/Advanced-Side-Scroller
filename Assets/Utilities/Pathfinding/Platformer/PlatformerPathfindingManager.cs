@@ -252,34 +252,42 @@ namespace Utilities.Pathfinding.Platformer
                         startingTime = Time.time;
                         yield return null;
                     }
-
-                    switch (_currentStage)
+                    try
                     {
-                        case Stage.SearchNodes:
-                    
-                            _nodeA = _graph.FindNode(request.positionA);
-                            _nodeB = _graph.FindNode(request.positionB);
-                            _currentStage = Stage.ActualPathfinding;
-                            break;
-                    
-                        case Stage.ActualPathfinding:
-                    
-                            _pathList = _pathfinding.FindPathNodes(_nodeA, _nodeB);
-                            _currentStage = Stage.InvokingEvents;
-                            break;
-                        case Stage.InvokingEvents:
-                    
-                            if (_pathList == null)
-                            {
-                                request.OnPathNotFound?.Invoke();
-                            }
-                            else
-                            {
-                                request.OnPathFound?.Invoke(new PlatformerPathfindingPathResult(_pathList, request.positionA, request.positionB));
-                            }
-                            _currentStage = Stage.None;
-                            break;
+                        switch (_currentStage)
+                        {
+                            case Stage.SearchNodes:
+
+                                _nodeA = _graph.FindNode(request.positionA);
+                                _nodeB = _graph.FindNode(request.positionB);
+                                _currentStage = Stage.ActualPathfinding;
+                                break;
+
+                            case Stage.ActualPathfinding:
+
+                                _pathList = _pathfinding.FindPathNodes(_nodeA, _nodeB);
+                                _currentStage = Stage.InvokingEvents;
+                                break;
+                            case Stage.InvokingEvents:
+
+                                if (_pathList == null)
+                                {
+                                    request.OnPathNotFound?.Invoke();
+                                }
+                                else
+                                {
+                                    request.OnPathFound?.Invoke(new PlatformerPathfindingPathResult(_pathList, request.positionA, request.positionB));
+                                }
+                                _currentStage = Stage.None;
+                                break;
+                        }
                     }
+                    catch (Exception e)
+                    {
+                        Debug.LogError("Error while executing pathfinding operation: \n" + e.Message);
+                        _currentStage = Stage.None;
+                    }
+                    
                 }
             }
             
