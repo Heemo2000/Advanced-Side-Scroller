@@ -10,6 +10,7 @@ namespace Game.WeaponHandling
         public Action OnReload;
         public Action OnSingleUse;
         public Action OnContinousUse;
+        public Action OnLeaveTrigger;
 
         #endregion
         #region Class Functionality
@@ -21,6 +22,11 @@ namespace Game.WeaponHandling
         public virtual void ContinousUse()
         {
             OnContinousUse?.Invoke();
+        }
+
+        public virtual void LeaveTrigger()
+        {
+            OnLeaveTrigger?.Invoke();
         }
 
         public virtual void Reload()

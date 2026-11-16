@@ -23,6 +23,7 @@ namespace Game.InputHandling
         public event Action OnContinousShoot;
         public event Action OnPreviousWeapon;
         public event Action OnNextWeapon;
+        public event Action OnLeaveTrigger;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -33,6 +34,7 @@ namespace Game.InputHandling
             _gameControls.PC.Jump.started += OnJumpPressed;
             _gameControls.PC.TogglePause.started += OnTogglePausePressed;
             _gameControls.PC.Shoot.performed += OnShootPerformed;
+            _gameControls.PC.Shoot.canceled += OnShootCanceled;
             _gameControls.PC.PreviousWeapon.started += OnPreviousWeaponBtnPressed;
             _gameControls.PC.NextWeapon.started += OnNextWeaponBtnPressed;
             _gameControls.PC.Sprint.started += OnSprintStarted;
@@ -60,6 +62,7 @@ namespace Game.InputHandling
             _gameControls.PC.Jump.started -= OnJumpPressed;
             _gameControls.PC.TogglePause.started -= OnTogglePausePressed;
             _gameControls.PC.Shoot.performed -= OnShootPerformed;
+            _gameControls.PC.Shoot.canceled -= OnShootCanceled;
             _gameControls.PC.PreviousWeapon.started += OnPreviousWeaponBtnPressed;
             _gameControls.PC.NextWeapon.started += OnNextWeaponBtnPressed;
             _gameControls.PC.Sprint.started -= OnSprintStarted;
@@ -148,6 +151,11 @@ namespace Game.InputHandling
         private void OnShootPerformed(InputAction.CallbackContext context)
         {
             OnSingleShoot?.Invoke();
+        }
+
+        private void OnShootCanceled(InputAction.CallbackContext context)
+        {
+            OnLeaveTrigger?.Invoke();
         }
 
         private void OnPreviousWeaponBtnPressed(InputAction.CallbackContext context)
