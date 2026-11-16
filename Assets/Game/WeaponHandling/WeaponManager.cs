@@ -89,6 +89,16 @@ namespace Game.WeaponHandling
             _weapons[_currentWeaponIndex].ContinousUse();
         }
 
+        public void LeaveTrigger()
+        {
+            if (_currentWeaponIndex >= _weapons.Length)
+            {
+                return;
+            }
+
+            _weapons[_currentWeaponIndex].LeaveTrigger();
+        }
+
         private void HandleWeaponRotation()
         {
             if (_currentWeaponIndex >= _weapons.Length)

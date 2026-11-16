@@ -36,6 +36,7 @@ namespace Game.PlayerHandling
             _gameInput.OnContinousShoot += _weaponManager.ContinousUse;
             _gameInput.OnPreviousWeapon += _weaponManager.SelectPreviousWeapon;
             _gameInput.OnNextWeapon += _weaponManager.SelectNextWeapon;
+            _gameInput.OnLeaveTrigger += _weaponManager.LeaveTrigger;
             GamePauseManager.Register(this);
         }
 
@@ -64,6 +65,7 @@ namespace Game.PlayerHandling
                 _gameInput.OnContinousShoot -= _weaponManager.ContinousUse;
                 _gameInput.OnPreviousWeapon -= _weaponManager.SelectPreviousWeapon;
                 _gameInput.OnNextWeapon -= _weaponManager.SelectNextWeapon;
+                _gameInput.OnLeaveTrigger -= _weaponManager.LeaveTrigger;
             }
         }
 
