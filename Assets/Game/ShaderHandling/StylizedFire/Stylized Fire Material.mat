@@ -65,9 +65,9 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _FireColor: {r: 21.36125, g: 15.00597, b: 0, a: 1}
+    - _FireColor: {r: 23.968626, g: 16.837614, b: 0, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Speed: {r: 0, g: -0.5, b: 0, a: 0}
+    - _Speed: {r: 0, g: 2, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &3349825617833020149

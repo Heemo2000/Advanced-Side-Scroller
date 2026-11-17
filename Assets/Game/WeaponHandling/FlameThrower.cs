@@ -33,9 +33,16 @@ namespace Game.WeaponHandling
         [SerializeField] private float _minFireColorIntensityMultiplier = 0.2f;
         [Min(0.1f)]
         [SerializeField] private float _maxFireColorIntensityMultiplier = 1.0f;
+
+        [Min(20f)]
+        [SerializeField] private float _minRateOverTimeMultiplier = 40.0f;
+        [Min(30f)]
+        [SerializeField] private float _maxRateOverTimeMultiplier = 80.0f;
         
 
         private ParticleSystem.MainModule _firePSMain;
+        private ParticleSystem.EmissionModule _firePSEmission;
+
         private ParticleSystem.MainModule _smokePSMain;
         private ParticleSystem.MainModule _sparklePSMain;
         private float _currentFuelAmount = 0.0f;
@@ -46,6 +53,7 @@ namespace Game.WeaponHandling
         private void Start()
         {
             _firePSMain = _fireParticleSystem.main;
+            _firePSEmission = _fireParticleSystem.emission;
             _firePSMain.startLifetimeMultiplier = _minFirePower;
             _firePSMain.startSpeedMultiplier = _minFirePower * _minFireSpeedMultiplier;
 
@@ -86,6 +94,8 @@ namespace Game.WeaponHandling
                                                                  _maxFirePower, 
                                                                  _fireBuildupSpeed * Time.deltaTime);
 
+                _firePSEmission.rateOverTimeMultiplier = Mathf.Lerp(_firePSEmission.rateOverTimeMultiplier, _maxRateOverTimeMultiplier, _fireBuildupSpeed * Time.deltaTime);
+
                 _firePSMain.startSpeedMultiplier = Mathf.Lerp(
                                                                  _firePSMain.startSpeedMultiplier,
                                                                  _maxFirePower * _maxFireSpeedMultiplier,
@@ -120,6 +130,8 @@ namespace Game.WeaponHandling
                                                                  _firePSMain.startLifetimeMultiplier,
                                                                  _minFirePower,
                                                                  _fireBuildupSpeed * Time.deltaTime);
+
+                _firePSEmission.rateOverTimeMultiplier = Mathf.Lerp(_firePSEmission.rateOverTimeMultiplier, _minRateOverTimeMultiplier, _fireBuildupSpeed * Time.deltaTime);
 
                 _firePSMain.startSpeedMultiplier = Mathf.Lerp(
                                                                  _firePSMain.startSpeedMultiplier,
