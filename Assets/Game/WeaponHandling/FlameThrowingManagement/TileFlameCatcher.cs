@@ -23,6 +23,7 @@ namespace Game.WeaponHandling.FlameThrowingManagement
         private float _currentTime = 0.0f;
         private Dictionary<TileBase, TileFlameCatchData> _catchDataLookup;
         private List<Vector3Int> _flameKeysToRemove;
+        private float _currentSpawnFireTime = 0.0f;
         private void Awake()
         {
             _worldTilemap = GetComponent<Tilemap>();
@@ -59,44 +60,62 @@ namespace Game.WeaponHandling.FlameThrowingManagement
 
         public void SpawnFire(Vector3 endLinePosition, Vector3 hitPosition, Vector3 hitNormal, float maxFireRegionRadius)
         {
+            /*if(_currentSpawnFireTime < _beforeSpawnFireInterval)
+            {
+                _currentSpawnFireTime += Time.deltaTime;
+                return;
+            }
+
+            _currentSpawnFireTime = 0.0f;*/
+
             Vector3 internalPosition = hitPosition - hitNormal * _worldTilemap.cellSize.y / 2.0f;
             Vector3Int tilePosition = _worldTilemap.WorldToCell(internalPosition);
 
             BoundsInt bounds = new BoundsInt(tilePosition, new Vector3Int(Mathf.RoundToInt(maxFireRegionRadius), 1, 1));
             TileBase[] block = _worldTilemap.GetTilesBlock(bounds);
-
+            int index = 0;
             foreach (TileBase baseTile in block)
             {
+                if(baseTile == null)
+                {
+                    index++;
+                    continue;
+                }
+
                 if(!_catchDataLookup.ContainsKey(baseTile))
                 {
+                    index++;
                     continue;
                 }
 
                 TileFlameCatchData data = _catchDataLookup[baseTile];
-                
-                Tile tile = baseTile as Tile;
-                
-                if(tile == null)
-                {
-                    continue;
-                }
-                Vector3 positionToPlaceFlame = tile.transform.GetPosition();
-                Vector3Int positionToPlaceFlameCell = _worldTilemap.WorldToCell(positionToPlaceFlame);
+
+                int x = bounds.min.x + (index % bounds.size.x);
+                int y = bounds.min.y + ((index / bounds.size.x) % bounds.size.y);
+                int z = bounds.min.z + (index / (bounds.size.x * bounds.size.y));
+
+                Vector3Int positionToPlaceFlameCell = new Vector3Int(x, y, z);
+
+                Vector3 positionToPlaceFlame = _worldTilemap.GetCellCenterWorld(positionToPlaceFlameCell);
+                                                          
 
                 if (!_flameDict.ContainsKey(positionToPlaceFlameCell))
                 {
-                    FlameTile flameTile = (_fireObjectPool.IsSpaceThereInPool()) ? _fireObjectPool.Get() : null;
+                    FlameTile flameTile = _fireObjectPool.Get();
                     if(flameTile != null)
                     {
+                        flameTile.transform.position = positionToPlaceFlame;
                         flameTile.Setup(data.burnTime, _fireMaterial);
+                        _flameDict.Add(positionToPlaceFlameCell, flameTile);
                     }
 
-                    _flameDict.Add(positionToPlaceFlameCell, flameTile);
+                    
                 }
                 else
                 {
                     _flameDict[positionToPlaceFlameCell].Setup(data.burnTime, _fireMaterial);
                 }
+                index++;
             }
         }
 
@@ -124,6 +143,7 @@ namespace Game.WeaponHandling.FlameThrowingManagement
 
             foreach(var position in _flameKeysToRemove)
             {
+                _fireObjectPool.ReturnToPool(_flameDict[position]);
                 _flameDict.Remove(position);
             }
         }

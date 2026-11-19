@@ -1340,7 +1340,7 @@ MonoBehaviour:
   _fireMaterial: {fileID: 2100000, guid: 764624149a12ab24ba36f560b68765b8, type: 2}
   _maxFireLimit: 25
   _beforeFlameUpdateInterval: 0.1
-  _beforeSpawnFireInterval: 0.2
+  _beforeSpawnFireInterval: 0.1
   _flameCatchData:
   - burntTile: {fileID: 11400000, guid: f7f5bf0d207f40e45a00af308d1c4c02, type: 2}
     burnTime: 2
@@ -2936,6 +2936,14 @@ PrefabInstance:
       propertyPath: _firePoint
       value: 
       objectReference: {fileID: 4265641689803439428}
+    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: _checkRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: _maxCheckDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
       propertyPath: _checkLayerMask.m_Bits
       value: 192
