@@ -2928,42 +2928,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1103173830779627852, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: _firePoint
-      value: 
-      objectReference: {fileID: 4265641689803439428}
-    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: _checkRadius
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: _maxCheckRadius
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: _maxCheckDistance
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: _maxTilesAffected
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: _checkLayerMask.m_Bits
-      value: 192
-      objectReference: {fileID: 0}
-    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: _maxRateOverDistanceMultiplier
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: _minRateOverDistanceMultiplier
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 1974036745377130364, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.53
@@ -3008,14 +2972,6 @@ PrefabInstance:
       propertyPath: _screenBlurCanvas
       value: 
       objectReference: {fileID: 741580127}
-    - target: {fileID: 3227948148091828597, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: m_MaxParticleSize
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3227948148091828597, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: m_MinParticleSize
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5703080620606645597, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3029,11 +2985,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
---- !u!4 &4265641689803439428 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6609872008472581005, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-  m_PrefabInstance: {fileID: 4265641689803439427}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8294573531243319393
 PrefabInstance:
   m_ObjectHideFlags: 0
