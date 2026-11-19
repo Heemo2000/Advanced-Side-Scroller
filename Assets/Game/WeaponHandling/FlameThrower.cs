@@ -42,7 +42,8 @@ namespace Game.WeaponHandling
 
         [Header("Actual Mechanic Settings")]
         [SerializeField] private float _maxCheckDistance = 5.0f;
-        [SerializeField] private float _checkRadius = 2.0f;
+        [SerializeField] private float _maxCheckRadius = 2.0f;
+        [SerializeField] private int _maxTilesAffected = 3;
         [SerializeField] private LayerMask _checkLayerMask;
         [SerializeField] private Transform _firePoint;
 
@@ -204,13 +205,13 @@ namespace Game.WeaponHandling
 
         private void CheckForCatchable()
         {
-            _hit = Physics2D.Raycast(_firePoint.position - _firePoint.right * 0.5f, _firePoint.right, _maxCheckDistance, _checkLayerMask.value);
+            _hit = Physics2D.CircleCast(_firePoint.position - _firePoint.right * 0.5f, _maxCheckRadius,_firePoint.right, _maxCheckDistance, _checkLayerMask.value);
             if (_hit.collider != null)
             {
                 Debug.DrawLine(_hit.point, _hit.point + _hit.normal, Color.red);
                 if (_hit.transform.TryGetComponent<IFlameCatchable>(out var catchable))
                 {
-                    catchable.SpawnFire(_firePoint.position + _firePoint.right * _maxCheckDistance, _hit.point, _hit.normal, _checkRadius);
+                    catchable.SpawnFire(_firePoint.position + _firePoint.right * _maxCheckDistance, _hit.point, _hit.normal, _maxTilesAffected);
                 }
             }
         }

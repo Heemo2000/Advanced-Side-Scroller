@@ -2941,8 +2941,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: _maxCheckRadius
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
       propertyPath: _maxCheckDistance
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: _maxTilesAffected
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
       propertyPath: _checkLayerMask.m_Bits
