@@ -1,5 +1,6 @@
 using UnityEngine;
 using Game.SoundHandling;
+using Game.WeaponHandling.FlameThrowingManagement;
 
 namespace Game.WeaponHandling
 {
@@ -38,7 +39,12 @@ namespace Game.WeaponHandling
         [SerializeField] private float _minRateOverTimeMultiplier = 40.0f;
         [Min(30f)]
         [SerializeField] private float _maxRateOverTimeMultiplier = 80.0f;
-        
+
+        [Header("Actual Mechanic Settings")]
+        [SerializeField] private float _maxCheckDistance = 5.0f;
+        [SerializeField] private float _checkRadius = 2.0f;
+        [SerializeField] private LayerMask _checkLayerMask;
+        [SerializeField] private Transform _firePoint;
 
         private ParticleSystem.MainModule _firePSMain;
         private ParticleSystem.EmissionModule _firePSEmission;
@@ -50,6 +56,8 @@ namespace Game.WeaponHandling
         private int _emissionColorID = -1;
         private Color _originalEmissionColor = Color.white;
         private float _intensityMultiplier = 0.0f;
+
+        private RaycastHit2D _hit;
         private void Start()
         {
             _firePSMain = _fireParticleSystem.main;
@@ -80,9 +88,16 @@ namespace Game.WeaponHandling
             _reloadingSound.OnAfterAllAudiosPlayed += ActualReload;
         }
 
+
+        private void Update()
+        {
+            if(_shouldUse)
+            {
+                CheckForCatchable();
+            }
+        }
         private void LateUpdate()
         {
-
 
             if(_shouldUse)
             {
@@ -185,6 +200,19 @@ namespace Game.WeaponHandling
         private void ActualReload()
         {
             _currentFuelAmount = _totalFuelAmount;
+        }
+
+        private void CheckForCatchable()
+        {
+            _hit = Physics2D.CircleCast(_firePoint.position, _checkRadius, _firePoint.right, _maxCheckDistance, _checkLayerMask.value);
+            if (_hit.collider != null)
+            {
+                IFlameCatchable catchable = _hit.transform.GetComponent<IFlameCatchable>();
+                if (catchable != null)
+                {
+                    catchable.SpawnFire(_firePoint.position + _firePoint.right * _maxCheckDistance, _hit.point, _hit.normal, _checkRadius);
+                }
+            }
         }
     }
 }
