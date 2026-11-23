@@ -1,6 +1,7 @@
 using UnityEngine;
 using Game.SoundHandling;
 using Game.WeaponHandling.FlameThrowingManagement;
+using Game.CoreHandling;
 
 namespace Game.WeaponHandling
 {
@@ -41,13 +42,17 @@ namespace Game.WeaponHandling
         [SerializeField] private float _maxRateOverTimeMultiplier = 80.0f;
 
         [Header("Actual Mechanic Settings")]
-        [SerializeField] private float _maxCheckDistance = 5.0f;
+        [Min(2)]
+        [SerializeField] private int _eachAngleSegments = 4;
         [SerializeField] private float _maxCheckRadius = 2.0f;
-        [SerializeField] private int _maxTilesAffected = 3;
+        [SerializeField] private int _maxTilesAffected = 1;
         [SerializeField] private LayerMask _checkLayerMask;
         [SerializeField] private Transform _firePoint;
+        [Min(0.1f)]
+        [SerializeField] private float _damage = 10.0f;
 
         private ParticleSystem.MainModule _firePSMain;
+        private ParticleSystem.ShapeModule _firePSShape;
         private ParticleSystem.EmissionModule _firePSEmission;
 
         private ParticleSystem.MainModule _smokePSMain;
@@ -59,10 +64,16 @@ namespace Game.WeaponHandling
         private float _intensityMultiplier = 0.0f;
 
         private RaycastHit2D _hit;
+        private float _eachAngle = 0.0f;
+        private float _currentAngle = 0.0f;
+        private float _maxCheckDistance = 0.0f;
+
         private void Start()
         {
             _firePSMain = _fireParticleSystem.main;
             _firePSEmission = _fireParticleSystem.emission;
+            _firePSShape = _fireParticleSystem.shape;
+
             _firePSMain.startLifetimeMultiplier = _minFirePower;
             _firePSMain.startSpeedMultiplier = _minFirePower * _minFireSpeedMultiplier;
 
@@ -90,11 +101,15 @@ namespace Game.WeaponHandling
         }
 
 
-        private void Update()
+        private void FixedUpdate()
         {
             if(_shouldUse)
             {
                 CheckForCatchable();
+            }
+            else
+            {
+                _maxCheckDistance = _firePSMain.startLifetime.constantMin * _firePSMain.startSpeed.constant;
             }
         }
         private void LateUpdate()
@@ -105,6 +120,7 @@ namespace Game.WeaponHandling
                 _intensityMultiplier = Mathf.Lerp(_intensityMultiplier, _maxFireColorIntensityMultiplier, _fireBuildupSpeed * Time.deltaTime);
                 _fireUnlitMaterial.SetColor(_emissionColorID, _originalEmissionColor * _intensityMultiplier);
 
+                
                 _firePSMain.startLifetimeMultiplier = Mathf.Lerp(
                                                                  _firePSMain.startLifetimeMultiplier, 
                                                                  _maxFirePower, 
@@ -182,6 +198,17 @@ namespace Game.WeaponHandling
             _reloadingSound.OnAfterAllAudiosPlayed -= ActualReload;
         }
 
+        private void OnDrawGizmosSelected()
+        {
+            float currentAngle = 0.0f;
+            for(int i = 0; i < _eachAngleSegments; i++)
+            {
+                Quaternion angleRotation = Quaternion.AngleAxis(currentAngle, Vector3.forward);
+                Gizmos.DrawLine(_firePoint.position, _firePoint.position + angleRotation * _firePoint.right * _maxCheckDistance);
+                currentAngle += _eachAngle;
+            }
+        }
+
         public override void Reload()
         {
             _reloadingSound.Play();
@@ -205,15 +232,30 @@ namespace Game.WeaponHandling
 
         private void CheckForCatchable()
         {
-            _hit = Physics2D.CircleCast(_firePoint.position - _firePoint.right * 0.5f, _maxCheckRadius,_firePoint.right, _maxCheckDistance, _checkLayerMask.value);
-            if (_hit.collider != null)
+            _currentAngle = 0.0f;
+            _eachAngle = _firePSShape.angle / (float)_eachAngleSegments;
+            _maxCheckDistance = _firePSMain.startLifetime.constantMin * _firePSMain.startSpeed.constant;
+
+            for(int i = 0; i < _eachAngleSegments; i++)
             {
-                Debug.DrawLine(_hit.point, _hit.point + _hit.normal, Color.red);
-                if (_hit.transform.TryGetComponent<IFlameCatchable>(out var catchable))
+                Quaternion angleRotation = Quaternion.AngleAxis(_currentAngle, Vector3.forward);
+                _hit = Physics2D.CircleCast(_firePoint.position, _maxCheckRadius, angleRotation * _firePoint.right, _maxCheckDistance, _checkLayerMask.value);
+                if (_hit.collider != null)
                 {
-                    catchable.SpawnFire(_firePoint.position + _firePoint.right * _maxCheckDistance, _hit.point, _hit.normal, _maxTilesAffected);
+                    //Debug.DrawLine(_hit.point, _hit.point + _hit.normal, Color.red);
+                    if(_hit.transform.TryGetComponent<Health>(out Health health))
+                    {
+                        health.TakeDamage(_damage, _hit.point, _hit.normal, HealthDamageType.Fire);
+                    }
+                    
+                    if (_hit.transform.TryGetComponent<IFlameCatchable>(out var catchable))
+                    {
+                        catchable.SpawnFire(_firePoint.position + angleRotation * _firePoint.right * _maxCheckDistance, _hit.point, _hit.normal, _maxTilesAffected);
+                    }
                 }
+                _currentAngle += _eachAngle;
             }
+            
         }
     }
 }

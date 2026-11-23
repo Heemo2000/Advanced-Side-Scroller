@@ -632,9 +632,9 @@ MonoBehaviour:
   _maxFireColorIntensityMultiplier: 3
   _minRateOverTimeMultiplier: 40
   _maxRateOverTimeMultiplier: 80
-  _maxCheckDistance: 10
-  _maxCheckRadius: 0.2
-  _maxTilesAffected: 4
+  _eachAngleSegments: 5
+  _maxCheckRadius: 0.1
+  _maxTilesAffected: 2
   _checkLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -1972,8 +1972,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2120385143050313002, guid: 27758062195e9c6459a413907d815615, type: 3}
+      propertyPath: lengthInSec
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120385143050313002, guid: 27758062195e9c6459a413907d815615, type: 3}
       propertyPath: ShapeModule.type
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120385143050313002, guid: 27758062195e9c6459a413907d815615, type: 3}
+      propertyPath: ShapeModule.angle
+      value: 11.2
       objectReference: {fileID: 0}
     - target: {fileID: 2120385143050313002, guid: 27758062195e9c6459a413907d815615, type: 3}
       propertyPath: ShapeModule.radiusThickness
