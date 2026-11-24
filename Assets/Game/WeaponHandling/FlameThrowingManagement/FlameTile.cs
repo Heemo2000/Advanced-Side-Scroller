@@ -52,7 +52,7 @@ namespace Game.WeaponHandling.FlameThrowingManagement
 
         public void ModifyFire(float timeToReducePercent)
         {
-            _currentElapsedTime = Mathf.Min(0.0f, _currentElapsedTime - _currentElapsedTime * timeToReducePercent);
+            _currentElapsedTime = Mathf.Max(0.0f, _currentElapsedTime - _currentElapsedTime * timeToReducePercent);
             float currentFirePercent = _currentElapsedTime / _burnTime;
             if(currentFirePercent > _maxFirePercent)
             {
