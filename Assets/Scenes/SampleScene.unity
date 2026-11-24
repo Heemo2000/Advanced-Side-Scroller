@@ -2929,8 +2929,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: _eachAngleSegments
+      propertyPath: _maxFirePower
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: _maxCheckRadius
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: _maxTilesAffected
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
+      propertyPath: _maxFireSpeedMultiplier
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1974036745377130364, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
       propertyPath: m_LocalPosition.x

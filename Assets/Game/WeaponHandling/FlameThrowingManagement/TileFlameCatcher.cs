@@ -108,6 +108,7 @@ namespace Game.WeaponHandling.FlameThrowingManagement
                         flameTile.Setup(data.burnTime, _fireMaterial);
                         _flameDict.Add(positionToPlaceFlameCell, flameTile);
                     }
+                    //_worldTilemap.SetTile(positionToPlaceFlameCell, data.burntTile);
                 }
                 else
                 {
