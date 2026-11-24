@@ -623,7 +623,7 @@ MonoBehaviour:
   _totalFuelAmount: 100
   _useSpeed: 1
   _minFirePower: 1
-  _maxFirePower: 5
+  _maxFirePower: 2
   _fireBuildupSpeed: 10
   _minFireSpeedMultiplier: 2
   _maxFireSpeedMultiplier: 10
@@ -633,12 +633,13 @@ MonoBehaviour:
   _minRateOverTimeMultiplier: 40
   _maxRateOverTimeMultiplier: 80
   _eachAngleSegments: 5
-  _maxCheckRadius: 0.1
+  _maxCheckRadius: 0.15
   _maxTilesAffected: 2
   _checkLayerMask:
     serializedVersion: 2
     m_Bits: 192
   _firePoint: {fileID: 6609872008472581005}
+  _damage: 1
 --- !u!82 &976904659645731480
 AudioSource:
   m_ObjectHideFlags: 0

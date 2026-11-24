@@ -15,6 +15,8 @@ namespace Game.WeaponHandling.FlameThrowingManagement
         [SerializeField] private float _beforeFlameUpdateInterval = 0.1f;
         [Range(0.1f, 0.5f)]
         [SerializeField] private float _beforeSpawnFireInterval = 0.2f;
+        [Range(0.0f, 1.0f)]
+        [SerializeField] private float _timeToReducePercent = 0.2f;
         [SerializeField] private TileFlameCatchData[] _flameCatchData;
         
         private Tilemap _worldTilemap;
@@ -24,6 +26,7 @@ namespace Game.WeaponHandling.FlameThrowingManagement
         private Dictionary<TileBase, TileFlameCatchData> _catchDataLookup;
         private List<Vector3Int> _flameKeysToRemove;
         private float _currentSpawnFireTime = 0.0f;
+        
         private void Awake()
         {
             _worldTilemap = GetComponent<Tilemap>();
@@ -82,19 +85,23 @@ namespace Game.WeaponHandling.FlameThrowingManagement
                     continue;
                 }
 
-                if(!_catchDataLookup.ContainsKey(baseTile))
-                {
-                    index++;
-                    continue;
-                }
-
-                TileFlameCatchData data = _catchDataLookup[baseTile];
-
                 int x = bounds.min.x + (index % bounds.size.x);
                 int y = bounds.min.y + ((index / bounds.size.x) % bounds.size.y);
                 int z = bounds.min.z + (index / (bounds.size.x * bounds.size.y));
 
                 Vector3Int positionToPlaceFlameCell = new Vector3Int(x, y, z);
+
+                if (!_catchDataLookup.ContainsKey(baseTile))
+                {
+                    if(_flameDict.ContainsKey(positionToPlaceFlameCell))
+                    {
+                        _flameDict[positionToPlaceFlameCell].ModifyFire(_timeToReducePercent);
+                    }
+                    index++;
+                    continue;
+                }
+
+                TileFlameCatchData data = _catchDataLookup[baseTile];
 
                 Vector3 positionToPlaceFlame = _worldTilemap.GetCellCenterWorld(positionToPlaceFlameCell);
                                                           
@@ -105,14 +112,10 @@ namespace Game.WeaponHandling.FlameThrowingManagement
                     if(flameTile != null)
                     {
                         flameTile.transform.position = positionToPlaceFlame;
-                        flameTile.Setup(data.burnTime, _fireMaterial);
+                        flameTile.Setup(data.burnTime, data.maxFirePercent, data.burnCurve, _fireMaterial, () => _worldTilemap.SetTile(positionToPlaceFlameCell, data.burntTile));
                         _flameDict.Add(positionToPlaceFlameCell, flameTile);
                     }
-                    //_worldTilemap.SetTile(positionToPlaceFlameCell, data.burntTile);
-                }
-                else
-                {
-                    _flameDict[positionToPlaceFlameCell].Setup(data.burnTime, _fireMaterial);
+                    
                 }
                 index++;
             }

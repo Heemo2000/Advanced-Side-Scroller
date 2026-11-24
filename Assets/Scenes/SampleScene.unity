@@ -1339,11 +1339,64 @@ MonoBehaviour:
   _flamePrefab: {fileID: 7054426158143967037, guid: 9e921fcae298dd446b207d03c67dd7a7, type: 3}
   _fireMaterial: {fileID: 2100000, guid: 764624149a12ab24ba36f560b68765b8, type: 2}
   _maxFireLimit: 25
-  _beforeFlameUpdateInterval: 0.1
+  _beforeFlameUpdateInterval: 0.05
   _beforeSpawnFireInterval: 0.1
+  _timeToReducePercent: 0.083
   _flameCatchData:
   - burntTile: {fileID: 11400000, guid: f7f5bf0d207f40e45a00af308d1c4c02, type: 2}
     burnTime: 2
+    maxFirePercent: 0.5
+    burnCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1.7091229
+        outSlope: 1.7091229
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.10515219
+        value: 0.17971802
+        inSlope: 1.89476
+        outSlope: 1.89476
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.30228546
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 1
+        inSlope: -0.57133913
+        outSlope: -0.57133913
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.74938965
+        value: 0.19692993
+        inSlope: -2.0010648
+        outSlope: -2.0010648
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.0009557704
+        inSlope: -0.7819875
+        outSlope: -0.7819875
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     originalTile: {fileID: 11400000, guid: 7dc92d9b28b6c01479a34e917f8c44da, type: 2}
 --- !u!1 &735233854
 GameObject:
@@ -2928,22 +2981,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: _maxFirePower
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: _maxCheckRadius
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: _maxTilesAffected
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1762750956526443878, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
-      propertyPath: _maxFireSpeedMultiplier
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 1974036745377130364, guid: ef8cc139c78d85d4e86e903e1cdbe19d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.09
