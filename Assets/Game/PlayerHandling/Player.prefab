@@ -623,13 +623,23 @@ MonoBehaviour:
   _totalFuelAmount: 100
   _useSpeed: 1
   _minFirePower: 1
-  _maxFirePower: 5
+  _maxFirePower: 2
   _fireBuildupSpeed: 10
   _minFireSpeedMultiplier: 2
   _maxFireSpeedMultiplier: 10
   _fireUnlitMaterial: {fileID: 2100000, guid: a915dd7c20d305f43937b666ed3ad44e, type: 2}
   _minFireColorIntensityMultiplier: 0.5
   _maxFireColorIntensityMultiplier: 3
+  _minRateOverTimeMultiplier: 40
+  _maxRateOverTimeMultiplier: 80
+  _eachAngleSegments: 5
+  _maxCheckRadius: 0.15
+  _maxTilesAffected: 2
+  _checkLayerMask:
+    serializedVersion: 2
+    m_Bits: 192
+  _firePoint: {fileID: 6609872008472581005}
+  _damage: 1
 --- !u!82 &976904659645731480
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1958,9 +1968,25 @@ PrefabInstance:
       propertyPath: ShapeModule.type
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1675961414598596975, guid: 27758062195e9c6459a413907d815615, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120385143050313002, guid: 27758062195e9c6459a413907d815615, type: 3}
+      propertyPath: lengthInSec
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2120385143050313002, guid: 27758062195e9c6459a413907d815615, type: 3}
       propertyPath: ShapeModule.type
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120385143050313002, guid: 27758062195e9c6459a413907d815615, type: 3}
+      propertyPath: ShapeModule.angle
+      value: 11.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120385143050313002, guid: 27758062195e9c6459a413907d815615, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3328567446088688999, guid: 27758062195e9c6459a413907d815615, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2009,6 +2035,10 @@ PrefabInstance:
     - target: {fileID: 8073377418350488791, guid: 27758062195e9c6459a413907d815615, type: 3}
       propertyPath: ShapeModule.type
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073377418350488791, guid: 27758062195e9c6459a413907d815615, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,5 +1,7 @@
 using UnityEngine;
 using Game.SoundHandling;
+using Game.WeaponHandling.FlameThrowingManagement;
+using Game.CoreHandling;
 
 namespace Game.WeaponHandling
 {
@@ -38,10 +40,21 @@ namespace Game.WeaponHandling
         [SerializeField] private float _minRateOverTimeMultiplier = 40.0f;
         [Min(30f)]
         [SerializeField] private float _maxRateOverTimeMultiplier = 80.0f;
-        
+
+        [Header("Actual Mechanic Settings")]
+        [Min(2)]
+        [SerializeField] private int _eachAngleSegments = 4;
+        [SerializeField] private float _maxCheckRadius = 2.0f;
+        [SerializeField] private int _maxTilesAffected = 1;
+        [SerializeField] private LayerMask _checkLayerMask;
+        [SerializeField] private Transform _firePoint;
+        [Min(0.1f)]
+        [SerializeField] private float _damage = 10.0f;
 
         private ParticleSystem.MainModule _firePSMain;
+        private ParticleSystem.ShapeModule _firePSShape;
         private ParticleSystem.EmissionModule _firePSEmission;
+        private ParticleSystem.LimitVelocityOverLifetimeModule _firePSLimitVelocity;
 
         private ParticleSystem.MainModule _smokePSMain;
         private ParticleSystem.MainModule _sparklePSMain;
@@ -50,10 +63,20 @@ namespace Game.WeaponHandling
         private int _emissionColorID = -1;
         private Color _originalEmissionColor = Color.white;
         private float _intensityMultiplier = 0.0f;
+        private RaycastHit2D _nearestHit;
+
+        private RaycastHit2D _hit;
+        private float _eachAngle = 0.0f;
+        private float _currentAngle = 0.0f;
+        private float _maxCheckDistance = 0.0f;
+
         private void Start()
         {
             _firePSMain = _fireParticleSystem.main;
             _firePSEmission = _fireParticleSystem.emission;
+            _firePSShape = _fireParticleSystem.shape;
+            _firePSLimitVelocity = _fireParticleSystem.limitVelocityOverLifetime;
+
             _firePSMain.startLifetimeMultiplier = _minFirePower;
             _firePSMain.startSpeedMultiplier = _minFirePower * _minFireSpeedMultiplier;
 
@@ -80,18 +103,32 @@ namespace Game.WeaponHandling
             _reloadingSound.OnAfterAllAudiosPlayed += ActualReload;
         }
 
+
+        private void FixedUpdate()
+        {
+            if(_shouldUse)
+            {
+                CheckForCatchable();
+            }
+            else
+            {
+                _maxCheckDistance = _firePSMain.startLifetime.constantMin * _firePSMain.startSpeed.constant;
+            }
+        }
         private void LateUpdate()
         {
-
 
             if(_shouldUse)
             {
                 _intensityMultiplier = Mathf.Lerp(_intensityMultiplier, _maxFireColorIntensityMultiplier, _fireBuildupSpeed * Time.deltaTime);
                 _fireUnlitMaterial.SetColor(_emissionColorID, _originalEmissionColor * _intensityMultiplier);
 
+                _nearestHit = Physics2D.CircleCast(_firePoint.position, _maxCheckRadius, _firePoint.right, _maxCheckDistance, _checkLayerMask.value);
+
+                float requiredMaxPower = (_nearestHit.collider != null) ? _maxFirePower * (_nearestHit.distance / _maxCheckDistance) : _maxFirePower;
                 _firePSMain.startLifetimeMultiplier = Mathf.Lerp(
                                                                  _firePSMain.startLifetimeMultiplier, 
-                                                                 _maxFirePower, 
+                                                                 requiredMaxPower, 
                                                                  _fireBuildupSpeed * Time.deltaTime);
 
                 _firePSEmission.rateOverTimeMultiplier = Mathf.Lerp(_firePSEmission.rateOverTimeMultiplier, _maxRateOverTimeMultiplier, _fireBuildupSpeed * Time.deltaTime);
@@ -103,7 +140,7 @@ namespace Game.WeaponHandling
 
                 _smokePSMain.startLifetimeMultiplier = Mathf.Lerp(
                                                                   _smokePSMain.startLifetimeMultiplier,
-                                                                  _maxFirePower,
+                                                                  requiredMaxPower,
                                                                   _fireBuildupSpeed * Time.deltaTime);
 
                 _smokePSMain.startSpeedMultiplier = Mathf.Lerp(
@@ -113,57 +150,67 @@ namespace Game.WeaponHandling
 
                 _sparklePSMain.startLifetimeMultiplier = Mathf.Lerp(
                                                                     _sparklePSMain.startLifetimeMultiplier,
-                                                                    _maxFirePower,
+                                                                    requiredMaxPower,
                                                                     _fireBuildupSpeed * Time.deltaTime);
 
                 _sparklePSMain.startSpeedMultiplier = Mathf.Lerp(
                                                                  _sparklePSMain.startSpeedMultiplier,
                                                                  _maxFirePower * _maxFireSpeedMultiplier,
                                                                  _fireBuildupSpeed * Time.deltaTime);
+                return;
             }
-            else
-            {
-                _intensityMultiplier = Mathf.Lerp(_intensityMultiplier, _minFireColorIntensityMultiplier, _fireBuildupSpeed * Time.deltaTime);
-                _fireUnlitMaterial.SetColor(_emissionColorID, _originalEmissionColor * _intensityMultiplier);
 
-                _firePSMain.startLifetimeMultiplier = Mathf.Lerp(
-                                                                 _firePSMain.startLifetimeMultiplier,
-                                                                 _minFirePower,
-                                                                 _fireBuildupSpeed * Time.deltaTime);
+            _intensityMultiplier = Mathf.Lerp(_intensityMultiplier, _minFireColorIntensityMultiplier, _fireBuildupSpeed * Time.deltaTime);
+            _fireUnlitMaterial.SetColor(_emissionColorID, _originalEmissionColor * _intensityMultiplier);
 
-                _firePSEmission.rateOverTimeMultiplier = Mathf.Lerp(_firePSEmission.rateOverTimeMultiplier, _minRateOverTimeMultiplier, _fireBuildupSpeed * Time.deltaTime);
+            _firePSMain.startLifetimeMultiplier = Mathf.Lerp(
+                                                             _firePSMain.startLifetimeMultiplier,
+                                                             _minFirePower,
+                                                             _fireBuildupSpeed * Time.deltaTime);
 
-                _firePSMain.startSpeedMultiplier = Mathf.Lerp(
-                                                                 _firePSMain.startSpeedMultiplier,
-                                                                 _minFirePower * _minFireSpeedMultiplier,
-                                                                 _fireBuildupSpeed * Time.deltaTime);
+            _firePSEmission.rateOverTimeMultiplier = Mathf.Lerp(_firePSEmission.rateOverTimeMultiplier, _minRateOverTimeMultiplier, _fireBuildupSpeed * Time.deltaTime);
 
-                _smokePSMain.startLifetimeMultiplier = Mathf.Lerp(
-                                                                  _smokePSMain.startLifetimeMultiplier,
-                                                                  _minFirePower,
-                                                                  _fireBuildupSpeed * Time.deltaTime);
+            _firePSMain.startSpeedMultiplier = Mathf.Lerp(
+                                                             _firePSMain.startSpeedMultiplier,
+                                                             _minFirePower * _minFireSpeedMultiplier,
+                                                             _fireBuildupSpeed * Time.deltaTime);
 
-                _smokePSMain.startSpeedMultiplier = Mathf.Lerp(
-                                                                 _smokePSMain.startSpeedMultiplier,
-                                                                 _minFirePower * _minFireSpeedMultiplier,
-                                                                 _fireBuildupSpeed * Time.deltaTime);
+            _smokePSMain.startLifetimeMultiplier = Mathf.Lerp(
+                                                              _smokePSMain.startLifetimeMultiplier,
+                                                              _minFirePower,
+                                                              _fireBuildupSpeed * Time.deltaTime);
 
-                _sparklePSMain.startLifetimeMultiplier = Mathf.Lerp(
-                                                                    _sparklePSMain.startLifetimeMultiplier,
-                                                                    _minFirePower,
-                                                                    _fireBuildupSpeed * Time.deltaTime);
+            _smokePSMain.startSpeedMultiplier = Mathf.Lerp(
+                                                             _smokePSMain.startSpeedMultiplier,
+                                                             _minFirePower * _minFireSpeedMultiplier,
+                                                             _fireBuildupSpeed * Time.deltaTime);
 
-                _sparklePSMain.startSpeedMultiplier = Mathf.Lerp(
-                                                                 _sparklePSMain.startSpeedMultiplier,
-                                                                 _minFirePower * _minFireSpeedMultiplier,
-                                                                 _fireBuildupSpeed * Time.deltaTime);
-            }
+            _sparklePSMain.startLifetimeMultiplier = Mathf.Lerp(
+                                                                _sparklePSMain.startLifetimeMultiplier,
+                                                                _minFirePower,
+                                                                _fireBuildupSpeed * Time.deltaTime);
+
+            _sparklePSMain.startSpeedMultiplier = Mathf.Lerp(
+                                                             _sparklePSMain.startSpeedMultiplier,
+                                                             _minFirePower * _minFireSpeedMultiplier,
+                                                             _fireBuildupSpeed * Time.deltaTime);
         }
 
         private void OnDestroy()
         {
             _fireUnlitMaterial.SetColor(_emissionColorID, _originalEmissionColor);
             _reloadingSound.OnAfterAllAudiosPlayed -= ActualReload;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            float currentAngle = 0.0f;
+            for(int i = 0; i < _eachAngleSegments; i++)
+            {
+                Quaternion angleRotation = Quaternion.AngleAxis(currentAngle, Vector3.forward);
+                Gizmos.DrawLine(_firePoint.position, _firePoint.position + angleRotation * _firePoint.right * _maxCheckDistance);
+                currentAngle += _eachAngle;
+            }
         }
 
         public override void Reload()
@@ -185,6 +232,37 @@ namespace Game.WeaponHandling
         private void ActualReload()
         {
             _currentFuelAmount = _totalFuelAmount;
+        }
+
+        private void CheckForCatchable()
+        {
+            
+            _eachAngle = _firePSShape.angle / (float)_eachAngleSegments;
+            _currentAngle = _firePSShape.angle/2.0f;
+            _maxCheckDistance = _firePSMain.startLifetime.constantMin * _firePSMain.startSpeed.constant;
+            _maxCheckDistance -= _firePSLimitVelocity.dampen * _firePSLimitVelocity.limit.constant * _maxCheckDistance;
+
+
+            for (int i = 0; i < _eachAngleSegments; i++)
+            {
+                Quaternion angleRotation = Quaternion.AngleAxis(_currentAngle, Vector3.forward);
+                _hit = Physics2D.CircleCast(_firePoint.position, _maxCheckRadius, angleRotation * _firePoint.right, _maxCheckDistance, _checkLayerMask.value);
+                if (_hit.collider != null)
+                {
+                    Debug.DrawLine(_hit.point, _hit.point + _hit.normal, Color.red);
+                    if(_hit.transform.TryGetComponent<Health>(out Health health))
+                    {
+                        health.TakeDamage(_damage, _hit.point, _hit.normal, HealthDamageType.Fire);
+                    }
+                    
+                    if (_hit.transform.TryGetComponent<IFlameCatchable>(out var catchable))
+                    {
+                        catchable.SpawnFire(_firePoint.position + angleRotation * _firePoint.right * _maxCheckDistance, _hit.point, _hit.normal, _maxTilesAffected);
+                    }
+                }
+                _currentAngle += _eachAngle;
+            }
+            
         }
     }
 }

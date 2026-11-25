@@ -62,10 +62,11 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _VoronoiJitter: 1
+    - _XRMotionVectorsPass: 1
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _FireColor: {r: 23.968626, g: 16.837614, b: 0, a: 1}
+    - _FireColor: {r: 5.9921565, g: 4.2094035, b: 0, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _Speed: {r: 0, g: 2, b: 0, a: 0}
   m_BuildTextureStacks: []
