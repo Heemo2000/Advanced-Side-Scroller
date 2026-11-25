@@ -7,23 +7,22 @@ namespace Game.WeaponHandling.FlameThrowingManagement
     {
         private static string FireColorName = "_FireColor";
         [SerializeField] private AnimationCurve _burnCurve;
+        [Min(0.1f)]
+        [SerializeField] private float _modifyingSpeed = 10.0f;
         private Material _fireMaterial;
         private SpriteRenderer _renderer;
         private float _burnTime;
         private float _currentElapsedTime;
         private float _maxFirePercent;
         private Action _onMaxFireReached;
+        private Color _currentColor = Color.white;
+        
         public float BurnTime { get => _burnTime; }
         public float CurrentElapsedTime { get => _currentElapsedTime; }
 
         private void Awake()
         {
             _renderer = GetComponent<SpriteRenderer>();
-        }
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-            
         }
 
         private void OnDestroy()
@@ -47,6 +46,8 @@ namespace Game.WeaponHandling.FlameThrowingManagement
             
             Color fireColor = _fireMaterial.GetColor(FireColorName);
             fireColor.a = 1.0f;
+
+            _currentColor = fireColor;
             _fireMaterial.SetColor(FireColorName, fireColor);
         }
 
@@ -60,9 +61,13 @@ namespace Game.WeaponHandling.FlameThrowingManagement
             }
 
             Color fireColor = _fireMaterial.GetColor(FireColorName);
-            fireColor.a = _burnCurve.Evaluate(currentFirePercent);
+            
+            Color newColor = fireColor;
+            newColor.a = _burnCurve.Evaluate(currentFirePercent);
 
-            _fireMaterial.SetColor(FireColorName, fireColor);
+            _currentColor = Color.Lerp(fireColor, newColor, _modifyingSpeed * Time.deltaTime);
+
+            _fireMaterial.SetColor(FireColorName, _currentColor);
         }
 
         public void UpdateFlame()
@@ -70,13 +75,13 @@ namespace Game.WeaponHandling.FlameThrowingManagement
             _currentElapsedTime += Time.deltaTime;
             float normalized = _currentElapsedTime / _burnTime;
 
-            Color fireColor = _fireMaterial.GetColor(FireColorName);
-            fireColor.a = _burnCurve.Evaluate(normalized);
-            if(fireColor.a >= 1.0f)
+            _currentColor = _fireMaterial.GetColor(FireColorName);
+            _currentColor.a = _burnCurve.Evaluate(normalized);
+            if(_currentColor.a >= 1.0f)
             {
                 _onMaxFireReached?.Invoke();
             }
-            _fireMaterial.SetColor(FireColorName, fireColor);
+            _fireMaterial.SetColor(FireColorName, _currentColor);
         }
     }
 }

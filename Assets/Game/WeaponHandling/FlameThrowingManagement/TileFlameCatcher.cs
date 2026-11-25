@@ -112,7 +112,9 @@ namespace Game.WeaponHandling.FlameThrowingManagement
                     if(flameTile != null)
                     {
                         flameTile.transform.position = positionToPlaceFlame;
-                        flameTile.Setup(data.burnTime, data.maxFirePercent, data.burnCurve, _fireMaterial, () => _worldTilemap.SetTile(positionToPlaceFlameCell, data.burntTile));
+                        flameTile.Setup(data.burnTime, data.maxFirePercent, data.burnCurve, _fireMaterial, () => {
+                                                                                                                    _worldTilemap.SetTile(positionToPlaceFlameCell, data.burntTile);
+                                                                                                                 });
                         _flameDict.Add(positionToPlaceFlameCell, flameTile);
                     }
                     
